@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const wihite = Color.fromARGB(255, 255, 255, 255);
+  static const wihite = Color.fromRGBO(255, 255, 255, 1);
+  static const background = Color.fromRGBO(99, 94, 90, 1);
   static const primary = Color.fromARGB(163, 127, 86, 1);
 }
 
