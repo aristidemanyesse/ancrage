@@ -64,7 +64,7 @@ class _ComingSoonState extends State<ComingSoon> {
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: AppColor.background.withOpacity(0.5),
+              color: AppColor.background.withOpacity(0.1),
             ),
           ),
           Column(
