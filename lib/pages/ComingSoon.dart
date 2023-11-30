@@ -1,20 +1,13 @@
 import 'package:ancrage/main.dart';
+import 'package:ancrage/components/social_button.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ComingSoon extends StatefulWidget {
   const ComingSoon({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -23,17 +16,11 @@ class ComingSoon extends StatefulWidget {
 }
 
 class _ComingSoonState extends State<ComingSoon> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  _launchURL(String lien) async {
+    final Uri url = Uri.parse(lien);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override
@@ -75,14 +62,21 @@ class _ComingSoonState extends State<ComingSoon> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    SvgPicture.asset(
-                      "assets/images/main/Logo-Lancrage.svg",
+                    Responsive(
+                      desktop: SvgPicture.asset(
+                        "assets/images/main/Logo-Lancrage.svg",
+                      ),
+                      mobile: SvgPicture.asset(
+                        "assets/images/main/Logo-Lancrage.svg",
+                        height: 250,
+                      ),
                     ),
                     SizedBox(
                       height: Helper.distance,
                     ),
                     const Text(
                       "VOTRE PREMIER ÉCOLODGE DE LUXE",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.wihite,
                           fontSize: 20,
@@ -93,6 +87,7 @@ class _ComingSoonState extends State<ComingSoon> {
                     ),
                     const Text(
                       "RESERVATION A PARTIR DU 10 JANVIER 2024",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColor.wihite,
                           fontSize: 13,
@@ -107,15 +102,31 @@ class _ComingSoonState extends State<ComingSoon> {
                 children: [
                   SocialButton(
                     path: "assets/images/socials/Insta.svg",
+                    ontap: () {
+                      _launchURL(
+                          "https://instagram.com/lancrage.sassandra?igshid=OGQ5ZDc2ODk2ZA==");
+                    },
                   ),
                   SocialButton(
                     path: "assets/images/socials/Facebook.svg",
+                    ontap: () {
+                      _launchURL(
+                          "https://www.facebook.com/profile.php?id=61550628851948&mibextid=JRoKGi");
+                    },
                   ),
                   SocialButton(
                     path: "assets/images/socials/LinkedIn.svg",
+                    ontap: () {
+                      _launchURL(
+                          "https://www.linkedin.com/company/l-ancrage-sassandra/");
+                    },
                   ),
                   SocialButton(
                     path: "assets/images/socials/TiTok.svg",
+                    ontap: () {
+                      _launchURL(
+                          "https://www.tiktok.com/@lancrage.sassandra?_t=8hlvj2f9t5i&_r=1");
+                    },
                   )
                 ],
               ),
@@ -127,37 +138,6 @@ class _ComingSoonState extends State<ComingSoon> {
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class SocialButton extends StatelessWidget {
-  final String path;
-
-  const SocialButton({
-    super.key,
-    required this.path,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: Helper.distance),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            print("000000000");
-          },
-          child: Container(
-            width: 50,
-            height: 50,
-            child: SvgPicture.asset(
-              path,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
