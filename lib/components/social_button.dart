@@ -1,5 +1,6 @@
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialButton extends StatelessWidget {
@@ -31,6 +32,9 @@ class SocialButton extends StatelessWidget {
           ),
         ),
       ),
-    );
+    )
+        .animate()
+        .fade(duration: 600.ms)
+        .slide(begin: Offset(0.0, 1), curve: Curves.easeIn, duration: 600.ms);
   }
 }

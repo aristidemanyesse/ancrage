@@ -1,9 +1,14 @@
+import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/pages/ComingSoon.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  Get.put(LoaderController());
+
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,8 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.wihite),
         useMaterial3: true,
       ),
-      home: const ComingSoon(
-          title: "L'ANCRAGE - Votre premier ecolodge de luxe "),
+      home: ComingSoon(),
     );
   }
 }
