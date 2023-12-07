@@ -19,7 +19,7 @@ class SocialButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: Helper.distance),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: GestureDetector(
+        child: InkWell(
           onTap: () {
             ontap();
           },
@@ -32,9 +32,10 @@ class SocialButton extends StatelessWidget {
           ),
         ),
       ),
-    )
-        .animate()
-        .fade(duration: 600.ms)
-        .slide(begin: Offset(0.0, 1), curve: Curves.easeIn, duration: 600.ms);
+    ).animate().fade(delay: 500.ms, duration: 600.ms).slide(
+        delay: 500.ms,
+        begin: Offset(0.0, 1),
+        curve: Curves.easeIn,
+        duration: 600.ms);
   }
 }

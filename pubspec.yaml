@@ -42,6 +42,9 @@ dependencies:
   flutter_animate: ^4.3.0
   lottie: ^2.7.0
   intl: ^0.18.1
+  flutter_gif: ^0.0.4
+  google_fonts: ^6.1.0
+  infinite_carousel: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,40 +21,16 @@ class ComingSoon extends StatefulWidget {
   State<ComingSoon> createState() => _ComingSoonState();
 }
 
-class _ComingSoonState extends State<ComingSoon>
-    with SingleTickerProviderStateMixin {
+class _ComingSoonState extends State<ComingSoon> {
   LoaderController loaderController = Get.find();
-
-  // late AnimationController _controller;
-  // late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        loaderController.wait.value = false;
-      });
+    Future.delayed(Duration(seconds: 3), () {
+      loaderController.wait.value = false;
     });
-
-    // _controller = AnimationController(
-    //   duration: Duration(seconds: 1),
-    //   vsync: this,
-    // );
-
-    // _animation = Tween<double>(
-    //   begin: 0.0,
-    //   end: 1.0,
-    // ).animate(_controller);
-
-    // _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
   }
 
   _launchURL(String lien) async {
@@ -113,24 +90,24 @@ class _ComingSoonState extends State<ComingSoon>
                                       300)),
                             )
                                 .animate()
-                                .fade(duration: 600.ms)
-                                .scale(duration: 600.ms),
+                                .fade(delay: 500.ms, duration: 600.ms)
+                                .scale(delay: 500.ms, duration: 600.ms),
                             SizedBox(
                               height: Helper.distance,
                             ),
-                            const Responsive(
+                            Responsive(
                               desktop: Text(
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: GoogleFonts.tenorSans(
                                     color: AppColor.wihite,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     letterSpacing: 2),
                               ),
                               tablet: Text(
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: GoogleFonts.tenorSans(
                                     color: AppColor.wihite,
                                     fontSize: 18,
                                     letterSpacing: 2),
@@ -138,29 +115,64 @@ class _ComingSoonState extends State<ComingSoon>
                               mobile: Text(
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: GoogleFonts.tenorSans(
                                     color: AppColor.wihite,
                                     fontSize: 16,
                                     letterSpacing: 2),
                               ),
                             )
                                 .animate()
-                                .fade(duration: 600.ms)
-                                .scale(duration: 600.ms, begin: Offset(4, 4)),
+                                .fade(delay: 500.ms, duration: 600.ms)
+                                .scale(
+                                    delay: 500.ms,
+                                    duration: 600.ms,
+                                    begin: Offset(4, 4)),
                             SizedBox(
                               height: Helper.distance / 2,
                             ),
-                            const Text(
-                              "RESERVATION A PARTIR DU 10 JANVIER 2024",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
+                            Opacity(
+                              opacity: 0.5,
+                              child: Text(
+                                "RESERVATION A PARTIR DU 10 JANVIER 2024",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.tenorSans(
                                   color: AppColor.wihite,
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w100),
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
                             )
                                 .animate()
-                                .fade(duration: 600.ms)
-                                .scale(duration: 600.ms, begin: Offset(4, 4)),
+                                .fade(delay: 500.ms, duration: 600.ms)
+                                .scale(
+                                    delay: 500.ms,
+                                    duration: 600.ms,
+                                    begin: Offset(4, 4)),
+                            SizedBox(
+                              height: Helper.distance,
+                            ),
+                            ElevatedButton(
+                                    onPressed: () {
+                                      _launchURL(
+                                          "https://srs5wtylqng.typeform.com/to/c6FMd68P");
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 196, 88, 41),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 50, vertical: -20),
+                                        textStyle: GoogleFonts.tenorSans()
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                                color: Colors.white)),
+                                    child: Text("Liste d'attente"))
+                                .animate()
+                                .fade(delay: 500.ms, duration: 600.ms)
+                                .scale(
+                                    delay: 500.ms,
+                                    duration: 600.ms,
+                                    begin: Offset(4, 4)),
                           ],
                         ),
                       ),
@@ -185,9 +197,8 @@ class _ComingSoonState extends State<ComingSoon>
                           SocialButton(
                             path: "assets/images/socials/LinkedIn.svg",
                             ontap: () {
-                              loaderController.start();
-                              // _launchURL(
-                              //     "https://www.linkedin.com/company/l-ancrage-sassandra/");
+                              _launchURL(
+                                  "https://www.linkedin.com/company/l-ancrage-sassandra/");
                             },
                           ),
                           SocialButton(

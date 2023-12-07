@@ -29,8 +29,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>ancrage</title>
+  <title>L'ANCRAGE</title>
   <link rel="manifest" href="manifest.json">
+  <script src="https://storage.googleapis.com/flutter_infra/flutter/stable/web/flutter_web_sdk.js" data-renderer="canvaskit"></script>
+
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -44,14 +46,14 @@
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
+        entrypointUrl: "main.dart.js?v=" + serviceWorkerVersion,
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
         }
+      }).then(function (engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function (appRunner) {
+        return appRunner.runApp();
       });
     });
   </script>

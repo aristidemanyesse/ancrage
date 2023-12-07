@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/pages/ComingSoon.dart';
 import 'package:ancrage/utils/tools.dart';
@@ -17,11 +19,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "L'ANCRAGE",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColor.wihite),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColor.background, primary: Colors.white),
         useMaterial3: true,
       ),
       home: ComingSoon(),
