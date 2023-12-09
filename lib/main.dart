@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:ancrage/controllers/LoaderController.dart';
-import 'package:ancrage/pages/ComingSoon.dart';
+import 'package:ancrage/pages/index.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   Get.put(LoaderController());
+  Get.put(IndexPageController());
 
   initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
             seedColor: AppColor.background, primary: Colors.white),
         useMaterial3: true,
       ),
-      home: ComingSoon(),
+      home: const Index(),
     );
   }
 }

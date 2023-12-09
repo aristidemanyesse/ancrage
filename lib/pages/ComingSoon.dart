@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:ancrage/components/loader.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
-import 'package:ancrage/main.dart';
 import 'package:ancrage/components/social_button.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ComingSoon extends StatefulWidget {
@@ -28,7 +26,7 @@ class _ComingSoonState extends State<ComingSoon> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       loaderController.wait.value = false;
     });
   }
@@ -44,12 +42,12 @@ class _ComingSoonState extends State<ComingSoon> {
   Widget build(BuildContext context) {
     return Obx(() {
       return loaderController.wait.value
-          ? Loader()
+          ? const Loader()
           : Scaffold(
               body: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Responsive(
@@ -76,7 +74,7 @@ class _ComingSoonState extends State<ComingSoon> {
                   ),
                   Column(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -92,15 +90,15 @@ class _ComingSoonState extends State<ComingSoon> {
                                 .animate()
                                 .fade(delay: 500.ms, duration: 600.ms)
                                 .scale(delay: 500.ms, duration: 600.ms),
-                            SizedBox(
-                              height: Helper.distance,
+                            const SizedBox(
+                              height: Helper.PADDING,
                             ),
                             Responsive(
                               desktop: Text(
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.tenorSans(
-                                    color: AppColor.wihite,
+                                    color: AppColor.white,
                                     fontSize: 16,
                                     letterSpacing: 2),
                               ),
@@ -108,7 +106,7 @@ class _ComingSoonState extends State<ComingSoon> {
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.tenorSans(
-                                    color: AppColor.wihite,
+                                    color: AppColor.white,
                                     fontSize: 18,
                                     letterSpacing: 2),
                               ),
@@ -116,7 +114,7 @@ class _ComingSoonState extends State<ComingSoon> {
                                 "VOTRE PREMIER ÉCOLODGE DE LUXE",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.tenorSans(
-                                    color: AppColor.wihite,
+                                    color: AppColor.white,
                                     fontSize: 16,
                                     letterSpacing: 2),
                               ),
@@ -126,9 +124,9 @@ class _ComingSoonState extends State<ComingSoon> {
                                 .scale(
                                     delay: 500.ms,
                                     duration: 600.ms,
-                                    begin: Offset(4, 4)),
-                            SizedBox(
-                              height: Helper.distance / 2,
+                                    begin: const Offset(4, 4)),
+                            const SizedBox(
+                              height: Helper.PADDING / 2,
                             ),
                             Opacity(
                               opacity: 0.5,
@@ -136,7 +134,7 @@ class _ComingSoonState extends State<ComingSoon> {
                                 "RESERVATION A PARTIR DU 10 JANVIER 2024",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.tenorSans(
-                                  color: AppColor.wihite,
+                                  color: AppColor.white,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w100,
                                 ),
@@ -147,9 +145,9 @@ class _ComingSoonState extends State<ComingSoon> {
                                 .scale(
                                     delay: 500.ms,
                                     duration: 600.ms,
-                                    begin: Offset(4, 4)),
-                            SizedBox(
-                              height: Helper.distance,
+                                    begin: const Offset(4, 4)),
+                            const SizedBox(
+                              height: Helper.PADDING,
                             ),
                             ElevatedButton(
                                     onPressed: () {
@@ -157,26 +155,25 @@ class _ComingSoonState extends State<ComingSoon> {
                                           "https://srs5wtylqng.typeform.com/to/c6FMd68P");
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 196, 88, 41),
-                                        padding: EdgeInsets.symmetric(
+                                        backgroundColor: AppColor.orange,
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 50, vertical: -20),
                                         textStyle: GoogleFonts.tenorSans()
                                             .copyWith(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 18,
                                                 color: Colors.white)),
-                                    child: Text("Liste d'attente"))
+                                    child: const Text("Liste d'attente"))
                                 .animate()
                                 .fade(delay: 500.ms, duration: 600.ms)
                                 .scale(
                                     delay: 500.ms,
                                     duration: 600.ms,
-                                    begin: Offset(4, 4)),
+                                    begin: const Offset(4, 4)),
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

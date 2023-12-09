@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 class Responsive extends StatelessWidget {
   final Widget mobile;
@@ -28,13 +27,13 @@ class Responsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
 
-    if (_size.width >= 1024) {
+    if (size.width >= 1024) {
       return desktop;
-    } else if (_size.width >= 700 && tablet != null) {
+    } else if (size.width >= 700 && tablet != null) {
       return tablet!;
-    } else if (_size.width >= 450 && mobileLarge != null) {
+    } else if (size.width >= 450 && mobileLarge != null) {
       return mobileLarge!;
     } else {
       return mobile;

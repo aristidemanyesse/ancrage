@@ -11,7 +11,7 @@ class LoaderController extends GetxController {
   }
 
   void start() {
-    Get.dialog(Loader());
+    Get.dialog(const Loader());
   }
 
   void stop() {

@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 
 class Loader extends StatefulWidget {
+  const Loader({super.key});
+
   @override
   _LoaderState createState() => _LoaderState();
 }
@@ -21,21 +22,21 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
-        duration: Duration(seconds: 2, microseconds: 500), vsync: this);
+        duration: const Duration(seconds: 2, microseconds: 500), vsync: this);
     _animation = Tween<double>(
       begin: 0,
       end: 250,
     ).animate(_controller);
-    Future.delayed(Duration(seconds: 1)).then((value) => _controller.forward());
+    Future.delayed(const Duration(seconds: 1)).then((value) => _controller.forward());
 
     _controller2 =
-        AnimationController(duration: Duration(milliseconds: 700), vsync: this);
+        AnimationController(duration: const Duration(milliseconds: 700), vsync: this);
     _animation2 = Tween<double>(
       begin: 0,
       end: -70,
     ).animate(_controller2);
 
-    Future.delayed(Duration(seconds: 1))
+    Future.delayed(const Duration(seconds: 1))
         .then((value) => _controller2.forward());
   }
 
@@ -54,8 +55,9 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              height: 300,
-              width: 300,
+              height: 250,
+              width: 250,
+              margin: const EdgeInsets.only(bottom: 10),
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
@@ -65,7 +67,7 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
                         return Container(
                           height: _animation.value,
                           width: 200,
-                          color: Color.fromARGB(255, 3, 32, 14),
+                          color: AppColor.green,
                         );
                       }),
                   Image.asset(
@@ -82,7 +84,7 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
                   return Transform.translate(
                     offset: Offset(0, _animation2.value),
                     child: Container(
-                      margin: EdgeInsets.only(left: 10),
+                      margin: const EdgeInsets.only(left: 10),
                       child: Text(
                         "L'ANCRAGE",
                         style: GoogleFonts.tenorSans(

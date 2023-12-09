@@ -16,14 +16,14 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: Helper.distance),
+      margin: const EdgeInsets.symmetric(horizontal: Helper.PADDING),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: InkWell(
           onTap: () {
             ontap();
           },
-          child: Container(
+          child: SizedBox(
             width: 50,
             height: 50,
             child: SvgPicture.asset(
@@ -34,7 +34,7 @@ class SocialButton extends StatelessWidget {
       ),
     ).animate().fade(delay: 500.ms, duration: 600.ms).slide(
         delay: 500.ms,
-        begin: Offset(0.0, 1),
+        begin: const Offset(0.0, 1),
         curve: Curves.easeIn,
         duration: 600.ms);
   }

@@ -78,6 +78,7 @@ flutter:
   assets:
     - assets/images/socials/
     - assets/images/main/
+    - assets/images/logo/
     - assets/images/bg/
     - assets/lotties/
 
