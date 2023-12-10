@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   final String title;
+  final Function onTap;
   const MainButton({
     super.key,
     required this.title,
+    required this.onTap,
   });
 
   @override
@@ -13,7 +15,9 @@ class MainButton extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onTap();
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: BoxDecoration(

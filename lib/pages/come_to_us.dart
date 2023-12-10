@@ -1,4 +1,4 @@
-import 'package:ancrage/pages/index.dart';
+import 'package:ancrage/controllers/index_page_controller.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

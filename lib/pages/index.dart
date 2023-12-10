@@ -3,6 +3,7 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/pages/come_to_us.dart';
+import 'package:ancrage/controllers/index_page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -10,30 +11,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class IndexPageController extends GetxController {
-  RxBool scrollAscendant = false.obs;
-  RxDouble scrollPosition = 0.0.obs;
-  RxDouble lastPosition = 0.0.obs;
+class IndexPage extends StatefulWidget {
+  const IndexPage({super.key});
 
   @override
-  void onInit() {
-    super.onInit();
-
-    ever(scrollPosition, (value) {
-      scrollAscendant.value = scrollPosition.value > lastPosition.value;
-      lastPosition.value = value;
-    });
-  }
+  State<IndexPage> createState() => _IndexPageState();
 }
 
-class Index extends StatefulWidget {
-  const Index({super.key});
-
-  @override
-  State<Index> createState() => _IndexState();
-}
-
-class _IndexState extends State<Index> {
+class _IndexPageState extends State<IndexPage> {
   LoaderController loaderController = Get.find();
   IndexPageController indexPageController = Get.find();
 
@@ -239,9 +224,14 @@ class _IndexState extends State<Index> {
                         Container(
                           child: Column(
                             children: [
-                              const Row(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [MainButton(title: "view gallery")],
+                                children: [
+                                  MainButton(
+                                    title: "view gallery",
+                                    onTap: () {},
+                                  )
+                                ],
                               ),
                               const SizedBox(
                                 height: Helper.PADDING * 2,
@@ -342,12 +332,14 @@ class _IndexState extends State<Index> {
                                                 const SizedBox(
                                                   height: Helper.PADDING / 2,
                                                 ),
-                                                const Row(
+                                                Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     MainButton(
-                                                        title: "discovery")
+                                                      title: "discovery",
+                                                      onTap: () {},
+                                                    )
                                                   ],
                                                 )
                                               ],

@@ -1,8 +1,10 @@
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/menu_button_text.dart';
+import 'package:ancrage/pages/reservation.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class HeaderMenu extends StatelessWidget {
   const HeaderMenu({
@@ -57,8 +59,11 @@ class HeaderMenu extends StatelessWidget {
                 const SizedBox(
                   width: 150,
                 ),
-                const MainButton(
+                MainButton(
                   title: "réservation",
+                  onTap: () {
+                    Get.to(const ReservationPage());
+                  },
                 ),
                 const SizedBox(
                   width: 70,
