@@ -22,8 +22,12 @@ class Helper {
 }
 
 class AppTextStyle {
-  static const TextStyle titleLarge =
-      TextStyle(fontSize: 50, fontWeight: FontWeight.bold, letterSpacing: 4);
+  static const TextStyle titleLarge = TextStyle(
+      fontSize: 50,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 4,
+      fontFamily: "Tenor Sans");
+
   static const TextStyle subtitle = TextStyle(fontSize: 25);
   static const TextStyle titleMedium =
       TextStyle(fontSize: 35, letterSpacing: 3);
