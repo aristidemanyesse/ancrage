@@ -16,7 +16,8 @@ class SecondaryButton extends StatelessWidget {
         onTap: () {},
         child: Container(
           color: AppColor.orange,
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Helper.PADDING * 2, vertical: Helper.PADDING / 3),
           child: Text(
             title.toUpperCase(),
             style: AppTextStyle.menuButtonText.copyWith(color: AppColor.white),

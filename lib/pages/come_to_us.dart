@@ -14,19 +14,19 @@ class ComeToUs extends StatefulWidget {
 class _ComeToUsState extends State<ComeToUs> {
   IndexPageController indexPageController = Get.find();
 
-  double _minFontSize = 20;
-  double _maxFontSize = 20;
+  double fontSize = 50;
+  double new_fontSize = 50;
 
-  double lastPosition = 0;
   @override
   void initState() {
     super.initState();
 
-    widget.pageController.addListener(() {
-      if (widget.pageController.position.pixels >= 5000) {
+    ever(indexPageController.scrollPosition, (value) {
+      if (indexPageController.scrollPosition.value > 4900) {
         setState(() {
-          _minFontSize = indexPageController.scrollAscendant.value ? 100 : 50;
-          _maxFontSize = indexPageController.scrollAscendant.value ? 50 : 100;
+          fontSize = new_fontSize;
+          new_fontSize = 50 *
+              (1 + (indexPageController.scrollPosition.value - 4900) / 700);
         });
       }
     });
@@ -34,22 +34,30 @@ class _ComeToUsState extends State<ComeToUs> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.size.width,
-      color: AppColor.white,
-      padding: const EdgeInsets.symmetric(
-          vertical: Helper.PADDING * 1.5, horizontal: Helper.PADDING * 3),
-      child: Center(
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: Get.size.width,
+          padding: const EdgeInsets.symmetric(
+              vertical: Helper.PADDING * 2.5, horizontal: Helper.PADDING * 3),
+        ),
+        Center(
           child: TweenAnimationBuilder(
               key: UniqueKey(),
-              tween: Tween<double>(begin: _minFontSize, end: _maxFontSize),
-              duration: const Duration(seconds: 3),
+              tween: Tween<double>(begin: fontSize, end: new_fontSize),
+              duration: const Duration(milliseconds: 500),
               builder: (context, double size, child) {
                 return Text(
                   "Come to us, you are at home!",
-                  style: AppTextStyle.titleLarge.copyWith(fontSize: size),
+                  style: AppTextStyle.contralto.copyWith(
+                    fontSize: size,
+                    fontStyle: FontStyle.italic,
+                  ),
                 );
-              })),
+              }),
+        )
+      ],
     );
   }
 }

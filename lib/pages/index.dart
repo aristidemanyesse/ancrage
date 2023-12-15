@@ -32,6 +32,7 @@ class _IndexPageState extends State<IndexPage> {
     _pageController.addListener(() {
       indexPageController.scrollPosition.value =
           _pageController.position.pixels;
+
       if (_pageController.position.pixels == Get.size.height ||
           (_pageController.position.pixels > Get.size.height + 100)) {
         if (_sectionController.position.pixels == 0) {
@@ -103,7 +104,7 @@ class _IndexPageState extends State<IndexPage> {
               left: Helper.PADDING * 2,
               child: Text(
                 "Just live it !",
-                style: AppTextStyle.titleLarge.copyWith(color: AppColor.white),
+                style: AppTextStyle.contralto.copyWith(color: AppColor.white),
               )),
           SizedBox(
             width: Get.size.width,
@@ -138,25 +139,30 @@ class _IndexPageState extends State<IndexPage> {
                     ),
                   ),
                   Container(
-                    color: AppColor.white,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [AppColor.white, AppColor.background])),
                     child: Column(
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: Helper.PADDING * 1.5,
                               horizontal: Helper.PADDING * 3),
-                          child: const Column(
+                          child: Column(
                             children: [
                               Text(
                                 "In the heart of nature",
                                 style: AppTextStyle.titleLarge,
                               ),
                               SizedBox(
-                                height: 40,
+                                height: Helper.PADDING / 2,
                               ),
                               Text(
                                 "We support you in reconnecting with nature.",
-                                style: AppTextStyle.subtitle,
+                                style: AppTextStyle.subtitle
+                                    .copyWith(color: AppColor.blue),
                               ),
                             ],
                           ),
@@ -240,7 +246,7 @@ class _IndexPageState extends State<IndexPage> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: Helper.PADDING * 1.5,
                                     horizontal: Helper.PADDING * 3),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
@@ -250,16 +256,20 @@ class _IndexPageState extends State<IndexPage> {
                                     SizedBox(
                                       height: Helper.PADDING,
                                     ),
-                                    Text(
-                                      "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle.",
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyle.subtitle,
-                                    ),
-                                    Text(
-                                      "Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyle.subtitle,
-                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: Helper.PADDING * 5),
+                                      child: Text(
+                                        "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyle.subtitle.copyWith(
+                                            letterSpacing: 3,
+                                            wordSpacing: 2,
+                                            height: 1.6,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 24),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -325,7 +335,7 @@ class _IndexPageState extends State<IndexPage> {
                                                         .titleMedium,
                                                   ),
                                                 ),
-                                                const Text(
+                                                Text(
                                                   "L’ANCRAGE is located in one of the most exclusive destinations in the world…",
                                                   style: AppTextStyle.subtitle,
                                                 ),
@@ -368,70 +378,71 @@ class _IndexPageState extends State<IndexPage> {
                               ),
                               Wrap(
                                 children: List.generate(
-                                    6,
-                                    (index) => Container(
-                                          width: 450,
-                                          margin: const EdgeInsets.fromLTRB(
-                                              Helper.PADDING / 2,
-                                              0,
-                                              Helper.PADDING / 2,
-                                              Helper.PADDING * 2),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                child: MouseRegion(
-                                                  cursor:
-                                                      SystemMouseCursors.click,
-                                                  child: Image.asset(
-                                                    "assets/images/bg/plage.png",
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: Helper.PADDING / 2,
-                                              ),
-                                              Row(
+                                  6,
+                                  (index) => Container(
+                                    width: 450,
+                                    margin: const EdgeInsets.fromLTRB(
+                                        Helper.PADDING / 2,
+                                        0,
+                                        Helper.PADDING / 2,
+                                        Helper.PADDING * 2),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: Image.asset(
+                                              "assets/images/bg/plage.png",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: Helper.PADDING / 2,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  const Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "Tourism",
-                                                          style: AppTextStyle
-                                                              .bodygrasitalic,
-                                                        ),
-                                                        Text(
-                                                          "Visit to tourist sites",
-                                                          style:
-                                                              AppTextStyle.body,
-                                                        ),
-                                                      ],
-                                                    ),
+                                                  Text(
+                                                    "Tourism",
+                                                    style: AppTextStyle
+                                                        .bodygrasitalic,
                                                   ),
-                                                  MouseRegion(
-                                                    cursor: SystemMouseCursors
-                                                        .click,
-                                                    child: Text(
-                                                      "Learn more",
-                                                      style: AppTextStyle
-                                                          .textsub
-                                                          .copyWith(
-                                                              color: AppColor
-                                                                  .orange),
-                                                    ),
-                                                  )
+                                                  Text(
+                                                    "Visit to tourist sites",
+                                                    style: AppTextStyle.body,
+                                                  ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                        )),
+                                            ),
+                                            MouseRegion(
+                                              cursor: SystemMouseCursors.click,
+                                              child: Text("Learn more",
+                                                  style: AppTextStyle.textsub
+                                                      .copyWith(
+                                                          color:
+                                                              AppColor.orange,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                          decorationColor:
+                                                              AppColor.orange,
+                                                          decorationThickness:
+                                                              1)),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),

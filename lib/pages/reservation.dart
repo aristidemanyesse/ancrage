@@ -187,7 +187,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         width: 3, color: AppColor.background)),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -224,7 +224,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Votre Sejour",
                                         style: AppTextStyle.titleLarge,
                                       ),
@@ -235,7 +235,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         children: [
                                           Expanded(
                                               child: Container(
-                                            child: const Column(
+                                            child: Column(
                                               children: [
                                                 Row(
                                                   children: [
@@ -277,7 +277,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           )),
                                           Expanded(
                                               child: Container(
-                                            child: const Column(
+                                            child: Column(
                                               children: [
                                                 Row(
                                                   children: [
@@ -360,7 +360,7 @@ class _ReservationPageState extends State<ReservationPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Sélection de votre package",
                                 style: AppTextStyle.titleLarge,
                               ),

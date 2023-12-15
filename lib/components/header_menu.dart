@@ -26,7 +26,7 @@ class HeaderMenu extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.zero,
                 color: AppColor.background.withOpacity(1)),
-            height: 120,
+            height: Helper.PADDING * 2,
             child: Row(
               children: [
                 SvgPicture.asset(
@@ -77,8 +77,8 @@ class HeaderMenu extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: SizedBox(
-                            height: 40,
-                            width: 40,
+                            height: 30,
+                            width: 30,
                             child: SvgPicture.asset(
                               "assets/images/socials/English-Circle.svg",
                             ),

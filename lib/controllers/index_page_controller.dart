@@ -10,7 +10,8 @@ class IndexPageController extends GetxController {
     super.onInit();
 
     ever(scrollPosition, (value) {
-      scrollAscendant.value = scrollPosition.value > lastPosition.value;
+      // print(value);
+      scrollAscendant.value = !(scrollPosition.value > lastPosition.value);
       lastPosition.value = value;
     });
   }
