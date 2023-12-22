@@ -4,18 +4,30 @@ import 'package:flutter/material.dart';
 class MenuButtonText extends StatelessWidget {
   final String title;
   final Color color;
+  final bool withPadding;
+  final Function? onTap;
+
   const MenuButtonText(
-      {super.key, required this.title, this.color = Colors.black});
+      {super.key,
+      required this.title,
+      this.color = Colors.black,
+      this.withPadding = true,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: InkWell(
-        onTap: () {},
-        child: Text(
-          title.toUpperCase(),
-          style: AppTextStyle.menuButtonText.copyWith(color: color),
+    return Container(
+      margin: withPadding ? const EdgeInsets.only(left: Helper.PADDING * 1.5) : null,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: InkWell(
+          onTap: () {
+            onTap ?? ();
+          },
+          child: Text(
+            title.toUpperCase(),
+            style: AppTextStyle.menuButtonText.copyWith(color: color),
+          ),
         ),
       ),
     );

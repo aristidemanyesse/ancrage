@@ -19,7 +19,8 @@ class FormMainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             color: AppColor.orange,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Helper.PADDING * 1.2, vertical: 15),
           child: Text(
             title,
             style: AppTextStyle.menuButtonText.copyWith(color: AppColor.white),

@@ -6,6 +6,7 @@ class AppColor {
   static const primary = Color.fromARGB(163, 127, 86, 1);
   static const orange = Color.fromARGB(255, 196, 88, 41);
   static const green = Color.fromARGB(255, 3, 32, 14);
+  static const grey = Color.fromARGB(100, 3, 32, 14);
   static const blue = Color.fromARGB(255, 7, 65, 87);
   static const textColor = Color.fromARGB(255, 3, 32, 14);
 }
@@ -43,15 +44,27 @@ class AppTextStyle {
   static TextStyle titleMedium =
       baseTenorSans.copyWith(fontSize: 35, letterSpacing: 3);
 
+  static TextStyle titleSmall = baseTenorSans.copyWith(fontSize: 30);
+
   static const TextStyle menuButtonText = TextStyle(
-      fontSize: 20, fontFamily: "Tenor Sans", fontWeight: FontWeight.w500);
+      fontSize: 20,
+      fontFamily: "Tenor Sans",
+      letterSpacing: 1,
+      fontWeight: FontWeight.w400);
 
   static TextStyle menuButtonTextSelected =
       menuButtonText.copyWith(fontWeight: FontWeight.bold);
-  static const TextStyle titleSmall =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+
   static TextStyle body =
       baseTenorSans.copyWith(fontSize: 20, letterSpacing: 3);
+
+  static TextStyle label = baseTenorSans.copyWith(
+      fontSize: 17, letterSpacing: 1.5, fontWeight: FontWeight.bold);
+  static TextStyle placeholder =
+      baseTenorSans.copyWith(fontSize: 15, letterSpacing: -1);
+
+  static TextStyle bodysmall = baseTenorSans.copyWith(
+      fontSize: 14, letterSpacing: 0, fontWeight: FontWeight.w600);
 
   static TextStyle bodygrasitalic = baseTenorSans.copyWith(
       fontSize: 20,

@@ -1,12 +1,13 @@
-import 'dart:async';
-
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
+import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/controllers/reservation_page_controller.dart';
+import 'package:ancrage/components/pack_box.dart';
+import 'package:ancrage/components/my_custom_text_field.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -21,28 +22,18 @@ class ReservationPage extends StatefulWidget {
 
 class _ReservationPageState extends State<ReservationPage> {
   LoaderController loaderController = Get.find();
-  ReservationPageController ReservationPagePageController = Get.find();
+  ReservationPageController reservationPagePageController = Get.find();
+  ReservationController reservationController = Get.find();
 
   final ScrollController _pageController = ScrollController();
-  final ScrollController _sectionController = ScrollController();
-
-  int activeMeterIndex = 0; // Expansion Panel
-  final StreamController activeMeterIndexStreamControl =
-      StreamController.broadcast();
-  Stream get onUpdateActiveIndex => activeMeterIndexStreamControl.stream;
-  void updateExpansionTile() =>
-      activeMeterIndexStreamControl.sink.add(activeMeterIndex);
 
   @override
   void initState() {
     super.initState();
 
     _pageController.addListener(() {
-      ReservationPagePageController.scrollPosition.value =
+      reservationPagePageController.scrollPosition.value =
           _pageController.position.pixels;
-    });
-    Future.delayed(const Duration(seconds: 3), () {
-      loaderController.wait.value = false;
     });
   }
 
@@ -84,7 +75,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 children: [
                   Container(
                     width: Get.size.width,
-                    height: Get.size.height * 0.6,
+                    height: Get.size.height * 0.55,
                     decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(color: Colors.white, width: 0))),
@@ -93,7 +84,7 @@ class _ReservationPageState extends State<ReservationPage> {
                       children: [
                         Container(
                           width: Get.size.width,
-                          height: 100,
+                          height: 30,
                           color: Colors.white,
                         ),
                         Container(
@@ -101,25 +92,21 @@ class _ReservationPageState extends State<ReservationPage> {
                               const EdgeInsets.only(left: Helper.PADDING * 2),
                           padding: const EdgeInsets.all(Helper.PADDING / 1.5),
                           width: Get.size.width * 0.35,
-                          height: 350,
+                          height: 250,
                           color: AppColor.background,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                "assets/images/logo/Logo-Lancrage-Horizontal-Reservation@2x.png",
-                                height: 130,
+                              Text(
+                                "réservation".toUpperCase(),
+                                style: AppTextStyle.titleLarge.copyWith(
+                                    fontSize: 38,
+                                    letterSpacing: 5,
+                                    fontWeight: FontWeight.w500),
                               ),
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Dates@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
                                   Image.asset(
                                     "assets/images/socials/Times@2x.png",
                                     height: 30,
@@ -127,8 +114,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
-                                  const Text(
-                                      "L'ANCRAGE est disponible en permanence pour vous.")
+                                  Text(
+                                    "L'ANCRAGE est disponible en permanence pour vous.",
+                                    style: AppTextStyle.bodysmall,
+                                  )
                                 ],
                               ),
                               const Spacer(),
@@ -141,7 +130,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
-                                  const Text("+225 07 07 070 707")
+                                  Text(
+                                    "+225 07 07 070 707",
+                                    style: AppTextStyle.bodysmall,
+                                  )
                                 ],
                               ),
                               const Spacer(),
@@ -154,7 +146,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
-                                  const Text("info@ancrage.com")
+                                  Text(
+                                    "info@ancrage.com",
+                                    style: AppTextStyle.bodysmall,
+                                  )
                                 ],
                               ),
                             ],
@@ -183,7 +178,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                 height: 400,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: Helper.PADDING * 2,
-                                    vertical: Helper.PADDING),
+                                    vertical: Helper.PADDING / 2),
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         width: 3, color: AppColor.background)),
@@ -193,10 +188,56 @@ class _ReservationPageState extends State<ReservationPage> {
                                   children: [
                                     Text(
                                       "Réservation",
-                                      style: AppTextStyle.titleLarge,
+                                      style: AppTextStyle.titleMedium,
                                     ),
-                                    Spacer(),
-                                    Row(
+                                    const Spacer(),
+                                    const Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: MyCustomTextField(
+                                              label: "Départ",
+                                              placeholer:
+                                                  "Date et heure d'arrivée",
+                                            )),
+                                            SizedBox(
+                                              width: Helper.PADDING / 2,
+                                            ),
+                                            Expanded(
+                                                child: MyCustomTextField(
+                                              label: "Arrivée",
+                                              placeholer:
+                                                  "Date et heure de départ",
+                                            )),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: Helper.PADDING / 2,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: MyCustomTextField(
+                                              label: "Personnes",
+                                              placeholer:
+                                                  "Date et heure d'arrivée",
+                                            )),
+                                            SizedBox(
+                                              width: Helper.PADDING / 2,
+                                            ),
+                                            Expanded(
+                                                child: MyCustomTextField(
+                                              label: "Chambres",
+                                              placeholer:
+                                                  "Date et heure de départ",
+                                            )),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    const Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         FormSecondaryButton(title: "Annuler"),
@@ -215,7 +256,7 @@ class _ReservationPageState extends State<ReservationPage> {
                               Expanded(
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: Helper.PADDING,
+                                      vertical: Helper.PADDING / 2,
                                       horizontal: Helper.PADDING),
                                   height: 400,
                                   color: AppColor.background,
@@ -226,16 +267,15 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       Text(
                                         "Votre Sejour",
-                                        style: AppTextStyle.titleLarge,
+                                        style: AppTextStyle.titleMedium,
                                       ),
-                                      const Spacer(
-                                        flex: 2,
-                                      ),
+                                      const Spacer(),
                                       Row(
                                         children: [
                                           Expanded(
-                                              child: Container(
                                             child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
@@ -244,40 +284,49 @@ class _ReservationPageState extends State<ReservationPage> {
                                                       style:
                                                           AppTextStyle.subtitle,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: Helper.PADDING / 4,
                                                     ),
                                                     Text(
                                                       "Après 15:00",
-                                                      style:
-                                                          AppTextStyle.subtitle,
+                                                      style: AppTextStyle
+                                                          .subtitle
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                     )
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "Lun. 25 Dec. 2023",
-                                                      style:
-                                                          AppTextStyle.subtitle,
-                                                    )
-                                                  ],
+                                                const SizedBox(
+                                                  height: Helper.PADDING / 5,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "2 adultes",
-                                                      style:
-                                                          AppTextStyle.subtitle,
-                                                    )
-                                                  ],
+                                                Text(
+                                                  "Lun. 25 Dec. 2023",
+                                                  style: AppTextStyle.subtitle
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 19),
+                                                ),
+                                                const SizedBox(
+                                                  height: Helper.PADDING / 5,
+                                                ),
+                                                Text(
+                                                  "2 adultes",
+                                                  style: AppTextStyle.subtitle
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 19),
                                                 )
                                               ],
                                             ),
-                                          )),
+                                          ),
                                           Expanded(
-                                              child: Container(
                                             child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
@@ -286,37 +335,46 @@ class _ReservationPageState extends State<ReservationPage> {
                                                       style:
                                                           AppTextStyle.subtitle,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: Helper.PADDING / 4,
                                                     ),
                                                     Text(
                                                       "Avant 11:00",
-                                                      style:
-                                                          AppTextStyle.subtitle,
+                                                      style: AppTextStyle
+                                                          .subtitle
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 19),
                                                     )
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "Dim. 07 Jan. 2024",
-                                                      style:
-                                                          AppTextStyle.subtitle,
-                                                    )
-                                                  ],
+                                                const SizedBox(
+                                                  height: Helper.PADDING / 5,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "1 chambre",
-                                                      style:
-                                                          AppTextStyle.subtitle,
-                                                    )
-                                                  ],
+                                                Text(
+                                                  "Dim. 07 Jan. 2024",
+                                                  style: AppTextStyle.subtitle
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 19),
+                                                ),
+                                                const SizedBox(
+                                                  height: Helper.PADDING / 5,
+                                                ),
+                                                Text(
+                                                  "1 chambre",
+                                                  style: AppTextStyle.subtitle
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 19),
                                                 )
                                               ],
                                             ),
-                                          )),
+                                          ),
                                         ],
                                       ),
                                       const Spacer(
@@ -327,19 +385,31 @@ class _ReservationPageState extends State<ReservationPage> {
                                         thickness: 1,
                                         color: AppColor.green,
                                       ),
-                                      const Spacer(),
+                                      const SizedBox(
+                                        height: Helper.PADDING / 4,
+                                      ),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: Helper.PADDING / 2),
-                                        child: const Row(
+                                        child: Row(
                                           children: [
-                                            Text("Total"),
-                                            Spacer(),
-                                            Text("0"),
-                                            Text(" Xof"),
+                                            Text(
+                                              "Total",
+                                              style: AppTextStyle.subtitle,
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              "0 Xof",
+                                              style: AppTextStyle.subtitle
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 19),
+                                            ),
                                           ],
                                         ),
-                                      )
+                                      ),
+                                      const Spacer(),
                                     ],
                                   ),
                                 ),
@@ -349,7 +419,6 @@ class _ReservationPageState extends State<ReservationPage> {
                         ),
                         Container(
                             child: Container(
-                          height: 600,
                           padding: const EdgeInsets.symmetric(
                               horizontal: Helper.PADDING * 2,
                               vertical: Helper.PADDING),
@@ -362,169 +431,25 @@ class _ReservationPageState extends State<ReservationPage> {
                             children: [
                               Text(
                                 "Sélection de votre package",
-                                style: AppTextStyle.titleLarge,
+                                style: AppTextStyle.titleMedium,
                               ),
-                              const Spacer(),
+                              const SizedBox(
+                                height: Helper.PADDING,
+                              ),
                               Container(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: 3,
-                                    itemBuilder: (BuildContext context, int i) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: Helper.PADDING / 2,
-                                        ),
-                                        child: Container(
-                                          child: StreamBuilder(
-                                              stream: onUpdateActiveIndex,
-                                              builder: (context, snapShot) {
-                                                return ExpansionPanelList(
-                                                  elevation: 0,
-                                                  expansionCallback:
-                                                      (int index, bool status) {
-                                                    activeMeterIndex =
-                                                        snapShot.data == i
-                                                            ? -1
-                                                            : i;
-                                                    updateExpansionTile();
-                                                  },
-                                                  children: [
-                                                    ExpansionPanel(
-                                                      canTapOnHeader: true,
-                                                      isExpanded:
-                                                          snapShot.data == i,
-                                                      headerBuilder:
-                                                          (BuildContext context,
-                                                              bool isExpanded) {
-                                                        return MouseRegion(
-                                                            cursor:
-                                                                SystemMouseCursors
-                                                                    .click,
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColor
-                                                                      .background,
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              5),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              5))),
-                                                              padding: EdgeInsets
-                                                                  .all(Helper
-                                                                          .PADDING /
-                                                                      3),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    "Package Villa",
-                                                                    style: AppTextStyle
-                                                                        .titleSmall,
-                                                                  ),
-                                                                  Container(
-                                                                    height:
-                                                                        Helper.PADDING /
-                                                                            1.5,
-                                                                    width: Helper
-                                                                            .PADDING /
-                                                                        1.5,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                100),
-                                                                        border: Border.all(
-                                                                            color:
-                                                                                AppColor.orange,
-                                                                            width: 1)),
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Icon(
-                                                                        snapShot.data !=
-                                                                                i
-                                                                            ? Icons.add
-                                                                            : Icons.close,
-                                                                        color: AppColor
-                                                                            .orange,
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ));
-                                                      },
-                                                      body: Container(
-                                                        decoration: BoxDecoration(
-                                                            border: Border(
-                                                                left: BorderSide(
-                                                                    width: 3,
-                                                                    color: AppColor
-                                                                        .background),
-                                                                right: BorderSide(
-                                                                    width: 3,
-                                                                    color: AppColor
-                                                                        .background),
-                                                                bottom: BorderSide(
-                                                                    width: 3,
-                                                                    color: AppColor
-                                                                        .background))),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          vertical: 2.0,
-                                                          horizontal: 2.13,
-                                                        ),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .symmetric(
-                                                                horizontal: 2.3,
-                                                              ),
-                                                              child:
-                                                                  const Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  FormSecondaryButton(title: "Annuler"),
-                                  SizedBox(
-                                    width: Helper.PADDING / 2,
-                                  ),
-                                  FormMainButton(title: "Valider")
-                                ],
-                              )
+                                  child: Column(
+                                children:
+                                    reservationController.listKey.map((key) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(
+                                        bottom: Helper.PADDING / 2),
+                                    child: PackBox(
+                                      key_value: key,
+                                      initiallyExpanded: true,
+                                    ),
+                                  );
+                                }).toList(),
+                              )),
                             ],
                           ),
                         )),

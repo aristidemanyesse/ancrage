@@ -10,7 +10,7 @@ class ReservationPageController extends GetxController {
     super.onInit();
 
     ever(scrollPosition, (value) {
-      scrollAscendant.value = scrollPosition.value > lastPosition.value;
+      scrollAscendant.value = !(scrollPosition.value > lastPosition.value);
       lastPosition.value = value;
     });
   }

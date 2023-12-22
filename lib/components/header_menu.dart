@@ -1,5 +1,6 @@
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/menu_button_text.dart';
+import 'package:ancrage/pages/index.dart';
 import 'package:ancrage/pages/reservation.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -33,31 +34,37 @@ class HeaderMenu extends StatelessWidget {
                   "assets/images/logo/logo-noir.svg",
                   height: 60,
                 ),
-                const Spacer(flex: 2),
-                const Expanded(
-                    flex: 5,
+                Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MenuButtonText(
-                          title: "ACCEUIL",
-                        ),
-                        MenuButtonText(
-                          title: "ACTIVITés",
-                        ),
-                        MenuButtonText(
-                          title: "GALERIE",
-                        ),
-                        MenuButtonText(
-                          title: "BLOG",
-                        ),
-                        MenuButtonText(
-                          title: "à propos",
-                        )
-                      ],
-                    )),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    MenuButtonText(
+                      onTap: () {
+                        Get.to(const IndexPage());
+                      },
+                      withPadding: true,
+                      title: "ACCEUIL",
+                    ),
+                    const MenuButtonText(
+                      withPadding: true,
+                      title: "ACTIVITés",
+                    ),
+                    const MenuButtonText(
+                      withPadding: true,
+                      title: "GALERIE",
+                    ),
+                    const MenuButtonText(
+                      withPadding: true,
+                      title: "à propos",
+                    ),
+                    const MenuButtonText(
+                      withPadding: true,
+                      title: "Contacts",
+                    ),
+                  ],
+                )),
                 const SizedBox(
-                  width: 150,
+                  width: Helper.PADDING * 2,
                 ),
                 MainButton(
                   title: "réservation",
@@ -66,7 +73,7 @@ class HeaderMenu extends StatelessWidget {
                   },
                 ),
                 const SizedBox(
-                  width: 70,
+                  width: Helper.PADDING * 2,
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,

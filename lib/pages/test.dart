@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 
 class TestPage extends StatefulWidget {
@@ -13,7 +11,8 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   ///it needed to manually collapse, exapnd or toggle Expansion tile
-  final GlobalKey<AdvanceExpansionTileState> _globalKey = GlobalKey();
+  final GlobalKey<AdvanceExpansionTileState> _globalKey =
+      GlobalKey<AdvanceExpansionTileState>();
 
   @override
   void initState() {

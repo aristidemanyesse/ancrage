@@ -18,7 +18,8 @@ class FormSecondaryButton extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(width: 2, color: AppColor.green)),
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Helper.PADDING * 1.2, vertical: 12),
           child: Text(
             title,
             style: AppTextStyle.menuButtonText.copyWith(color: AppColor.green),

@@ -4,6 +4,7 @@ import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/controllers/index_page_controller.dart';
+import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ class _IndexPageState extends State<IndexPage> {
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -156,7 +157,7 @@ class _IndexPageState extends State<IndexPage> {
                                 "In the heart of nature",
                                 style: AppTextStyle.titleLarge,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: Helper.PADDING / 2,
                               ),
                               Text(
@@ -253,11 +254,11 @@ class _IndexPageState extends State<IndexPage> {
                                       "Naturel & Moderne",
                                       style: AppTextStyle.titleLarge,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: Helper.PADDING,
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: Helper.PADDING * 5),
                                       child: Text(
                                         "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
@@ -422,20 +423,8 @@ class _IndexPageState extends State<IndexPage> {
                                                 ],
                                               ),
                                             ),
-                                            MouseRegion(
-                                              cursor: SystemMouseCursors.click,
-                                              child: Text("Learn more",
-                                                  style: AppTextStyle.textsub
-                                                      .copyWith(
-                                                          color:
-                                                              AppColor.orange,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          decorationColor:
-                                                              AppColor.orange,
-                                                          decorationThickness:
-                                                              1)),
+                                            const InderlineButton(
+                                              title: "Learn more",
                                             ),
                                           ],
                                         ),
