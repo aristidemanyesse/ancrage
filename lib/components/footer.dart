@@ -27,40 +27,55 @@ class Footer extends StatelessWidget {
               const SizedBox(
                 height: 80,
               ),
-              const Row(
+              Row(
                 children: [
-                  Spacer(
+                  const Spacer(
                     flex: 1,
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MenuButtonText(
+                          onTap: () {
+                            Get.toNamed("/");
+                          },
                           title: "ACCEUIL",
                           color: AppColor.white,
                         ),
                         MenuButtonText(
+                          onTap: () {
+                            Get.toNamed("/activites");
+                          },
                           title: "ACTIVITés",
                           color: AppColor.white,
                         ),
                         MenuButtonText(
+                          onTap: () {
+                            Get.toNamed("/galerie");
+                          },
                           title: "GALERIE",
                           color: AppColor.white,
                         ),
                         MenuButtonText(
-                          title: "BLOG",
+                          onTap: () {
+                            Get.toNamed("/a_propos");
+                          },
+                          title: "à propos",
                           color: AppColor.white,
                         ),
                         MenuButtonText(
-                          title: "à propos",
+                          onTap: () {
+                            Get.toNamed("/contacts");
+                          },
+                          title: "Contacts",
                           color: AppColor.white,
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 1,
                   ),
                 ],

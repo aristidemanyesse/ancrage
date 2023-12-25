@@ -2,10 +2,8 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/controllers/LoaderController.dart';
-import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/pages/come_to_us.dart';
-import 'package:ancrage/controllers/reservation_page_controller.dart';
 import 'package:ancrage/components/pack_box.dart';
 import 'package:ancrage/components/my_custom_text_field.dart';
 import 'package:ancrage/utils/responsive.dart';
@@ -21,26 +19,16 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
-  LoaderController loaderController = Get.find();
-  ReservationPageController reservationPagePageController = Get.find();
-  ReservationController reservationController = Get.find();
-
-  final ScrollController _pageController = ScrollController();
+  PagesController pageController = Get.find();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _pageController.addListener(() {
-      reservationPagePageController.scrollPosition.value =
-          _pageController.position.pixels;
+    _scrollController.addListener(() {
+      pageController.scrollPosition.value = _scrollController.position.pixels;
     });
-  }
-
-  void animateController(ScrollController controller, double position,
-      {int milliseconds = 3}) {
-    controller.animateTo(position,
-        duration: Duration(milliseconds: milliseconds), curve: Curves.easeOut);
   }
 
   @override
@@ -70,7 +58,7 @@ class _ReservationPageState extends State<ReservationPage> {
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
-              controller: _pageController,
+              controller: _scrollController,
               child: Column(
                 children: [
                   Container(
@@ -237,14 +225,19 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ],
                                     ),
                                     const Spacer(),
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        FormSecondaryButton(title: "Annuler"),
-                                        SizedBox(
+                                        const FormSecondaryButton(
+                                            title: "Annuler"),
+                                        const SizedBox(
                                           width: Helper.PADDING / 2,
                                         ),
-                                        FormMainButton(title: "Valider")
+                                        FormMainButton(
+                                            onTap: () {
+                                              Get.toNamed("/");
+                                            },
+                                            title: "Valider")
                                       ],
                                     )
                                   ],
@@ -438,14 +431,13 @@ class _ReservationPageState extends State<ReservationPage> {
                               ),
                               Container(
                                   child: Column(
-                                children:
-                                    reservationController.listKey.map((key) {
+                                children: pageController.listKey.map((key) {
                                   return Container(
                                     margin: const EdgeInsets.only(
                                         bottom: Helper.PADDING / 2),
                                     child: PackBox(
                                       key_value: key,
-                                      initiallyExpanded: true,
+                                      initiallyExpanded: false,
                                     ),
                                   );
                                 }).toList(),
@@ -453,8 +445,8 @@ class _ReservationPageState extends State<ReservationPage> {
                             ],
                           ),
                         )),
-                        ComeToUs(
-                          pageController: _pageController,
+                        const ComeToUs(
+                          start: 1200,
                         ),
                       ],
                     ),

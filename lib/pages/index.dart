@@ -3,14 +3,13 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/pages/come_to_us.dart';
-import 'package:ancrage/controllers/index_page_controller.dart';
+import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -21,38 +20,23 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   LoaderController loaderController = Get.find();
-  IndexPageController indexPageController = Get.find();
+  PagesController pageController = Get.find();
 
-  final ScrollController _pageController = ScrollController();
-  final ScrollController _sectionController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
+  final ScrollController _sectionScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _pageController.addListener(() {
-      indexPageController.scrollPosition.value =
-          _pageController.position.pixels;
+    _scrollController.addListener(() {
+      pageController.scrollPosition.value = _scrollController.position.pixels;
 
-      if (_pageController.position.pixels == Get.size.height ||
-          (_pageController.position.pixels > Get.size.height + 100)) {
-        if (_sectionController.position.pixels == 0) {
-          animateController(_sectionController, 1500, milliseconds: 3000);
-        } else {
-          animateController(_sectionController, 0, milliseconds: 3000);
-        }
+      if (_sectionScrollController.position.pixels == 0) {
+        animateController(_sectionScrollController, 1500, milliseconds: 3000);
+      } else {
+        animateController(_sectionScrollController, 0, milliseconds: 3000);
       }
-
-      if (_pageController.position.pixels == 4700) {
-        if (_sectionController.position.pixels == 0) {
-          animateController(_sectionController, 1500, milliseconds: 3000);
-        } else {
-          animateController(_sectionController, 0, milliseconds: 3000);
-        }
-      }
-    });
-    Future.delayed(const Duration(seconds: 3), () {
-      loaderController.wait.value = false;
     });
   }
 
@@ -60,13 +44,6 @@ class _IndexPageState extends State<IndexPage> {
       {int milliseconds = 3}) {
     controller.animateTo(position,
         duration: Duration(milliseconds: milliseconds), curve: Curves.easeOut);
-  }
-
-  _launchURL(String lien) async {
-    final Uri url = Uri.parse(lien);
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
   }
 
   @override
@@ -110,7 +87,7 @@ class _IndexPageState extends State<IndexPage> {
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
-              controller: _pageController,
+              controller: _scrollController,
               child: Column(
                 children: [
                   SizedBox(
@@ -126,7 +103,7 @@ class _IndexPageState extends State<IndexPage> {
                             child: InkWell(
                               onTap: () {
                                 animateController(
-                                    _pageController, Get.size.height,
+                                    _scrollController, Get.size.height,
                                     milliseconds: 700);
                               },
                               child: SvgPicture.asset(
@@ -172,7 +149,7 @@ class _IndexPageState extends State<IndexPage> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: Helper.PADDING * 3),
                           child: SingleChildScrollView(
-                            controller: _sectionController,
+                            controller: _sectionScrollController,
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
@@ -436,8 +413,8 @@ class _IndexPageState extends State<IndexPage> {
                             ],
                           ),
                         ),
-                        ComeToUs(
-                          pageController: _pageController,
+                        const ComeToUs(
+                          start: 4900,
                         ),
                       ],
                     ),

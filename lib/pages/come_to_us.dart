@@ -1,18 +1,18 @@
-import 'package:ancrage/controllers/index_page_controller.dart';
+import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ComeToUs extends StatefulWidget {
-  final ScrollController pageController;
-  const ComeToUs({super.key, required this.pageController});
+  final int start;
+  const ComeToUs({super.key, required this.start});
 
   @override
   State<ComeToUs> createState() => _ComeToUsState();
 }
 
 class _ComeToUsState extends State<ComeToUs> {
-  IndexPageController indexPageController = Get.find();
+  PagesController pageController = Get.find();
 
   double fontSize = 50;
   double new_fontSize = 50;
@@ -21,12 +21,12 @@ class _ComeToUsState extends State<ComeToUs> {
   void initState() {
     super.initState();
 
-    ever(indexPageController.scrollPosition, (value) {
-      if (indexPageController.scrollPosition.value > 4900) {
+    ever(pageController.scrollPosition, (value) {
+      if (pageController.scrollPosition.value > widget.start) {
         setState(() {
           fontSize = new_fontSize;
           new_fontSize = 50 *
-              (1 + (indexPageController.scrollPosition.value - 4900) / 700);
+              (1 + (pageController.scrollPosition.value - widget.start) / 700);
         });
       }
     });

@@ -171,9 +171,15 @@ class _PackBoxState extends State<PackBox> {
                             const SizedBox(
                               height: Helper.PADDING / 2,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: [FormMainButton(title: "Reserver")],
+                              children: [
+                                FormMainButton(
+                                    onTap: () {
+                                      Get.toNamed("/reservation_next");
+                                    },
+                                    title: "Reserver")
+                              ],
                             ),
                           ],
                         ),

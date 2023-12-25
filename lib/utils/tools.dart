@@ -66,6 +66,11 @@ class AppTextStyle {
   static TextStyle bodysmall = baseTenorSans.copyWith(
       fontSize: 14, letterSpacing: 0, fontWeight: FontWeight.w600);
 
+  static TextStyle small = baseTenorSans.copyWith(
+    fontSize: 11,
+    letterSpacing: 0,
+  );
+
   static TextStyle bodygrasitalic = baseTenorSans.copyWith(
       fontSize: 20,
       letterSpacing: 3,
