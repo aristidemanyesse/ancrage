@@ -5,7 +5,6 @@ import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/modals/alert.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +37,17 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
         alignment: Alignment.topLeft,
         children: [
           SizedBox(
-            width: double.infinity,
-            height: double.infinity,
             child: Responsive(
               desktop: Image.asset(
-                "assets/images/bg/Bg.png",
-                fit: BoxFit.cover,
+                "assets/images/bg/IMG_7053@2x.png",
+                fit: BoxFit.scaleDown,
               ),
               tablet: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/IMG_7053@2x.png",
                 fit: BoxFit.fitHeight,
               ),
               mobile: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/IMG_7053@2x.png",
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -272,7 +269,8 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                 ),
                                                 FormMainButton(
                                                     onTap: () {
-                                                      Get.dialog(const AlertModal());
+                                                      Get.dialog(
+                                                          const AlertModal());
                                                     },
                                                     title: "Continuer")
                                               ],
@@ -449,9 +447,9 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                             ],
                           ),
                         ),
-                        const ComeToUs(
-                          start: 3000,
-                        ),
+                        // const ComeToUs(
+                        //   start: 3000,
+                        // ),
                       ],
                     ),
                   ),

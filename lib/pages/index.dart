@@ -1,10 +1,11 @@
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
+import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/inderline_button.dart';
+import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _IndexPageState extends State<IndexPage> {
               left: Helper.PADDING * 2,
               child: Text(
                 "Just live it !",
-                style: AppTextStyle.contralto.copyWith(color: AppColor.white),
+                style: AppTextStyle.playfair.copyWith(color: AppColor.white),
               )),
           SizedBox(
             width: Get.size.width,
@@ -96,6 +97,162 @@ class _IndexPageState extends State<IndexPage> {
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            margin: const EdgeInsets.all(0),
+                            padding: const EdgeInsets.symmetric(horizontal: 80),
+                            height: Helper.PADDING * 2,
+                            child: Row(
+                              children: [
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.toNamed("/");
+                                    },
+                                    child: SvgPicture.asset(
+                                      "assets/images/logo/logo-blanc.svg",
+                                      height: 60,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    MenuButtonText(
+                                      color: Colors.white,
+                                      onTap: () {
+                                        Get.toNamed("/");
+                                      },
+                                      active: Get.currentRoute == "/",
+                                      withPadding: true,
+                                      title: "ACCEUIL",
+                                    ),
+                                    MenuButtonText(
+                                      color: Colors.white,
+                                      onTap: () {
+                                        Get.toNamed("/activites");
+                                      },
+                                      active: Get.currentRoute == "/activites",
+                                      withPadding: true,
+                                      title: "ACTIVITés",
+                                    ),
+                                    MenuButtonText(
+                                      color: Colors.white,
+                                      onTap: () {
+                                        Get.toNamed("/galerie");
+                                      },
+                                      active: Get.currentRoute == "/galerie",
+                                      withPadding: true,
+                                      title: "GALERIE",
+                                    ),
+                                    MenuButtonText(
+                                      color: Colors.white,
+                                      onTap: () {
+                                        Get.toNamed("/a_propos");
+                                      },
+                                      active: Get.currentRoute == "/a_propos",
+                                      withPadding: true,
+                                      title: "à propos",
+                                    ),
+                                    MenuButtonText(
+                                      color: Colors.white,
+                                      onTap: () {
+                                        Get.toNamed("/contacts");
+                                      },
+                                      active: Get.currentRoute == "/contacts",
+                                      withPadding: true,
+                                      title: "Contacts",
+                                    ),
+                                  ],
+                                )),
+                                const SizedBox(
+                                  width: Helper.PADDING * 2,
+                                ),
+                                MainButton(
+                                  color: Colors.white,
+                                  title: "réservation",
+                                  onTap: () {
+                                    Get.toNamed("/reservation");
+                                  },
+                                ),
+                                const SizedBox(
+                                  width: Helper.PADDING * 2,
+                                ),
+                                DropdownButton(
+                                  elevation: 0,
+                                  icon: Icon(
+                                    Icons.add_outlined,
+                                    size: 0,
+                                  ),
+                                  underline: Container(),
+                                  hint: MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: SvgPicture.asset(
+                                                "assets/images/socials/English-Circle.svg",
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          const Text(
+                                            "Français",
+                                            style: AppTextStyle.menuButtonText,
+                                          ),
+                                          const Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 20,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  items: ["English", "Français"]
+                                      .map((String item) {
+                                    return DropdownMenuItem(
+                                      value: item.substring(0, 2),
+                                      child: Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: SvgPicture.asset(
+                                                "assets/images/socials/English-Circle.svg",
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: Helper.PADDING / 4,
+                                          ),
+                                          Text(item),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {},
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         Positioned(
                           bottom: Helper.PADDING,
                           child: MouseRegion(
@@ -157,7 +314,34 @@ class _IndexPageState extends State<IndexPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: Helper.PADDING / 2),
                                   child: Image.asset(
-                                    "assets/images/bg/facade.png",
+                                    "assets/images/bg/Img@2x (1).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Imgml@2x.png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (3).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (2).png",
                                     height: 500,
                                     width: 650,
                                   ),
@@ -175,25 +359,7 @@ class _IndexPageState extends State<IndexPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: Helper.PADDING / 2),
                                   child: Image.asset(
-                                    "assets/images/bg/facade.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/facade.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/facade.png",
+                                    "assets/images/bg/Img@2x (4).png",
                                     height: 500,
                                     width: 650,
                                   ),

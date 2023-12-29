@@ -1,5 +1,6 @@
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/pages/activities.dart';
 import 'package:ancrage/pages/apropos.dart';
 import 'package:ancrage/pages/contacts.dart';
 import 'package:ancrage/pages/galerie.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/reservation_next_3',
             page: () => const ReservationStep3Page()),
-        GetPage(name: '/activites', page: () => const ReservationPage()),
+        GetPage(name: '/activites', page: () => const ActivitiesPage()),
         GetPage(name: '/galerie', page: () => const GaleriePage()),
         GetPage(name: '/a_propos', page: () => const AproposPage()),
         GetPage(name: '/contacts', page: () => const ContactsPage()),

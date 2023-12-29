@@ -2,10 +2,10 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/my_custom_text_field.dart';
+import 'package:ancrage/components/my_text_field.dart';
+import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/modals/alert.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -39,19 +39,17 @@ class _ContactsPageState extends State<ContactsPage> {
         alignment: Alignment.topLeft,
         children: [
           SizedBox(
-            width: double.infinity,
-            height: double.infinity,
             child: Responsive(
               desktop: Image.asset(
-                "assets/images/bg/Bg.png",
-                fit: BoxFit.cover,
+                "assets/images/bg/Img@2x (6).png",
+                fit: BoxFit.scaleDown,
               ),
               tablet: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/Img@2x (6).png",
                 fit: BoxFit.fitHeight,
               ),
               mobile: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/Img@2x (6).png",
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -183,13 +181,14 @@ class _ContactsPageState extends State<ContactsPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FormMainButton(
-                                      onTap: () {
-                                        Get.dialog(const AlertModal());
-                                      },
-                                      title: "Reserver")
+                                  SecondaryButton(
+                                    onTap: () {
+                                      Get.toNamed("/reservation");
+                                    },
+                                    title: "reserver",
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -205,8 +204,8 @@ class _ContactsPageState extends State<ContactsPage> {
                             const SizedBox(width: Helper.PADDING),
                             Expanded(
                               child: Container(
-                                padding:
-                                    const EdgeInsets.only(right: Helper.PADDING * 2),
+                                padding: const EdgeInsets.only(
+                                    right: Helper.PADDING * 2),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -223,22 +222,22 @@ class _ContactsPageState extends State<ContactsPage> {
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              MyCustomTextField(
-                                                label: "Arrivée",
+                                              MyTextField(
+                                                label: "Nom complet",
                                                 placeholer:
                                                     "Date et heure de départ",
                                               ),
                                               SizedBox(
                                                   height: Helper.PADDING / 3),
-                                              MyCustomTextField(
-                                                label: "Arrivée",
+                                              MyTextField(
+                                                label: "Sujet",
                                                 placeholer:
                                                     "Date et heure de départ",
                                               ),
                                               SizedBox(
                                                   height: Helper.PADDING / 3),
-                                              MyCustomTextField(
-                                                label: "Arrivée",
+                                              MyTextField(
+                                                label: "Email ou contacts",
                                                 placeholer:
                                                     "Date et heure de départ",
                                               )
@@ -247,9 +246,10 @@ class _ContactsPageState extends State<ContactsPage> {
                                         ),
                                         SizedBox(width: Helper.PADDING / 2),
                                         Expanded(
-                                            child: MyCustomTextField(
-                                          label: "Arrivée",
+                                            child: MyTextField(
+                                          label: "Message",
                                           placeholer: "Date et heure de départ",
+                                          maxlines: 9,
                                         ))
                                       ],
                                     ),
@@ -281,9 +281,9 @@ class _ContactsPageState extends State<ContactsPage> {
                           height: Get.size.height,
                           color: Colors.blue,
                         ),
-                        const ComeToUs(
-                          start: 2000,
-                        ),
+                        // const ComeToUs(
+                        //   start: 2000,
+                        // ),
                       ],
                     ),
                   ),

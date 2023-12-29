@@ -24,12 +24,6 @@ class Helper {
 }
 
 class AppTextStyle {
-  static const TextStyle contralto = TextStyle(
-      fontSize: 50,
-      fontWeight: FontWeight.bold,
-      letterSpacing: 4,
-      fontFamily: "Contralto");
-
   static const TextStyle baseTenorSans =
       TextStyle(fontFamily: "Tenor Sans", letterSpacing: -1);
 
@@ -45,15 +39,6 @@ class AppTextStyle {
       baseTenorSans.copyWith(fontSize: 35, letterSpacing: 3);
 
   static TextStyle titleSmall = baseTenorSans.copyWith(fontSize: 30);
-
-  static const TextStyle menuButtonText = TextStyle(
-      fontSize: 20,
-      fontFamily: "Tenor Sans",
-      letterSpacing: 1,
-      fontWeight: FontWeight.w400);
-
-  static TextStyle menuButtonTextSelected =
-      menuButtonText.copyWith(fontWeight: FontWeight.bold);
 
   static TextStyle body =
       baseTenorSans.copyWith(fontSize: 20, letterSpacing: 3);
@@ -82,4 +67,25 @@ class AppTextStyle {
       letterSpacing: 2,
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold);
+
+  static const TextStyle menuButtonText = TextStyle(
+      fontSize: 20,
+      fontFamily: "Contralto",
+      letterSpacing: 1.5,
+      fontWeight: FontWeight.w400);
+
+  static TextStyle menuButtonTextSelected =
+      menuButtonText.copyWith(fontWeight: FontWeight.bold);
+
+  static const TextStyle playfair = TextStyle(
+      fontSize: 50,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 4,
+      fontFamily: "Playfair");
+
+  static const TextStyle contralto = TextStyle(
+      fontSize: 50,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 4,
+      fontFamily: "Contralto");
 }

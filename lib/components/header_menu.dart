@@ -24,7 +24,8 @@ class _HeaderMenuState extends State<HeaderMenu> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return pageController.scrollPosition.value > 150
+      return pageController.scrollPosition.value > 150 ||
+              Get.currentRoute != "/"
           ? Positioned(
               left: 0,
               right: 0,
@@ -111,156 +112,74 @@ class _HeaderMenuState extends State<HeaderMenu> {
                       const SizedBox(
                         width: Helper.PADDING * 2,
                       ),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: SvgPicture.asset(
-                                    "assets/images/socials/English-Circle.svg",
+                      DropdownButton(
+                        elevation: 0,
+                        icon: Icon(
+                          Icons.add_outlined,
+                          size: 0,
+                        ),
+                        underline: Container(),
+                        hint: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: SvgPicture.asset(
+                                      "assets/images/socials/English-Circle.svg",
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                "En",
-                                style: AppTextStyle.menuButtonText,
-                              ),
-                              const Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 20,
-                              )
-                            ],
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  "Français",
+                                  style: AppTextStyle.menuButtonText,
+                                ),
+                                const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 20,
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      )
+                        items: ["English", "Français"].map((String item) {
+                          return DropdownMenuItem(
+                            value: item.substring(0, 2),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: SvgPicture.asset(
+                                      "assets/images/socials/English-Circle.svg",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: Helper.PADDING / 4,
+                                ),
+                                Text(item),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {},
+                      ),
                     ],
                   ),
                 ),
               ))
-          : Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              child: Container(
-                margin: const EdgeInsets.all(0),
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                height: Helper.PADDING * 2,
-                child: Row(
-                  children: [
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/");
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/logo/logo-noir.svg",
-                          height: 60,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/");
-                          },
-                          active: Get.currentRoute == "/",
-                          withPadding: true,
-                          title: "ACCEUIL",
-                        ),
-                        MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/activites");
-                          },
-                          active: Get.currentRoute == "/activites",
-                          withPadding: true,
-                          title: "ACTIVITés",
-                        ),
-                        MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/galerie");
-                          },
-                          active: Get.currentRoute == "/galerie",
-                          withPadding: true,
-                          title: "GALERIE",
-                        ),
-                        MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/a_propos");
-                          },
-                          active: Get.currentRoute == "/a_propos",
-                          withPadding: true,
-                          title: "à propos",
-                        ),
-                        MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/contacts");
-                          },
-                          active: Get.currentRoute == "/contacts",
-                          withPadding: true,
-                          title: "Contacts",
-                        ),
-                      ],
-                    )),
-                    const SizedBox(
-                      width: Helper.PADDING * 2,
-                    ),
-                    MainButton(
-                      title: "réservation",
-                      onTap: () {
-                        Get.toNamed("/reservation");
-                      },
-                    ),
-                    const SizedBox(
-                      width: Helper.PADDING * 2,
-                    ),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: SvgPicture.asset(
-                                  "assets/images/socials/English-Circle.svg",
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "En",
-                              style: AppTextStyle.menuButtonText,
-                            ),
-                            const Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 20,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
+          : Container();
     });
   }
 }

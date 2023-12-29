@@ -5,7 +5,6 @@ import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/controllers/reservation_page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
@@ -462,9 +461,9 @@ class _GaleriePageState extends State<GaleriePage> {
                             ],
                           ),
                         ),
-                        const ComeToUs(
-                          start: 3000,
-                        ),
+                        // const ComeToUs(
+                        //   start: 3000,
+                        // ),
                       ],
                     ),
                   ),

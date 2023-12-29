@@ -83,10 +83,13 @@ class Footer extends StatelessWidget {
               const SizedBox(
                 height: 120,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SecondaryButton(
+                    onTap: () {
+                      Get.toNamed("/reservation");
+                    },
                     title: "reserver",
                   ),
                 ],

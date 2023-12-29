@@ -20,11 +20,6 @@ class PagesController extends GetxController with RouteAware {
     ever(scrollPosition, (value) {
       scrollAscendant.value = !(scrollPosition.value > lastPosition.value);
       lastPosition.value = value;
-      print(scrollPosition.value);
     });
-  }
-
-  void onRouteChanged(PageRoute route) {
-    print(route);
   }
 }

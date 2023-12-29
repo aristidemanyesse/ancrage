@@ -2,9 +2,9 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
+import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/modals/alert.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -92,13 +92,14 @@ class _AproposPageState extends State<AproposPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FormMainButton(
-                                      onTap: () {
-                                        Get.dialog(const AlertModal());
-                                      },
-                                      title: "Reserver")
+                                  SecondaryButton(
+                                    onTap: () {
+                                      Get.toNamed("/reservation");
+                                    },
+                                    title: "reserver",
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -106,7 +107,8 @@ class _AproposPageState extends State<AproposPage> {
                         Row(
                           children: [
                             Expanded(
-                              child: Image.asset("assets/images/bg/Img@2x.png",
+                              child: Image.asset(
+                                  "assets/images/bg/Img@2x (5).png",
                                   width: double.infinity),
                             ),
                           ],
@@ -145,7 +147,34 @@ class _AproposPageState extends State<AproposPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: Helper.PADDING / 2),
                                   child: Image.asset(
-                                    "assets/images/bg/facade.png",
+                                    "assets/images/bg/Img@2x (1).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Imgml@2x.png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (3).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (2).png",
                                     height: 500,
                                     width: 650,
                                   ),
@@ -163,25 +192,7 @@ class _AproposPageState extends State<AproposPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: Helper.PADDING / 2),
                                   child: Image.asset(
-                                    "assets/images/bg/facade.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/facade.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/facade.png",
+                                    "assets/images/bg/Img@2x (4).png",
                                     height: 500,
                                     width: 650,
                                   ),
@@ -254,9 +265,9 @@ class _AproposPageState extends State<AproposPage> {
                           ],
                         ),
                         const SizedBox(height: Helper.PADDING),
-                        const ComeToUs(
-                          start: 1500,
-                        ),
+                        // const ComeToUs(
+                        //   start: 1500,
+                        // ),
                       ],
                     ),
                   ),

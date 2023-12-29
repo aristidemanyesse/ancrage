@@ -2,10 +2,10 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
+import 'package:ancrage/components/my_date_field.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/components/pack_box.dart';
-import 'package:ancrage/components/my_custom_text_field.dart';
+import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +38,17 @@ class _ReservationPageState extends State<ReservationPage> {
         alignment: Alignment.topLeft,
         children: [
           SizedBox(
-            width: double.infinity,
-            height: double.infinity,
             child: Responsive(
               desktop: Image.asset(
-                "assets/images/bg/Bg.png",
-                fit: BoxFit.cover,
+                "assets/images/bg/IMG_7053@2x.png",
+                fit: BoxFit.scaleDown,
               ),
               tablet: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/IMG_7053@2x.png",
                 fit: BoxFit.fitHeight,
               ),
               mobile: Image.asset(
-                "assets/images/bg/Bg.png",
+                "assets/images/bg/IMG_7053@2x.png",
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -184,7 +182,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         Row(
                                           children: [
                                             Expanded(
-                                                child: MyCustomTextField(
+                                                child: MyDateField(
                                               label: "Départ",
                                               placeholer:
                                                   "Date et heure d'arrivée",
@@ -193,7 +191,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                               width: Helper.PADDING / 2,
                                             ),
                                             Expanded(
-                                                child: MyCustomTextField(
+                                                child: MyDateField(
                                               label: "Arrivée",
                                               placeholer:
                                                   "Date et heure de départ",
@@ -206,7 +204,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         Row(
                                           children: [
                                             Expanded(
-                                                child: MyCustomTextField(
+                                                child: MyTextField(
                                               label: "Personnes",
                                               placeholer:
                                                   "Date et heure d'arrivée",
@@ -215,7 +213,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                               width: Helper.PADDING / 2,
                                             ),
                                             Expanded(
-                                                child: MyCustomTextField(
+                                                child: MyTextField(
                                               label: "Chambres",
                                               placeholer:
                                                   "Date et heure de départ",
@@ -445,9 +443,9 @@ class _ReservationPageState extends State<ReservationPage> {
                             ],
                           ),
                         )),
-                        const ComeToUs(
-                          start: 1200,
-                        ),
+                        // const ComeToUs(
+                        //   start: 1200,
+                        // ),
                       ],
                     ),
                   ),
