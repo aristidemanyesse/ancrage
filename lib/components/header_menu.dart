@@ -64,7 +64,7 @@ class _HeaderMenuState extends State<HeaderMenu> {
                             },
                             active: Get.currentRoute == "/",
                             withPadding: true,
-                            title: "ACCEUIL",
+                            title: "menubar_home".tr,
                           ),
                           MenuButtonText(
                             onTap: () {
@@ -121,9 +121,8 @@ class _HeaderMenuState extends State<HeaderMenu> {
                         underline: Container(),
                         hint: MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: InkWell(
-                            onTap: () {},
-                            child: Row(
+                          child: Obx(() {
+                            return Row(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
@@ -131,15 +130,19 @@ class _HeaderMenuState extends State<HeaderMenu> {
                                     height: 30,
                                     width: 30,
                                     child: SvgPicture.asset(
-                                      "assets/images/socials/English-Circle.svg",
+                                      pageController.languageSelected.value ==
+                                              "English"
+                                          ? "assets/images/socials/English-Circle.svg"
+                                          : "assets/images/socials/English-Circle.svg",
                                     ),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                const Text(
-                                  "Français",
+                                Text(
+                                  pageController.languageSelected.value
+                                      .substring(0, 2),
                                   style: AppTextStyle.menuButtonText,
                                 ),
                                 const Icon(
@@ -147,12 +150,12 @@ class _HeaderMenuState extends State<HeaderMenu> {
                                   size: 20,
                                 )
                               ],
-                            ),
-                          ),
+                            );
+                          }),
                         ),
-                        items: ["English", "Français"].map((String item) {
+                        items: pageController.languages.keys.map((String item) {
                           return DropdownMenuItem(
-                            value: item.substring(0, 2),
+                            value: item,
                             child: Row(
                               children: [
                                 ClipRRect(
@@ -173,7 +176,9 @@ class _HeaderMenuState extends State<HeaderMenu> {
                             ),
                           );
                         }).toList(),
-                        onChanged: (String? newValue) {},
+                        onChanged: (String? newValue) {
+                          pageController.languageSelected.value = newValue!;
+                        },
                       ),
                     ],
                   ),

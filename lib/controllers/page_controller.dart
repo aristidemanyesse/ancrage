@@ -7,6 +7,12 @@ class PagesController extends GetxController with RouteAware {
   RxDouble scrollPosition = 0.0.obs;
   RxDouble lastPosition = 0.0.obs;
 
+  Map<String, Locale> languages = {
+    "Français": Locale('fr', 'Fr'),
+    "English": Locale('en', 'US')
+  };
+  RxString languageSelected = "Français".obs;
+
   final List<GlobalKey<AdvanceExpansionTileState>> listKey = [
     GlobalKey<AdvanceExpansionTileState>(),
     GlobalKey<AdvanceExpansionTileState>(),
@@ -20,6 +26,9 @@ class PagesController extends GetxController with RouteAware {
     ever(scrollPosition, (value) {
       scrollAscendant.value = !(scrollPosition.value > lastPosition.value);
       lastPosition.value = value;
+    });
+    ever(languageSelected, (value) {
+      Get.updateLocale(languages[languageSelected.value]!);
     });
   }
 }

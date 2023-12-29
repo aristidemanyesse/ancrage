@@ -1,5 +1,6 @@
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/core/TranslationClass.dart';
 import 'package:ancrage/pages/activities.dart';
 import 'package:ancrage/pages/apropos.dart';
 import 'package:ancrage/pages/contacts.dart';
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "L'ANCRAGE",
       debugShowCheckedModeBanner: false,
+      translations: TranslationClass(), // your translations
+      locale: Get
+          .deviceLocale, //Locale('fr', 'Fr'), // translations will be displayed in that locale
+      fallbackLocale: Locale('en', 'UK'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: AppColor.background, primary: AppColor.orange),

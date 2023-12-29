@@ -446,6 +446,9 @@ class _ReservationPageState extends State<ReservationPage> {
                         // const ComeToUs(
                         //   start: 1200,
                         // ),
+                        SizedBox(
+                          height: Helper.PADDING * 2,
+                        ),
                       ],
                     ),
                   ),

@@ -130,7 +130,7 @@ class _IndexPageState extends State<IndexPage> {
                                       },
                                       active: Get.currentRoute == "/",
                                       withPadding: true,
-                                      title: "ACCEUIL",
+                                      title: "menubar_home".tr,
                                     ),
                                     MenuButtonText(
                                       color: Colors.white,
@@ -192,9 +192,8 @@ class _IndexPageState extends State<IndexPage> {
                                   underline: Container(),
                                   hint: MouseRegion(
                                     cursor: SystemMouseCursors.click,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Row(
+                                    child: Obx(() {
+                                      return Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius:
@@ -203,15 +202,21 @@ class _IndexPageState extends State<IndexPage> {
                                               height: 30,
                                               width: 30,
                                               child: SvgPicture.asset(
-                                                "assets/images/socials/English-Circle.svg",
+                                                pageController.languageSelected
+                                                            .value ==
+                                                        "English"
+                                                    ? "assets/images/socials/English-Circle.svg"
+                                                    : "assets/images/socials/English-Circle.svg",
                                               ),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 5,
                                           ),
-                                          const Text(
-                                            "Français",
+                                          Text(
+                                            pageController
+                                                .languageSelected.value
+                                                .substring(0, 2),
                                             style: AppTextStyle.menuButtonText,
                                           ),
                                           const Icon(
@@ -219,13 +224,13 @@ class _IndexPageState extends State<IndexPage> {
                                             size: 20,
                                           )
                                         ],
-                                      ),
-                                    ),
+                                      );
+                                    }),
                                   ),
-                                  items: ["English", "Français"]
+                                  items: pageController.languages.keys
                                       .map((String item) {
                                     return DropdownMenuItem(
-                                      value: item.substring(0, 2),
+                                      value: item,
                                       child: Row(
                                         children: [
                                           ClipRRect(
@@ -247,7 +252,10 @@ class _IndexPageState extends State<IndexPage> {
                                       ),
                                     );
                                   }).toList(),
-                                  onChanged: (String? newValue) {},
+                                  onChanged: (String? newValue) {
+                                    pageController.languageSelected.value =
+                                        newValue!;
+                                  },
                                 ),
                               ],
                             ),
