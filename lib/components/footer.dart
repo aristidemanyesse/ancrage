@@ -46,7 +46,7 @@ class Footer extends StatelessWidget {
                         ),
                         MenuButtonText(
                           onTap: () {
-                            Get.toNamed("/activites");
+                            Get.toNamed("/activities");
                           },
                           title: "ACTIVITés",
                           color: AppColor.white,

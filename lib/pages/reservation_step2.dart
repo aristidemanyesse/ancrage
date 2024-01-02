@@ -10,6 +10,7 @@ import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ReservationStep2Page extends StatefulWidget {
@@ -127,15 +128,15 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
+                                  SvgPicture.asset(
+                                    "assets/images/socials/Email.svg",
+                                    height: 25,
                                   ),
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "info@ancrage.com",
+                                    "contacts@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],

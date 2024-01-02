@@ -10,9 +10,15 @@ import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:relative_time/relative_time.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -29,11 +35,14 @@ class _ReservationPageState extends State<ReservationPage> {
 
   TextEditingController debutController = TextEditingController();
   TextEditingController finController = TextEditingController();
-  DateFormat format = DateFormat("");
+  DateFormat dateFormat = DateFormat('dd MMMM yyy – kk:mm');
+  DateFormat dateFormat2 = DateFormat('E dd MMM yyyy');
 
   @override
   void initState() {
     super.initState();
+    Intl.defaultLocale = "fr_FR";
+    Jiffy.setLocale('fr_FR');
 
     _scrollController.addListener(() {
       pageController.scrollPosition.value = _scrollController.position.pixels;
@@ -134,15 +143,15 @@ class _ReservationPageState extends State<ReservationPage> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
+                                  SvgPicture.asset(
+                                    "assets/images/socials/Email.svg",
+                                    height: 25,
                                   ),
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "info@ancrage.com",
+                                    "contacts@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],
@@ -197,7 +206,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 reservationController
                                                     .debut.value = date;
                                                 debutController.text =
-                                                    date.toString();
+                                                    dateFormat.format(date);
                                               },
                                               label: "Arrivée",
                                               placeholer:
@@ -213,7 +222,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 reservationController
                                                     .fin.value = date;
                                                 finController.text =
-                                                    date.toString();
+                                                    dateFormat.format(date);
                                               },
                                               label: "Départ",
                                               placeholer:
@@ -230,10 +239,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 child: MyTextField(
                                               label: "Personnes",
                                               placeholer: "Nombre de personnes",
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                signed: true,
-                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
                                             )),
                                             SizedBox(
                                               width: Helper.PADDING / 2,
@@ -242,10 +249,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 child: MyTextField(
                                               label: "Chambres",
                                               placeholer: "Nombre de chambres",
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                signed: true,
-                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
                                             )),
                                           ],
                                         ),
@@ -308,7 +313,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                       width: Helper.PADDING / 4,
                                                     ),
                                                     Text(
-                                                      "Après 15:00",
+                                                      "${Jiffy.parseFromDateTime(DateTime.parse("2024-01-04 15:00")).fromNow()}",
                                                       style: AppTextStyle
                                                           .subtitle
                                                           .copyWith(
@@ -322,7 +327,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                   height: Helper.PADDING / 5,
                                                 ),
                                                 Text(
-                                                  "Lun. 25 Dec. 2023",
+                                                  "${dateFormat2.format(DateTime.parse("2024-01-01"))}",
                                                   style: AppTextStyle.subtitle
                                                       .copyWith(
                                                           fontWeight:

@@ -126,15 +126,15 @@ class _ContactsPageState extends State<ContactsPage> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
+                                  SvgPicture.asset(
+                                    "assets/images/socials/Email.svg",
+                                    height: 25,
                                   ),
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "info@ancrage.com",
+                                    "contacts@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],

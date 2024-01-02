@@ -68,9 +68,10 @@ class _HeaderMenuState extends State<HeaderMenu> {
                           ),
                           MenuButtonText(
                             onTap: () {
-                              Get.toNamed("/activites");
+                              Get.toNamed("/activities");
                             },
-                            active: Get.currentRoute == "/activites",
+                            active: Get.currentRoute == "/activities" ||
+                                Get.currentRoute == "/activity",
                             withPadding: true,
                             title: "ACTIVITés",
                           ),
@@ -78,7 +79,8 @@ class _HeaderMenuState extends State<HeaderMenu> {
                             onTap: () {
                               Get.toNamed("/galeries");
                             },
-                            active: Get.currentRoute == "/galerie",
+                            active: Get.currentRoute == "/galeries" ||
+                                Get.currentRoute == "/galerie",
                             withPadding: true,
                             title: "GALERIE",
                           ),

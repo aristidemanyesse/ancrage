@@ -26,7 +26,7 @@ void main() {
   Get.put(ReservationController());
   Get.put(ReservationPageController());
 
-  initializeDateFormatting().then((_) => runApp(const MyApp()));
+  initializeDateFormatting('fr_FR', null).then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/reservation_next_3',
             page: () => const ReservationStep3Page()),
-        GetPage(name: '/activites', page: () => const ActivitiesPage()),
+        GetPage(name: '/activities', page: () => const ActivitiesPage()),
         GetPage(name: '/activity', page: () => const ActivityPage()),
         GetPage(name: '/galeries', page: () => const GaleriesPage()),
         GetPage(name: '/galerie', page: () => const GaleriePage()),

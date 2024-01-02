@@ -129,15 +129,15 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
+                                  SvgPicture.asset(
+                                    "assets/images/socials/Email.svg",
+                                    height: 25,
                                   ),
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "info@ancrage.com",
+                                    "contacts@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],
@@ -176,26 +176,28 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "#Tourism",
-                                            style: AppTextStyle.bodygrasitalic,
-                                          ),
-                                          Text(
-                                            "Visit to tourist sites",
-                                            style: AppTextStyle.body,
-                                          ),
-                                          InderlineButton(
-                                            ontap: () {
-                                              Get.toNamed("/activity");
-                                            },
-                                            title: "Learn more",
-                                          ),
-                                        ],
-                                      )),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "#Tourism",
+                                              style:
+                                                  AppTextStyle.bodygrasitalic,
+                                            ),
+                                            Text(
+                                              "Visit to tourist sites",
+                                              style: AppTextStyle.body,
+                                            ),
+                                            InderlineButton(
+                                              ontap: () {
+                                                Get.toNamed("/activity");
+                                              },
+                                              title: "Learn more",
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       Expanded(
                                           child: Container(
                                         child: SingleChildScrollView(

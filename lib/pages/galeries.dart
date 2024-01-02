@@ -1,14 +1,15 @@
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/pack_box_activity.dart';
+import 'package:ancrage/components/main_button.dart';
+import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
-import 'package:ancrage/controllers/reservationController.dart';
-import 'package:ancrage/controllers/reservation_page_controller.dart';
+import 'package:ancrage/controllers/page_controller.dart';
+import 'package:ancrage/components/inderline_button.dart';
+import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class GaleriesPage extends StatefulWidget {
@@ -20,18 +21,23 @@ class GaleriesPage extends StatefulWidget {
 
 class _GaleriesPageState extends State<GaleriesPage> {
   LoaderController loaderController = Get.find();
-  ReservationPageController GaleriesPagePageController = Get.find();
-  ReservationController reservationController = Get.find();
+  PagesController pageController = Get.find();
 
-  final ScrollController _pageController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
+  final ScrollController _sectionScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _pageController.addListener(() {
-      GaleriesPagePageController.scrollPosition.value =
-          _pageController.position.pixels;
+    _scrollController.addListener(() {
+      pageController.scrollPosition.value = _scrollController.position.pixels;
+
+      if (_sectionScrollController.position.pixels == 0) {
+        animateController(_sectionScrollController, 1500, milliseconds: 3000);
+      } else {
+        animateController(_sectionScrollController, 0, milliseconds: 3000);
+      }
     });
   }
 
@@ -45,7 +51,7 @@ class _GaleriesPageState extends State<GaleriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        alignment: Alignment.topLeft,
+        alignment: Alignment.center,
         children: [
           SizedBox(
             width: double.infinity,
@@ -65,110 +71,63 @@ class _GaleriesPageState extends State<GaleriesPage> {
               ),
             ),
           ),
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColor.background.withOpacity(0.1),
+            ),
+          ),
+          Positioned(
+              bottom: Helper.PADDING,
+              left: Helper.PADDING * 2,
+              child: Text(
+                "Notre galerie photo",
+                style: AppTextStyle.playfair.copyWith(color: AppColor.green),
+              )),
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
-              controller: _pageController,
+              controller: _scrollController,
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: Get.size.width,
-                    height: Get.size.height * 0.55,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 0))),
+                    height: Get.size.height,
                     child: Stack(
-                      alignment: Alignment.bottomLeft,
+                      alignment: Alignment.bottomCenter,
                       children: [
-                        Container(
-                          width: Get.size.width,
-                          height: 30,
-                          color: Colors.white,
-                        ),
-                        Container(
-                          margin:
-                              const EdgeInsets.only(left: Helper.PADDING * 2),
-                          padding: const EdgeInsets.all(Helper.PADDING / 1.5),
-                          width: Get.size.width * 0.35,
-                          height: 250,
-                          color: AppColor.background,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "réservation".toUpperCase(),
-                                style: AppTextStyle.titleLarge.copyWith(
-                                    fontSize: 38,
-                                    letterSpacing: 5,
-                                    fontWeight: FontWeight.w500),
+                        Positioned(
+                          bottom: Helper.PADDING,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: InkWell(
+                              onTap: () {
+                                animateController(
+                                    _scrollController, Get.size.height,
+                                    milliseconds: 700);
+                              },
+                              child: SvgPicture.asset(
+                                "assets/images/logo/logo-blanc.svg",
+                                height: Helper.PADDING,
                               ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Times@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "L'ANCRAGE est disponible en permanence pour vous.",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "+225 07 07 070 707",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "info@ancrage.com",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Helper.PADDING * 3),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Helper.PADDING * 2,
+                        vertical: Helper.PADDING * 2),
                     decoration: const BoxDecoration(
-                      color: AppColor.white,
-                      border: Border(
-                          top: BorderSide(color: Colors.white, width: 0)),
-                    ),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [AppColor.white, AppColor.background])),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: Helper.PADDING * 2,
-                        ),
                         Container(
                           child: GridView.count(
                               crossAxisCount: 2,
@@ -212,9 +171,6 @@ class _GaleriesPageState extends State<GaleriesPage> {
                                   ),
                                 );
                               })),
-                        ),
-                        SizedBox(
-                          height: Helper.PADDING * 2,
                         ),
                       ],
                     ),

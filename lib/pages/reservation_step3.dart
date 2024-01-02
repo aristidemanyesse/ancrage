@@ -8,6 +8,7 @@ import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ReservationStep3Page extends StatefulWidget {
@@ -124,15 +125,15 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
+                                  SvgPicture.asset(
+                                    "assets/images/socials/Email.svg",
+                                    height: 25,
                                   ),
                                   const SizedBox(
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "info@ancrage.com",
+                                    "contacts@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],

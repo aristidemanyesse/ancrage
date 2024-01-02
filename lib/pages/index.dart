@@ -133,20 +133,23 @@ class _IndexPageState extends State<IndexPage> {
                                       title: "menubar_home".tr,
                                     ),
                                     MenuButtonText(
-                                      color: Colors.white,
                                       onTap: () {
-                                        Get.toNamed("/activites");
+                                        Get.toNamed("/activities");
                                       },
-                                      active: Get.currentRoute == "/activites",
+                                      active:
+                                          Get.currentRoute == "/activities" ||
+                                              Get.currentRoute == "/activity",
+                                      color: AppColor.white,
                                       withPadding: true,
                                       title: "ACTIVITés",
                                     ),
                                     MenuButtonText(
-                                      color: Colors.white,
                                       onTap: () {
                                         Get.toNamed("/galeries");
                                       },
-                                      active: Get.currentRoute == "/galerie",
+                                      active: Get.currentRoute == "/galeries" ||
+                                          Get.currentRoute == "/activity",
+                                      color: AppColor.white,
                                       withPadding: true,
                                       title: "GALERIE",
                                     ),
@@ -387,7 +390,9 @@ class _IndexPageState extends State<IndexPage> {
                                 children: [
                                   MainButton(
                                     title: "view gallery",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.toNamed("/galeries");
+                                    },
                                   )
                                 ],
                               ),
@@ -563,7 +568,7 @@ class _IndexPageState extends State<IndexPage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Tourism",
+                                                    "#Tourism",
                                                     style: AppTextStyle
                                                         .bodygrasitalic,
                                                   ),
@@ -575,7 +580,12 @@ class _IndexPageState extends State<IndexPage> {
                                               ),
                                             ),
                                             InderlineButton(
-                                              ontap: () {},
+                                              ontap: () {
+                                                Get.toNamed("/activity",
+                                                    arguments: {
+                                                      "activity": ""
+                                                    });
+                                              },
                                               title: "Learn more",
                                             ),
                                           ],

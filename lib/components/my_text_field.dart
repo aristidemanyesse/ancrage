@@ -1,5 +1,6 @@
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyTextField extends StatelessWidget {
   final String placeholer;
@@ -29,6 +30,9 @@ class MyTextField extends StatelessWidget {
         TextField(
           keyboardType: keyboardType,
           maxLines: maxlines,
+          inputFormatters: keyboardType == TextInputType.number
+              ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+              : [],
           decoration: InputDecoration(
             hintText: placeholer,
             hintStyle: AppTextStyle.placeholder,
