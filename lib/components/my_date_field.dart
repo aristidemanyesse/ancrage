@@ -5,8 +5,15 @@ import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 class MyDateField extends StatelessWidget {
   final String placeholer;
   final String label;
+  final Function onChanged;
+  final TextEditingController controller;
 
-  const MyDateField({super.key, required this.placeholer, required this.label});
+  const MyDateField(
+      {super.key,
+      required this.placeholer,
+      required this.label,
+      required this.onChanged,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +28,7 @@ class MyDateField extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: controller,
           onTap: () async {
             DateTime? dateTime = await showOmniDateTimePicker(
               context: context,
@@ -61,7 +69,7 @@ class MyDateField extends StatelessWidget {
               },
             );
 
-            print("dateTime: $dateTime");
+            onChanged(dateTime);
           },
           readOnly: true, // Pour rendre le champ de texte en lecture seule
           decoration: InputDecoration(

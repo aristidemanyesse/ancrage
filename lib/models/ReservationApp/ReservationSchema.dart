@@ -1,6 +1,6 @@
 import 'package:ancrage/models/HotelApp/Activity.dart';
 
-class ActivitySchema {
+class ReservationSchema {
   static const String ALL = r"""
     query () {
       searchActivity(

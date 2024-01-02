@@ -3,7 +3,7 @@ import 'package:ancrage/models/HotelApp/Option.dart';
 
 class CategoryOptionSchema {
   static const String ALL = r"""
-    query ($edition: UUID,) {
+    query () {
       searchCategoryOption(
         deleted: false
       ) {

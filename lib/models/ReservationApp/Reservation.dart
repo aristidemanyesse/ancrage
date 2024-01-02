@@ -1,5 +1,6 @@
 // This file is "main.dart"
 import 'package:ancrage/core/apiservice.dart';
+import 'package:ancrage/models/ReservationApp/ReservationSchema.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'Reservation.freezed.dart';

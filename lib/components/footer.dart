@@ -53,7 +53,7 @@ class Footer extends StatelessWidget {
                         ),
                         MenuButtonText(
                           onTap: () {
-                            Get.toNamed("/galerie");
+                            Get.toNamed("/galeries");
                           },
                           title: "GALERIE",
                           color: AppColor.white,

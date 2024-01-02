@@ -4,10 +4,12 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/page_controller.dart';
+import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class ReservationStep2Page extends StatefulWidget {
@@ -20,6 +22,7 @@ class ReservationStep2Page extends StatefulWidget {
 class _ReservationStep2PageState extends State<ReservationStep2Page> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
+  ReservationController reservationController = Get.find();
 
   @override
   void initState() {
@@ -260,7 +263,8 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                   "assets/images/socials/Times@2x.png",
                                                   height: 20,
                                                 ),
-                                                const InderlineButton2(
+                                                InderlineButton2(
+                                                  onTap: () {},
                                                   title:
                                                       "Assistance en chambre disponible dès 08h30",
                                                 ),
@@ -285,6 +289,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                             ],
                           ),
                         ),
+
                         Container(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -383,7 +388,8 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 4),
-                                                  const InderlineButton2(
+                                                  InderlineButton2(
+                                                    onTap: () {},
                                                     title:
                                                         "Détails de la chambre",
                                                   ),
@@ -401,14 +407,17 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                             ],
                                           ),
                                           Container(
-                                            child: const Column(
+                                            child: Column(
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     InderlineButton2(
-                                                      title: "Modiifer",
+                                                      onTap: () {
+                                                        Get.back();
+                                                      },
+                                                      title: "Modifier",
                                                     ),
                                                   ],
                                                 ),
@@ -431,21 +440,27 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                 ),
                               ),
                               Container(
-                                  margin: const EdgeInsets.all(0),
                                   child: Column(
-                                    children: pageController.listKey.map((key) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                            bottom: Helper.PADDING / 2),
-                                        child: PackBoxActivity(
-                                          key_value: key,
-                                          initiallyExpanded: false,
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )),
+                                children: reservationController
+                                    .listActivitiesKey.keys
+                                    .map((key) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(
+                                        bottom: Helper.PADDING / 2),
+                                    child: PackBoxActivity(
+                                      key_value: key,
+                                      activity: reservationController
+                                          .listActivitiesKey[key]!,
+                                      initiallyExpanded: false,
+                                    ),
+                                  );
+                                }).toList(),
+                              )),
                             ],
                           ),
+                        ),
+                        const SizedBox(
+                          height: Helper.PADDING * 2,
                         ),
                         // const ComeToUs(
                         //   start: 3000,

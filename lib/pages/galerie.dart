@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
@@ -158,7 +160,7 @@ class _GaleriePageState extends State<GaleriePage> {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: Helper.PADDING * 3),
+                        horizontal: Helper.PADDING * 2),
                     decoration: const BoxDecoration(
                       color: AppColor.white,
                       border: Border(
@@ -166,304 +168,109 @@ class _GaleriePageState extends State<GaleriePage> {
                     ),
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: Helper.PADDING * 2,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                "assets/images/bg/Img@2x (1).png",
+                              ),
+                            ),
+                            SizedBox(
+                              width: Helper.PADDING,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "occaecati cupiditate non provident, similique sunt ",
+                                    style: AppTextStyle.titleSmall,
+                                  ),
+                                  SizedBox(
+                                    height: Helper.PADDING,
+                                  ),
+                                  Text(
+                                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+                                    style: AppTextStyle.body,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: Helper.PADDING / 2,
+                        ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: Helper.PADDING,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: AppColor.background,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: Helper.PADDING / 4,
-                                      horizontal: Helper.PADDING),
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Package Villa",
-                                            style: AppTextStyle.subtitle,
-                                          ),
-                                          const SizedBox(
-                                            height: Helper.PADDING / 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Durée de votre séjour",
-                                                      style: AppTextStyle.small,
-                                                    ),
-                                                    const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 5,
-                                                    ),
-                                                    Text(
-                                                      "Lun. 25 Dec. 2023 - Lun. 25 Dec. 2023",
-                                                      style: AppTextStyle
-                                                          .bodysmall
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: Helper.PADDING,
-                                                child: Center(
-                                                    child: Container(
-                                                  height: 40,
-                                                  width: 1,
-                                                  color: Colors.black,
-                                                )),
-                                              ),
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Montant total de votre séjour",
-                                                      style: AppTextStyle.small,
-                                                    ),
-                                                    const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 5,
-                                                    ),
-                                                    Text(
-                                                      "5 050 050 FCFA",
-                                                      style: AppTextStyle
-                                                          .bodysmall
-                                                          .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  "assets/images/socials/Times@2x.png",
-                                                  height: 20,
-                                                ),
-                                                const InderlineButton2(
-                                                  title:
-                                                      "Assistance en chambre disponible dès 08h30",
-                                                ),
-                                                const SizedBox(
-                                                  width: Helper.PADDING / 4,
-                                                ),
-                                                FormMainButton(
-                                                    onTap: () {
-                                                      Get.toNamed(
-                                                          "/reservation_next");
-                                                    },
-                                                    title: "Continuer")
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (1).png",
+                                    height: 500,
+                                    width: 650,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Imgml@2x.png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (3).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (2).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/facade.png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: Helper.PADDING / 2),
+                                  child: Image.asset(
+                                    "assets/images/bg/Img@2x (4).png",
+                                    height: 500,
+                                    width: 650,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 3, color: AppColor.background)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(
-                                  Helper.PADDING / 4,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                        flex: 3,
-                                        child: Image.asset(
-                                          "assets/images/bg/facade.png",
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                    const SizedBox(
-                                      width: Helper.PADDING,
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "1 - Villa",
-                                                    style: AppTextStyle
-                                                        .titleMedium,
-                                                  ),
-                                                  Text(
-                                                      "2 lits | California King | 75 m²",
-                                                      style: AppTextStyle.body
-                                                          .copyWith(
-                                                              letterSpacing:
-                                                                  -1)),
-                                                  const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 4),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Arrivée",
-                                                        style:
-                                                            AppTextStyle.small,
-                                                      ),
-                                                      const SizedBox(
-                                                        width:
-                                                            Helper.PADDING / 5,
-                                                      ),
-                                                      Text(
-                                                        "Lun. 25 Dec 2020",
-                                                        style: AppTextStyle
-                                                            .bodysmall
-                                                            .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                          width:
-                                                              Helper.PADDING),
-                                                      Text(
-                                                        "Départ",
-                                                        style:
-                                                            AppTextStyle.small,
-                                                      ),
-                                                      const SizedBox(
-                                                        width:
-                                                            Helper.PADDING / 5,
-                                                      ),
-                                                      Text(
-                                                        "Lun. 25 Dec 2020",
-                                                        style: AppTextStyle
-                                                            .bodysmall
-                                                            .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 4),
-                                                  const InderlineButton2(
-                                                    title:
-                                                        "Détails de la chambre",
-                                                  ),
-                                                  const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 4),
-                                                  Text("2 adultes    1 chambre",
-                                                      style: AppTextStyle
-                                                          .bodysmall
-                                                          .copyWith(
-                                                              letterSpacing:
-                                                                  -1)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            child: const Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    InderlineButton2(
-                                                      title: "Modiifer",
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: Helper.PADDING / 2,
-                                    horizontal: Helper.PADDING / 4),
-                                child: Text(
-                                  "Avons-nous pensé à tous ?",
-                                  style: AppTextStyle.titleMedium,
-                                ),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.all(0),
-                                  child: Column(
-                                    children: reservationController.listKey
-                                        .map((key) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                            bottom: Helper.PADDING / 2),
-                                        child: PackBoxActivity(
-                                          key_value: key,
-                                          initiallyExpanded: false,
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )),
-                            ],
-                          ),
+                        SizedBox(
+                          height: Helper.PADDING * 2,
                         ),
-                        // const ComeToUs(
-                        //   start: 3000,
-                        // ),
                       ],
                     ),
                   ),

@@ -1,6 +1,8 @@
 import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/core/apiservice.dart';
+import 'package:ancrage/models/HotelApp/Activity.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,8 +10,12 @@ import 'package:get/get.dart';
 class PackBoxActivity extends StatefulWidget {
   final GlobalKey key_value;
   final bool initiallyExpanded;
+  final Activity activity;
   const PackBoxActivity(
-      {super.key, required this.key_value, required this.initiallyExpanded});
+      {super.key,
+      required this.key_value,
+      required this.initiallyExpanded,
+      required this.activity});
 
   @override
   State<PackBoxActivity> createState() => _PackBoxActivityState();
@@ -27,7 +33,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
           iconValue = !value;
         });
         if (value) {
-          for (var key in reservationController.listKey) {
+          for (var key in reservationController.listActivitiesKey.keys) {
             if (key != widget.key_value) {
               key.currentState?.collapse();
             }
@@ -44,7 +50,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Package village + Navette point relais à Abidjan",
+            "${widget.activity.name}",
             style: AppTextStyle.subtitle,
           ),
           Container(
@@ -72,8 +78,8 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  child: Image.asset(
-                "assets/images/bg/facade.png",
+                  child: Image.network(
+                ApiService.MEDIA_URL + widget.activity.image,
                 fit: BoxFit.fitHeight,
               )),
               const SizedBox(
@@ -101,16 +107,64 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                             ),
                           ),
                           Text(
-                            "ther exception was thrown: Multiple widgets used the same Globather exception was thrown: Multiple widgets used the same Globather exception was thrown: Multiple widgets used the same Globather exception was thrown: Multiple widgets used the same Globather exception was thrown: Multiple widgets used the same Globather exception was thrown: Multiple widgets used the same Globa ",
+                            "${widget.activity.description}",
                             style: AppTextStyle.body.copyWith(letterSpacing: 0),
                           ),
-                          CheckboxListTile(
-                            title: const Text("title text"),
-                            value: false,
-                            onChanged: (newValue) {
-                              setState(() {});
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
+                          Row(
+                            children: [
+                              Text("Horaire: "),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    child: FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Switch(
+                                        value: true,
+                                        onChanged: (bool value1) {},
+                                      ),
+                                    ),
+                                  ),
+                                  Text("Matin "),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    value: 2,
+                                    groupValue: true,
+                                    onChanged: (value) {
+                                      setState(() {});
+                                    },
+                                  ),
+                                  Text("Soir "),
+                                ],
+                              ),
+                            ],
+                          ),
+                          GridView.count(
+                            crossAxisCount: 4,
+                            childAspectRatio: (8 / 1),
+                            controller:
+                                ScrollController(keepScrollOffset: false),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: widget.activity.prerequis
+                                .split(";")
+                                .map((item) => Row(
+                                      children: [
+                                        Icon(
+                                          Icons.circle,
+                                          size: 5,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(item.trim(),
+                                            style: AppTextStyle.menuButtonText),
+                                      ],
+                                    ))
+                                .toList(),
                           ),
                           const SizedBox(
                             height: Helper.PADDING / 5,
@@ -121,7 +175,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                           const SizedBox(
                             height: Helper.PADDING / 5,
                           ),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text("Prix en groupe"),
@@ -133,6 +187,38 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 children: [
                                   Text(
                                       "Voulez-vous faire cette activité en privée ?"),
+                                  Row(
+                                    children: [
+                                      Text("Horaire: "),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 30,
+                                            child: FittedBox(
+                                              fit: BoxFit.fill,
+                                              child: Switch(
+                                                value: true,
+                                                onChanged: (bool value1) {},
+                                              ),
+                                            ),
+                                          ),
+                                          Text("Oui "),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: 2,
+                                            groupValue: true,
+                                            onChanged: (value) {
+                                              setState(() {});
+                                            },
+                                          ),
+                                          Text("Non "),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               )
                             ],
@@ -147,7 +233,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                   onTap: () {
                                     Get.toNamed("/reservation_next");
                                   },
-                                  title: "Reserver")
+                                  title: "Suivant")
                             ],
                           ),
                         ],

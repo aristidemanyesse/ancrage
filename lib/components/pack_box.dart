@@ -2,15 +2,21 @@ import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/core/apiservice.dart';
+import 'package:ancrage/models/HotelApp/Pack.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PackBox extends StatefulWidget {
   final GlobalKey key_value;
+  final Pack pack;
   final bool initiallyExpanded;
   const PackBox(
-      {super.key, required this.key_value, required this.initiallyExpanded});
+      {super.key,
+      required this.key_value,
+      required this.initiallyExpanded,
+      required this.pack});
 
   @override
   State<PackBox> createState() => _PackBoxState();
@@ -28,7 +34,7 @@ class _PackBoxState extends State<PackBox> {
           iconValue = !value;
         });
         if (value) {
-          for (var key in reservationController.listKey) {
+          for (var key in reservationController.listKey.keys) {
             if (key != widget.key_value) {
               key.currentState?.collapse();
             }
@@ -45,7 +51,7 @@ class _PackBoxState extends State<PackBox> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Package village + Navette point relais à Abidjan",
+            "Package ${widget.pack.name}",
             style: AppTextStyle.subtitle,
           ),
           Container(
@@ -74,8 +80,8 @@ class _PackBoxState extends State<PackBox> {
             children: [
               Expanded(
                   flex: 3,
-                  child: Image.asset(
-                    "assets/images/bg/facade.png",
+                  child: Image.network(
+                    ApiService.MEDIA_URL + widget.pack.image,
                     fit: BoxFit.fitHeight,
                   )),
               const SizedBox(
@@ -94,16 +100,18 @@ class _PackBoxState extends State<PackBox> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "1 - Villa",
+                                "${widget.pack.name}",
                                 style: AppTextStyle.titleMedium,
                               ),
-                              Text("2 lits | California King | 75 m²",
+                              Text(
+                                  "${widget.pack.nbreLit} lits | ${widget.pack.modeleLit} | ${widget.pack.superficie} m²",
                                   style: AppTextStyle.body
                                       .copyWith(letterSpacing: -1)),
                             ],
                           ),
                           const Spacer(),
-                          const InderlineButton2(
+                          InderlineButton2(
+                            onTap: () {},
                             title: "Politique d'annulation",
                           ),
                         ],
@@ -117,7 +125,7 @@ class _PackBoxState extends State<PackBox> {
                                 AppTextStyle.body.copyWith(letterSpacing: -1),
                           ),
                           Text(
-                            "220.000 FCFA",
+                            "${widget.pack.price} FCFA",
                             style: AppTextStyle.titleSmall.copyWith(
                                 color: AppColor.blue,
                                 fontWeight: FontWeight.bold),
@@ -145,29 +153,29 @@ class _PackBoxState extends State<PackBox> {
                               height: Helper.PADDING / 5,
                             ),
                             GridView.count(
-                              crossAxisCount: 3,
-                              childAspectRatio: (8 / 1),
-                              controller:
-                                  ScrollController(keepScrollOffset: false),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              children: List.generate(
-                                14,
-                                (index) => const Row(
-                                  children: [
-                                    Icon(
-                                      Icons.circle,
-                                      size: 5,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text("Hello world",
-                                        style: AppTextStyle.menuButtonText),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                crossAxisCount: 3,
+                                childAspectRatio: (8 / 1),
+                                controller:
+                                    ScrollController(keepScrollOffset: false),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: widget.pack.inclus
+                                    .split(";")
+                                    .map((item) => Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              size: 5,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(item.trim(),
+                                                style: AppTextStyle
+                                                    .menuButtonText),
+                                          ],
+                                        ))
+                                    .toList()),
                             const SizedBox(
                               height: Helper.PADDING / 2,
                             ),
@@ -176,9 +184,9 @@ class _PackBoxState extends State<PackBox> {
                               children: [
                                 FormMainButton(
                                     onTap: () {
-                                      Get.toNamed("/reservation_next");
+                                      Get.toNamed("/reservation_next_2");
                                     },
-                                    title: "Reserver")
+                                    title: "Suivant")
                               ],
                             ),
                           ],

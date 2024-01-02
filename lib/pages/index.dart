@@ -144,7 +144,7 @@ class _IndexPageState extends State<IndexPage> {
                                     MenuButtonText(
                                       color: Colors.white,
                                       onTap: () {
-                                        Get.toNamed("/galerie");
+                                        Get.toNamed("/galeries");
                                       },
                                       active: Get.currentRoute == "/galerie",
                                       withPadding: true,
@@ -574,7 +574,8 @@ class _IndexPageState extends State<IndexPage> {
                                                 ],
                                               ),
                                             ),
-                                            const InderlineButton(
+                                            InderlineButton(
+                                              ontap: () {},
                                               title: "Learn more",
                                             ),
                                           ],

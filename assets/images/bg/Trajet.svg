@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="250.003" viewBox="0 0 1720 250.003">
+  <g id="Trajet" transform="translate(-351 -1320.469)">
+    <path id="Tracé_1425" data-name="Tracé 1425" d="M-10827-10832.217s184.52-4.66,237.654,20.807,40.8,93.64-5.9,94.5-64.811-89.886,5.9-111.605,174.246-22.318,210.57-23.062,57.669,4.527,60.516,19.358-8.114,24.041-8.385,24.112c-13.3,15.411-81.214,26.178-71.287,61.888s56.393,27.9,126.011,0,73.626-96.52,152.464-111.6,92.9-10.807,131.319,0,70.444,46.595,75.008,68.961,3.194,77.99-85.8,94.944-125.539-36.282-126.142-58.532,9.867-59.074,115.519-80.06,90.233,41.1,220.508,33.967c95.038-.656,185.368,53.961,300.929,50.378s187.675-59.17,188.455-109.658-53.276-70.1-85.226-49.826-51.221,63.19,5.874,118.787,196.647-24.792,196.647-24.792" transform="translate(11246.001 12237.001)" fill="none" stroke="#a37f56" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="4" opacity="0.5"/>
+    <path id="Fin" d="M-722.065,723.391a2.407,2.407,0,0,1-.9-.674,32.819,32.819,0,0,1-5.111-6.23,16.968,16.968,0,0,1-2.375-5.625,8.861,8.861,0,0,1,1.781-7.653,8.344,8.344,0,0,1,5.589-3.151,8.526,8.526,0,0,1,7.957,3.118,8.485,8.485,0,0,1,1.929,4.37,10.135,10.135,0,0,1-.668,5.087,24.443,24.443,0,0,1-3.567,6.186,37.073,37.073,0,0,1-3.615,4.106,4.829,4.829,0,0,1-.657.466Zm.173-10.384a4.2,4.2,0,0,0,4.194-4.188,4.209,4.209,0,0,0-4.177-4.234,4.209,4.209,0,0,0-4.194,4.194A4.2,4.2,0,0,0-721.891,713.006Z" transform="translate(2784.102 703.82)" fill="#094157"/>
+    <text id="L_embourchure" data-name="L’embourchure" transform="translate(2053 1422.773)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-115" y="0">L’embourchure</tspan></text>
+    <g id="Escale" transform="translate(1748 1477.609)">
+      <circle id="Ellipse_743" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(19.044 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.513 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Le_pont_général_weygand" data-name="Le pont général weygand" transform="translate(1760 1472.633)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-97" y="0">Le pont général weygand</tspan></text>
+    <g id="Escale-2" data-name="Escale" transform="translate(1447 1428.732)">
+      <circle id="Ellipse_743-2" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-2" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(19.132 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-2" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.601 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="La_maison_du_gouverneur" data-name="La maison du gouverneur" transform="translate(1459 1423.769)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-98" y="0">La maison du gouverneur</tspan></text>
+    <g id="Escale-3" data-name="Escale" transform="translate(1241 1532.472)">
+      <circle id="Ellipse_743-3" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-3" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(19.06 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-3" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.529 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Le_wharf_ou_grand_quai" data-name="Le wharf ou grand quai" transform="translate(1253 1527.415)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-89" y="0">Le wharf ou grand quai</tspan></text>
+    <g id="Escale-4" data-name="Escale" transform="translate(1143 1365.889)">
+      <circle id="Ellipse_743-4" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-4" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(18.708 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-4" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.176 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Le_wharf_ou_grand_quai-2" data-name="Le wharf ou grand quai" transform="translate(1154 1361)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-89" y="0">Le wharf ou grand quai</tspan></text>
+    <g id="Escale-5" data-name="Escale" transform="translate(947 1487.584)">
+      <circle id="Ellipse_743-5" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-5" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(19.172 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-5" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.641 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Le_port_Fanti_et_marché_aux_poissons" data-name="Le port Fanti
+et marché aux poissons" transform="translate(959 1458.629)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-49" y="0">Le port Fanti</tspan><tspan x="-90" y="24">et marché aux poissons</tspan></text>
+    <g id="Escale-6" data-name="Escale" transform="translate(794 1375.864)">
+      <circle id="Ellipse_743-6" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-6" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(18.79 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-6" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(19.258 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Stèle_du_naufrage_du_s.s._Dumana" data-name="Stèle du naufrage
+du s.s. Dumana" transform="translate(806 1348)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-68" y="0">Stèle du naufrage</tspan><tspan x="-58" y="24">du s.s. Dumana</tspan></text>
+    <g id="Escale-7" data-name="Escale" transform="translate(641 1507.535)">
+      <circle id="Ellipse_743-7" data-name="Ellipse 743" cx="11.5" cy="11.5" r="11.5" transform="translate(23) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_745-7" data-name="Ellipse 745" cx="7.494" cy="7.494" r="7.494" transform="translate(18.406 4.215) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-7" data-name="Ellipse 746" cx="7.962" cy="7.962" r="7.962" transform="translate(18.875 3.746) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Église_saint-andré" data-name="Église saint-andré" transform="translate(652 1502.549)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="-67" y="0">Église saint-andré</tspan></text>
+    <g id="Départ" transform="translate(413 1389.829)">
+      <rect id="Rectangle_1923" data-name="Rectangle 1923" width="18" height="17" transform="translate(35) rotate(90)" fill="#074157"/>
+      <circle id="Ellipse_743-8" data-name="Ellipse 743" cx="17.5" cy="17.5" r="17.5" transform="translate(35) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_744" data-name="Ellipse 744" cx="17.5" cy="17.5" r="17.5" transform="translate(35) rotate(90)" fill="#fff"/>
+      <circle id="Ellipse_745-8" data-name="Ellipse 745" cx="11.24" cy="11.24" r="11.24" transform="translate(28.858 6.323) rotate(90)" opacity="0.2"/>
+      <circle id="Ellipse_746-8" data-name="Ellipse 746" cx="11.943" cy="11.943" r="11.943" transform="translate(29.563 5.619) rotate(90)" fill="#074157"/>
+    </g>
+    <text id="Visite_du_port_de_pêche" data-name="Visite
+du port de pêche" transform="translate(351 1420.749)" fill="#03200e" font-size="20" font-family="ContraltoSmall-Regular, Contralto Small"><tspan x="0" y="0">Visite</tspan><tspan x="0" y="24">du port de pêche</tspan></text>
+  </g>
+</svg>

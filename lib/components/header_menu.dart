@@ -76,7 +76,7 @@ class _HeaderMenuState extends State<HeaderMenu> {
                           ),
                           MenuButtonText(
                             onTap: () {
-                              Get.toNamed("/galerie");
+                              Get.toNamed("/galeries");
                             },
                             active: Get.currentRoute == "/galerie",
                             withPadding: true,

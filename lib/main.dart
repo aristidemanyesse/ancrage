@@ -1,10 +1,13 @@
+import 'package:ancrage/controllers/ConnexionController.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/core/TranslationClass.dart';
 import 'package:ancrage/pages/activities.dart';
+import 'package:ancrage/pages/activity.dart';
 import 'package:ancrage/pages/apropos.dart';
 import 'package:ancrage/pages/contacts.dart';
 import 'package:ancrage/pages/galerie.dart';
+import 'package:ancrage/pages/galeries.dart';
 import 'package:ancrage/pages/index.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/controllers/reservation_page_controller.dart';
@@ -17,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  Get.put(ConnexionController());
   Get.put(LoaderController());
   Get.put(PagesController());
   Get.put(ReservationController());
@@ -56,6 +60,8 @@ class MyApp extends StatelessWidget {
             name: '/reservation_next_3',
             page: () => const ReservationStep3Page()),
         GetPage(name: '/activites', page: () => const ActivitiesPage()),
+        GetPage(name: '/activity', page: () => const ActivityPage()),
+        GetPage(name: '/galeries', page: () => const GaleriesPage()),
         GetPage(name: '/galerie', page: () => const GaleriePage()),
         GetPage(name: '/a_propos', page: () => const AproposPage()),
         GetPage(name: '/contacts', page: () => const ContactsPage()),

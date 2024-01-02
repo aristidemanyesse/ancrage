@@ -1,36 +1,44 @@
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
-import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/my_text_field.dart';
-import 'package:ancrage/components/secondary_button.dart';
-import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/modals/alert.dart';
+import 'package:ancrage/components/pack_box_activity.dart';
+import 'package:ancrage/controllers/LoaderController.dart';
+import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/controllers/reservation_page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class ActivitiesPage extends StatefulWidget {
-  const ActivitiesPage({super.key});
+class GaleriesPage extends StatefulWidget {
+  const GaleriesPage({super.key});
 
   @override
-  State<ActivitiesPage> createState() => _ActivitiesPageState();
+  State<GaleriesPage> createState() => _GaleriesPageState();
 }
 
-class _ActivitiesPageState extends State<ActivitiesPage> {
-  PagesController pageController = Get.find();
-  final ScrollController _scrollController = ScrollController();
+class _GaleriesPageState extends State<GaleriesPage> {
+  LoaderController loaderController = Get.find();
+  ReservationPageController GaleriesPagePageController = Get.find();
+  ReservationController reservationController = Get.find();
+
+  final ScrollController _pageController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      pageController.scrollPosition.value = _scrollController.position.pixels;
+    _pageController.addListener(() {
+      GaleriesPagePageController.scrollPosition.value =
+          _pageController.position.pixels;
     });
+  }
+
+  void animateController(ScrollController controller, double position,
+      {int milliseconds = 3}) {
+    controller.animateTo(position,
+        duration: Duration(milliseconds: milliseconds), curve: Curves.easeOut);
   }
 
   @override
@@ -60,7 +68,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
-              controller: _scrollController,
+              controller: _pageController,
               child: Column(
                 children: [
                   Container(
@@ -88,7 +96,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "activités".toUpperCase(),
+                                "réservation".toUpperCase(),
                                 style: AppTextStyle.titleLarge.copyWith(
                                     fontSize: 38,
                                     letterSpacing: 5,
@@ -149,105 +157,65 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                     ),
                   ),
                   Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Helper.PADDING * 3),
                     decoration: const BoxDecoration(
                       color: AppColor.white,
                       border: Border(
                           top: BorderSide(color: Colors.white, width: 0)),
                     ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: Helper.PADDING * 2),
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: Helper.PADDING * 2,
+                        ),
                         Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: Helper.PADDING * 2),
-                              Text(
-                                "WHAT’S ON IN L’ANCRAGE".toUpperCase(),
-                                style: AppTextStyle.titleLarge,
-                              ),
-                              const SizedBox(height: Helper.PADDING * 2),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                          child: GridView.count(
+                              crossAxisCount: 2,
+                              childAspectRatio: .85,
+                              controller:
+                                  ScrollController(keepScrollOffset: false),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              mainAxisSpacing: Helper.PADDING,
+                              crossAxisSpacing: Helper.PADDING,
+                              children: List.generate(6, (index) {
+                                return MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/galerie");
+                                    },
+                                    child: Container(
+                                      child: Column(
                                         children: [
-                                          Text(
-                                            "#Tourism",
-                                            style: AppTextStyle.bodygrasitalic,
+                                          Expanded(
+                                            child: Image.asset(
+                                              "assets/images/bg/Bg.png",
+                                              fit: BoxFit.fitHeight,
+                                            ),
                                           ),
-                                          Text(
-                                            "Visit to tourist sites",
-                                            style: AppTextStyle.body,
+                                          SizedBox(
+                                            height: Helper.PADDING / 2,
                                           ),
-                                          InderlineButton(
-                                            ontap: () {
-                                              Get.toNamed("/activity");
-                                            },
-                                            title: "Learn more",
-                                          ),
-                                        ],
-                                      )),
-                                      Expanded(
-                                          child: Container(
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
+                                          Row(
                                             children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Img@2x (1).png",
-                                                  width: Get.size.width / 5,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Imgml@2x.png",
-                                                  width: Get.size.width / 5,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Img@2x (3).png",
-                                                  width: Get.size.width / 5,
-                                                ),
+                                              Text(
+                                                "ghhgkj",
+                                                style: AppTextStyle.titleMedium,
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ))
-                                    ],
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
+                                );
+                              })),
                         ),
-                        const SizedBox(height: Helper.PADDING * 2),
-
-                        // const ComeToUs(
-                        //   start: 2000,
-                        // ),
+                        SizedBox(
+                          height: Helper.PADDING * 2,
+                        ),
                       ],
                     ),
                   ),

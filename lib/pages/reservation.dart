@@ -6,10 +6,13 @@ import 'package:ancrage/components/my_date_field.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/pack_box.dart';
 import 'package:ancrage/components/my_text_field.dart';
+import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:collection/collection.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -21,6 +24,12 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
+
+  ReservationController reservationController = Get.find();
+
+  TextEditingController debutController = TextEditingController();
+  TextEditingController finController = TextEditingController();
+  DateFormat format = DateFormat("");
 
   @override
   void initState() {
@@ -177,13 +186,20 @@ class _ReservationPageState extends State<ReservationPage> {
                                       style: AppTextStyle.titleMedium,
                                     ),
                                     const Spacer(),
-                                    const Column(
+                                    Column(
                                       children: [
                                         Row(
                                           children: [
                                             Expanded(
                                                 child: MyDateField(
-                                              label: "Départ",
+                                              controller: debutController,
+                                              onChanged: (DateTime date) {
+                                                reservationController
+                                                    .debut.value = date;
+                                                debutController.text =
+                                                    date.toString();
+                                              },
+                                              label: "Arrivée",
                                               placeholer:
                                                   "Date et heure d'arrivée",
                                             )),
@@ -192,7 +208,14 @@ class _ReservationPageState extends State<ReservationPage> {
                                             ),
                                             Expanded(
                                                 child: MyDateField(
-                                              label: "Arrivée",
+                                              controller: finController,
+                                              onChanged: (DateTime date) {
+                                                reservationController
+                                                    .fin.value = date;
+                                                finController.text =
+                                                    date.toString();
+                                              },
+                                              label: "Départ",
                                               placeholer:
                                                   "Date et heure de départ",
                                             )),
@@ -206,8 +229,11 @@ class _ReservationPageState extends State<ReservationPage> {
                                             Expanded(
                                                 child: MyTextField(
                                               label: "Personnes",
-                                              placeholer:
-                                                  "Date et heure d'arrivée",
+                                              placeholer: "Nombre de personnes",
+                                              keyboardType: TextInputType
+                                                  .numberWithOptions(
+                                                signed: true,
+                                              ),
                                             )),
                                             SizedBox(
                                               width: Helper.PADDING / 2,
@@ -215,8 +241,11 @@ class _ReservationPageState extends State<ReservationPage> {
                                             Expanded(
                                                 child: MyTextField(
                                               label: "Chambres",
-                                              placeholer:
-                                                  "Date et heure de départ",
+                                              placeholer: "Nombre de chambres",
+                                              keyboardType: TextInputType
+                                                  .numberWithOptions(
+                                                signed: true,
+                                              ),
                                             )),
                                           ],
                                         ),
@@ -429,16 +458,18 @@ class _ReservationPageState extends State<ReservationPage> {
                               ),
                               Container(
                                   child: Column(
-                                children: pageController.listKey.map((key) {
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                        bottom: Helper.PADDING / 2),
-                                    child: PackBox(
-                                      key_value: key,
-                                      initiallyExpanded: false,
-                                    ),
-                                  );
-                                }).toList(),
+                                children: reservationController.listKey.keys
+                                    .mapIndexed((index, key) => Container(
+                                          margin: const EdgeInsets.only(
+                                              bottom: Helper.PADDING / 2),
+                                          child: PackBox(
+                                            key_value: key,
+                                            pack: reservationController
+                                                .listKey[key]!,
+                                            initiallyExpanded: index == 0,
+                                          ),
+                                        ))
+                                    .toList(),
                               )),
                             ],
                           ),

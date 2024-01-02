@@ -260,7 +260,8 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                   "assets/images/socials/Times@2x.png",
                                                   height: 20,
                                                 ),
-                                                const InderlineButton2(
+                                                InderlineButton2(
+                                                  onTap: () {},
                                                   title:
                                                       "Assistance en chambre disponible dès 08h30",
                                                 ),
@@ -383,14 +384,16 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 4),
-                                                  const InderlineButton2(
+                                                  InderlineButton2(
+                                                    onTap: () {},
                                                     title:
                                                         "Détails de la chambre",
                                                   ),
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 4),
-                                                  Text("2 adultes    1 chambre",
+                                                  Text(
+                                                      "2 personnes    1 chambre",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
@@ -401,14 +404,17 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                             ],
                                           ),
                                           Container(
-                                            child: const Column(
+                                            child: Column(
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     InderlineButton2(
-                                                      title: "Modiifer",
+                                                      onTap: () {
+                                                        Get.back();
+                                                      },
+                                                      title: "Modifier",
                                                     ),
                                                   ],
                                                 ),
@@ -430,22 +436,25 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                   style: AppTextStyle.titleMedium,
                                 ),
                               ),
-                              Container(
-                                  margin: const EdgeInsets.all(0),
-                                  child: Column(
-                                    children: pageController.listKey.map((key) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                            bottom: Helper.PADDING / 2),
-                                        child: PackBoxActivity(
-                                          key_value: key,
-                                          initiallyExpanded: false,
-                                        ),
-                                      );
-                                    }).toList(),
-                                  )),
+                              // Container(
+                              //     margin: const EdgeInsets.all(0),
+                              //     child: Column(
+                              //       children: pageController.listKey.map((key) {
+                              //         return Container(
+                              //           margin: const EdgeInsets.only(
+                              //               bottom: Helper.PADDING / 2),
+                              //           child: PackBoxActivity(
+                              //             key_value: key,
+                              //             initiallyExpanded: false,
+                              //           ),
+                              //         );
+                              //       }).toList(),
+                              //     )),
                             ],
                           ),
+                        ),
+                        const SizedBox(
+                          height: Helper.PADDING * 2,
                         ),
                         // const ComeToUs(
                         //   start: 3000,

@@ -1,17 +1,18 @@
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class MyTextField extends StatelessWidget {
   final String placeholer;
   final String label;
   final int maxlines;
+  final TextInputType keyboardType;
 
   const MyTextField(
       {super.key,
       required this.placeholer,
       required this.label,
-      this.maxlines = 1});
+      this.maxlines = 1,
+      this.keyboardType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class MyTextField extends StatelessWidget {
           ),
         ),
         TextField(
+          keyboardType: keyboardType,
           maxLines: maxlines,
           decoration: InputDecoration(
             hintText: placeholer,
