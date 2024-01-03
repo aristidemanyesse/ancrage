@@ -116,7 +116,7 @@ class _HeaderMenuState extends State<HeaderMenu> {
                       ),
                       DropdownButton(
                         elevation: 0,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_outlined,
                           size: 0,
                         ),
@@ -170,7 +170,7 @@ class _HeaderMenuState extends State<HeaderMenu> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: Helper.PADDING / 4,
                                 ),
                                 Text(item),

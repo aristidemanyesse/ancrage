@@ -1,10 +1,10 @@
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/controllers/reservation_page_controller.dart';
+import 'package:ancrage/core/apiservice.dart';
+import 'package:ancrage/models/HotelApp/Activity.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +26,13 @@ class _ActivityPageState extends State<ActivityPage> {
 
   final ScrollController _pageController = ScrollController();
 
+  Activity activity = const Activity();
+
   @override
   void initState() {
     super.initState();
+
+    activity = Get.arguments["activity"];
 
     _pageController.addListener(() {
       ActivityPagePageController.scrollPosition.value =
@@ -52,21 +56,21 @@ class _ActivityPageState extends State<ActivityPage> {
             width: double.infinity,
             height: double.infinity,
             child: Responsive(
-              desktop: Image.asset(
-                "assets/images/bg/Bg.png",
+              desktop: Image.network(
+                ApiService.MEDIA_URL + activity.background,
                 fit: BoxFit.cover,
               ),
-              tablet: Image.asset(
-                "assets/images/bg/Bg.png",
+              tablet: Image.network(
+                ApiService.MEDIA_URL + activity.background,
                 fit: BoxFit.fitHeight,
               ),
-              mobile: Image.asset(
-                "assets/images/bg/Bg.png",
+              mobile: Image.network(
+                ApiService.MEDIA_URL + activity.background,
                 fit: BoxFit.fitHeight,
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
               controller: _pageController,
@@ -97,60 +101,28 @@ class _ActivityPageState extends State<ActivityPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "réservation".toUpperCase(),
+                                "Activités".toUpperCase(),
                                 style: AppTextStyle.titleLarge.copyWith(
                                     fontSize: 38,
                                     letterSpacing: 5,
                                     fontWeight: FontWeight.w500),
                               ),
                               const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Times@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "L'ANCRAGE est disponible en permanence pour vous.",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
+                              Text(
+                                "#${activity.tag}",
+                                style: AppTextStyle.titleLarge.copyWith(
+                                    fontSize: 38,
+                                    letterSpacing: 5,
+                                    fontWeight: FontWeight.w500),
                               ),
                               const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "+225 07 07 070 707",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
+                              Text(
+                                "What’s on in L’Ancrage",
+                                style: AppTextStyle.titleSmall.copyWith(
+                                    letterSpacing: 5,
+                                    fontWeight: FontWeight.w500),
                               ),
                               const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "info@ancrage.com",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -167,7 +139,7 @@ class _ActivityPageState extends State<ActivityPage> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: Helper.PADDING * 2,
                         ),
                         Row(
@@ -178,27 +150,30 @@ class _ActivityPageState extends State<ActivityPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "occaecati cupiditate non provident, similique sunt ",
-                                    style: AppTextStyle.titleSmall,
+                                    activity.name,
+                                    style: AppTextStyle.titleMedium,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: Helper.PADDING,
                                   ),
                                   Text(
-                                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore",
+                                    activity.description,
                                     style: AppTextStyle.body,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: Helper.PADDING,
                                   ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: Helper.PADDING / 2,
                                         horizontal: Helper.PADDING),
+                                    height: 250,
                                     color: AppColor.background,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -206,27 +181,29 @@ class _ActivityPageState extends State<ActivityPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Votre Sejour",
+                                              "Durée",
                                               style: AppTextStyle.titleSmall,
                                             ),
                                             Text(
-                                              "Votre Sejour",
+                                              "De 2 à 3 heures",
                                               style: AppTextStyle.small,
                                             ),
-                                            SizedBox(
-                                              height: Helper.PADDING,
-                                            ),
+                                            Spacer(),
                                             Text(
-                                              "Votre Sejour",
+                                              "A choisir",
                                               style: AppTextStyle.titleSmall,
                                             ),
                                             Text(
-                                              "Votre Sejour",
+                                              "Matin",
+                                              style: AppTextStyle.small,
+                                            ),
+                                            Text(
+                                              "Après-midi",
                                               style: AppTextStyle.small,
                                             ),
                                           ],
                                         )),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: Helper.PADDING,
                                         ),
                                         Expanded(
@@ -236,40 +213,45 @@ class _ActivityPageState extends State<ActivityPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Votre Sejour",
+                                                  "Tarif",
                                                   style:
                                                       AppTextStyle.titleSmall,
                                                 ),
                                                 Text(
-                                                  "Votre Sejour",
+                                                  "${activity.publicPrice} Fcfa / en public",
                                                   style: AppTextStyle.small,
                                                 ),
+                                                Text(
+                                                  "${activity.privatePrice} Fcfa / en privé",
+                                                  style: AppTextStyle.small,
+                                                ),
+                                                Spacer(),
                                                 GridView.count(
                                                   crossAxisCount: 3,
-                                                  childAspectRatio: (4 / 1),
+                                                  childAspectRatio: (5 / 1),
                                                   controller: ScrollController(
                                                       keepScrollOffset: false),
                                                   shrinkWrap: true,
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   children:
-                                                      "Prévoir des chaussures de marche, des lunettes de soleil, une crème solaire."
-                                                          .split(" ")
+                                                      "Prévoir des, chaussures de marche, des lunettes de soleil, une crème solaire."
+                                                          .split(",")
                                                           .map((item) => Row(
                                                                 children: [
-                                                                  Icon(
+                                                                  const Icon(
                                                                     Icons
                                                                         .circle,
                                                                     size: 5,
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 5,
                                                                   ),
                                                                   Text(
                                                                       item
                                                                           .trim(),
                                                                       style: AppTextStyle
-                                                                          .body),
+                                                                          .small),
                                                                 ],
                                                               ))
                                                           .toList(),
@@ -277,26 +259,25 @@ class _ActivityPageState extends State<ActivityPage> {
                                               ],
                                             )),
                                         const Spacer(),
-                                        Row(
-                                          children: [],
-                                        ),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: Helper.PADDING,
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "assets/images/bg/Img@2x (1).png",
+                              child: Image.network(
+                                ApiService.MEDIA_URL + activity.image,
+                                height: Get.size.height * 0.55,
+                                fit: BoxFit.fitHeight,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: Helper.PADDING,
                         ),
                       ],
@@ -312,31 +293,53 @@ class _ActivityPageState extends State<ActivityPage> {
                       child: SvgPicture.asset("assets/images/bg/Trajet.svg"),
                     ),
                   ),
-                  Container(
-                    height: 1100,
-                    child: GridView.custom(
-                      gridDelegate: SliverQuiltedGridDelegate(
-                        crossAxisCount: 10,
-                        repeatPattern: QuiltedGridRepeatPattern.same,
-                        pattern: [
-                          QuiltedGridTile(3, 4),
-                          QuiltedGridTile(3, 2),
-                          QuiltedGridTile(3, 4),
-                          QuiltedGridTile(3, 3),
-                          QuiltedGridTile(3, 4),
-                          QuiltedGridTile(3, 3),
-                        ],
-                      ),
-                      childrenDelegate: SliverChildBuilderDelegate(
-                        childCount: 6,
-                        (context, index) => Image.asset(
-                          "assets/images/bg/Img@2x (1).png",
-                          fit: BoxFit.cover,
+                  SizedBox(
+                    height: 1200,
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: double.infinity,
+                          width: double.infinity,
+                          color: Colors.white,
                         ),
-                      ),
+                        GridView.custom(
+                          gridDelegate: SliverQuiltedGridDelegate(
+                            crossAxisCount: 10,
+                            repeatPattern: QuiltedGridRepeatPattern.same,
+                            pattern: [
+                              const QuiltedGridTile(3, 4),
+                              const QuiltedGridTile(3, 2),
+                              const QuiltedGridTile(3, 4),
+                              const QuiltedGridTile(3, 3),
+                              const QuiltedGridTile(3, 4),
+                              const QuiltedGridTile(3, 3),
+                            ],
+                          ),
+                          childrenDelegate: SliverChildBuilderDelegate(
+                            childCount: 6,
+                            (context, index) {
+                              switch (index) {
+                                case 0:
+                                  return ImageActivity(path: activity.image);
+                                case 1:
+                                  return ImageActivity(path: activity.image1);
+                                case 2:
+                                  return ImageActivity(path: activity.image2);
+                                case 3:
+                                  return ImageActivity(path: activity.image3);
+                                case 4:
+                                  return ImageActivity(path: activity.image4);
+                                case 5:
+                                  return ImageActivity(path: activity.image5);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
+                  Container(
+                    color: Colors.white,
                     height: Helper.PADDING * 2,
                   ),
                   const Footer()
@@ -352,48 +355,25 @@ class _ActivityPageState extends State<ActivityPage> {
   }
 }
 
-class Tile extends StatelessWidget {
-  const Tile({
-    Key? key,
-    required this.index,
-    this.extent,
-    this.backgroundColor,
-    this.bottomSpace,
-  }) : super(key: key);
+class ImageActivity extends StatelessWidget {
+  const ImageActivity({
+    super.key,
+    required this.path,
+  });
 
-  final int index;
-  final double? extent;
-  final double? bottomSpace;
-  final Color? backgroundColor;
+  final String path;
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
-      color: backgroundColor ?? Colors.red,
-      height: extent,
-      child: Center(
-        child: CircleAvatar(
-          minRadius: 20,
-          maxRadius: 20,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          child: Text('$index', style: const TextStyle(fontSize: 20)),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {},
+        child: Image.network(
+          ApiService.MEDIA_URL + path,
+          fit: BoxFit.cover,
         ),
       ),
-    );
-
-    if (bottomSpace == null) {
-      return child;
-    }
-
-    return Column(
-      children: [
-        Expanded(child: child),
-        Container(
-          height: bottomSpace,
-          color: Colors.green,
-        )
-      ],
     );
   }
 }

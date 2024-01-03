@@ -1,5 +1,7 @@
 import 'package:ancrage/controllers/ConnexionController.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
+import 'package:ancrage/controllers/activityController.dart';
+import 'package:ancrage/controllers/galerieController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/core/TranslationClass.dart';
 import 'package:ancrage/pages/activities.dart';
@@ -24,6 +26,8 @@ void main() {
   Get.put(LoaderController());
   Get.put(PagesController());
   Get.put(ReservationController());
+  Get.put(ActivityController());
+  Get.put(GalerieController());
   Get.put(ReservationPageController());
 
   initializeDateFormatting('fr_FR', null).then((_) => runApp(const MyApp()));
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
       translations: TranslationClass(), // your translations
       locale: Get
           .deviceLocale, //Locale('fr', 'Fr'), // translations will be displayed in that locale
-      fallbackLocale: Locale('en', 'UK'),
+      fallbackLocale: const Locale('en', 'UK'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: AppColor.background, primary: AppColor.orange),

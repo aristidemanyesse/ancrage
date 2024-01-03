@@ -100,7 +100,7 @@ class _PackBoxState extends State<PackBox> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${widget.pack.name}",
+                                widget.pack.name,
                                 style: AppTextStyle.titleMedium,
                               ),
                               Text(
@@ -163,11 +163,11 @@ class _PackBoxState extends State<PackBox> {
                                     .split(";")
                                     .map((item) => Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.circle,
                                               size: 5,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(item.trim(),

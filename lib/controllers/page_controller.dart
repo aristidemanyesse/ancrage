@@ -8,8 +8,8 @@ class PagesController extends GetxController with RouteAware {
   RxDouble lastPosition = 0.0.obs;
 
   Map<String, Locale> languages = {
-    "Français": Locale('fr', 'Fr'),
-    "English": Locale('en', 'US')
+    "Français": const Locale('fr', 'Fr'),
+    "English": const Locale('en', 'US')
   };
   RxString languageSelected = "Français".obs;
 

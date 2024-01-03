@@ -25,11 +25,19 @@ mixin _$Activity {
   String get updateAt => throw _privateConstructorUsedError;
   bool get deleted => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get tag => throw _privateConstructorUsedError;
   int get publicPrice => throw _privateConstructorUsedError;
   int get privatePrice => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get prerequis => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+  String get image1 => throw _privateConstructorUsedError;
+  String get image2 => throw _privateConstructorUsedError;
+  String get image3 => throw _privateConstructorUsedError;
+  String get image4 => throw _privateConstructorUsedError;
+  String get image5 => throw _privateConstructorUsedError;
+  String get background => throw _privateConstructorUsedError;
+  String get ittineraire => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,11 +56,19 @@ abstract class $ActivityCopyWith<$Res> {
       String updateAt,
       bool deleted,
       String name,
+      String tag,
       int publicPrice,
       int privatePrice,
       String description,
       String prerequis,
-      String image});
+      String image,
+      String image1,
+      String image2,
+      String image3,
+      String image4,
+      String image5,
+      String background,
+      String ittineraire});
 }
 
 /// @nodoc
@@ -73,11 +89,19 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
     Object? updateAt = null,
     Object? deleted = null,
     Object? name = null,
+    Object? tag = null,
     Object? publicPrice = null,
     Object? privatePrice = null,
     Object? description = null,
     Object? prerequis = null,
     Object? image = null,
+    Object? image1 = null,
+    Object? image2 = null,
+    Object? image3 = null,
+    Object? image4 = null,
+    Object? image5 = null,
+    Object? background = null,
+    Object? ittineraire = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -100,6 +124,10 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: null == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String,
       publicPrice: null == publicPrice
           ? _value.publicPrice
           : publicPrice // ignore: cast_nullable_to_non_nullable
@@ -120,6 +148,34 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      image1: null == image1
+          ? _value.image1
+          : image1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image2: null == image2
+          ? _value.image2
+          : image2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image3: null == image3
+          ? _value.image3
+          : image3 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image4: null == image4
+          ? _value.image4
+          : image4 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image5: null == image5
+          ? _value.image5
+          : image5 // ignore: cast_nullable_to_non_nullable
+              as String,
+      background: null == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as String,
+      ittineraire: null == ittineraire
+          ? _value.ittineraire
+          : ittineraire // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -138,11 +194,19 @@ abstract class _$$ActivityImplCopyWith<$Res>
       String updateAt,
       bool deleted,
       String name,
+      String tag,
       int publicPrice,
       int privatePrice,
       String description,
       String prerequis,
-      String image});
+      String image,
+      String image1,
+      String image2,
+      String image3,
+      String image4,
+      String image5,
+      String background,
+      String ittineraire});
 }
 
 /// @nodoc
@@ -161,11 +225,19 @@ class __$$ActivityImplCopyWithImpl<$Res>
     Object? updateAt = null,
     Object? deleted = null,
     Object? name = null,
+    Object? tag = null,
     Object? publicPrice = null,
     Object? privatePrice = null,
     Object? description = null,
     Object? prerequis = null,
     Object? image = null,
+    Object? image1 = null,
+    Object? image2 = null,
+    Object? image3 = null,
+    Object? image4 = null,
+    Object? image5 = null,
+    Object? background = null,
+    Object? ittineraire = null,
   }) {
     return _then(_$ActivityImpl(
       id: null == id
@@ -188,6 +260,10 @@ class __$$ActivityImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: null == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String,
       publicPrice: null == publicPrice
           ? _value.publicPrice
           : publicPrice // ignore: cast_nullable_to_non_nullable
@@ -208,6 +284,34 @@ class __$$ActivityImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      image1: null == image1
+          ? _value.image1
+          : image1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image2: null == image2
+          ? _value.image2
+          : image2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image3: null == image3
+          ? _value.image3
+          : image3 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image4: null == image4
+          ? _value.image4
+          : image4 // ignore: cast_nullable_to_non_nullable
+              as String,
+      image5: null == image5
+          ? _value.image5
+          : image5 // ignore: cast_nullable_to_non_nullable
+              as String,
+      background: null == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as String,
+      ittineraire: null == ittineraire
+          ? _value.ittineraire
+          : ittineraire // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -221,11 +325,19 @@ class _$ActivityImpl implements _Activity {
       this.updateAt = "",
       this.deleted = false,
       this.name = "",
+      this.tag = "",
       this.publicPrice = 0,
       this.privatePrice = 0,
       this.description = "",
       this.prerequis = "",
-      this.image = ""});
+      this.image = "",
+      this.image1 = "",
+      this.image2 = "",
+      this.image3 = "",
+      this.image4 = "",
+      this.image5 = "",
+      this.background = "",
+      this.ittineraire = ""});
 
   factory _$ActivityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ActivityImplFromJson(json);
@@ -247,6 +359,9 @@ class _$ActivityImpl implements _Activity {
   final String name;
   @override
   @JsonKey()
+  final String tag;
+  @override
+  @JsonKey()
   final int publicPrice;
   @override
   @JsonKey()
@@ -260,10 +375,31 @@ class _$ActivityImpl implements _Activity {
   @override
   @JsonKey()
   final String image;
+  @override
+  @JsonKey()
+  final String image1;
+  @override
+  @JsonKey()
+  final String image2;
+  @override
+  @JsonKey()
+  final String image3;
+  @override
+  @JsonKey()
+  final String image4;
+  @override
+  @JsonKey()
+  final String image5;
+  @override
+  @JsonKey()
+  final String background;
+  @override
+  @JsonKey()
+  final String ittineraire;
 
   @override
   String toString() {
-    return 'Activity(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, publicPrice: $publicPrice, privatePrice: $privatePrice, description: $description, prerequis: $prerequis, image: $image)';
+    return 'Activity(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, tag: $tag, publicPrice: $publicPrice, privatePrice: $privatePrice, description: $description, prerequis: $prerequis, image: $image, image1: $image1, image2: $image2, image3: $image3, image4: $image4, image5: $image5, background: $background, ittineraire: $ittineraire)';
   }
 
   @override
@@ -278,6 +414,7 @@ class _$ActivityImpl implements _Activity {
                 other.updateAt == updateAt) &&
             (identical(other.deleted, deleted) || other.deleted == deleted) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.tag, tag) || other.tag == tag) &&
             (identical(other.publicPrice, publicPrice) ||
                 other.publicPrice == publicPrice) &&
             (identical(other.privatePrice, privatePrice) ||
@@ -286,13 +423,40 @@ class _$ActivityImpl implements _Activity {
                 other.description == description) &&
             (identical(other.prerequis, prerequis) ||
                 other.prerequis == prerequis) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.image1, image1) || other.image1 == image1) &&
+            (identical(other.image2, image2) || other.image2 == image2) &&
+            (identical(other.image3, image3) || other.image3 == image3) &&
+            (identical(other.image4, image4) || other.image4 == image4) &&
+            (identical(other.image5, image5) || other.image5 == image5) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
+            (identical(other.ittineraire, ittineraire) ||
+                other.ittineraire == ittineraire));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, createdAt, updateAt, deleted,
-      name, publicPrice, privatePrice, description, prerequis, image);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      createdAt,
+      updateAt,
+      deleted,
+      name,
+      tag,
+      publicPrice,
+      privatePrice,
+      description,
+      prerequis,
+      image,
+      image1,
+      image2,
+      image3,
+      image4,
+      image5,
+      background,
+      ittineraire);
 
   @JsonKey(ignore: true)
   @override
@@ -315,11 +479,19 @@ abstract class _Activity implements Activity {
       final String updateAt,
       final bool deleted,
       final String name,
+      final String tag,
       final int publicPrice,
       final int privatePrice,
       final String description,
       final String prerequis,
-      final String image}) = _$ActivityImpl;
+      final String image,
+      final String image1,
+      final String image2,
+      final String image3,
+      final String image4,
+      final String image5,
+      final String background,
+      final String ittineraire}) = _$ActivityImpl;
 
   factory _Activity.fromJson(Map<String, dynamic> json) =
       _$ActivityImpl.fromJson;
@@ -335,6 +507,8 @@ abstract class _Activity implements Activity {
   @override
   String get name;
   @override
+  String get tag;
+  @override
   int get publicPrice;
   @override
   int get privatePrice;
@@ -344,6 +518,20 @@ abstract class _Activity implements Activity {
   String get prerequis;
   @override
   String get image;
+  @override
+  String get image1;
+  @override
+  String get image2;
+  @override
+  String get image3;
+  @override
+  String get image4;
+  @override
+  String get image5;
+  @override
+  String get background;
+  @override
+  String get ittineraire;
   @override
   @JsonKey(ignore: true)
   _$$ActivityImplCopyWith<_$ActivityImpl> get copyWith =>

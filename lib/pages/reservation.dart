@@ -15,10 +15,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:relative_time/relative_time.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -212,7 +208,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                               placeholer:
                                                   "Date et heure d'arrivée",
                                             )),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: Helper.PADDING / 2,
                                             ),
                                             Expanded(
@@ -230,10 +226,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                             )),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: Helper.PADDING / 2,
                                         ),
-                                        Row(
+                                        const Row(
                                           children: [
                                             Expanded(
                                                 child: MyTextField(
@@ -313,7 +309,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                       width: Helper.PADDING / 4,
                                                     ),
                                                     Text(
-                                                      "${Jiffy.parseFromDateTime(DateTime.parse("2024-01-04 15:00")).fromNow()}",
+                                                      Jiffy.parseFromDateTime(DateTime.parse("2024-01-04 15:00")).fromNow(),
                                                       style: AppTextStyle
                                                           .subtitle
                                                           .copyWith(
@@ -327,7 +323,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                   height: Helper.PADDING / 5,
                                                 ),
                                                 Text(
-                                                  "${dateFormat2.format(DateTime.parse("2024-01-01"))}",
+                                                  dateFormat2.format(DateTime.parse("2024-01-01")),
                                                   style: AppTextStyle.subtitle
                                                       .copyWith(
                                                           fontWeight:
@@ -482,7 +478,7 @@ class _ReservationPageState extends State<ReservationPage> {
                         // const ComeToUs(
                         //   start: 1200,
                         // ),
-                        SizedBox(
+                        const SizedBox(
                           height: Helper.PADDING * 2,
                         ),
                       ],

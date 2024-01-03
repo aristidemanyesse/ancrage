@@ -50,7 +50,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "${widget.activity.name}",
+            widget.activity.name,
             style: AppTextStyle.subtitle,
           ),
           Container(
@@ -107,12 +107,12 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                             ),
                           ),
                           Text(
-                            "${widget.activity.description}",
+                            widget.activity.description,
                             style: AppTextStyle.body.copyWith(letterSpacing: 0),
                           ),
                           Row(
                             children: [
-                              Text("Horaire: "),
+                              const Text("Horaire: "),
                               Row(
                                 children: [
                                   SizedBox(
@@ -125,7 +125,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                       ),
                                     ),
                                   ),
-                                  Text("Matin "),
+                                  const Text("Matin "),
                                 ],
                               ),
                               Row(
@@ -137,7 +137,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                       setState(() {});
                                     },
                                   ),
-                                  Text("Soir "),
+                                  const Text("Soir "),
                                 ],
                               ),
                             ],
@@ -153,11 +153,11 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 .split(";")
                                 .map((item) => Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.circle,
                                           size: 5,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         Text(item.trim(),
@@ -178,18 +178,18 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("Prix en groupe"),
-                              SizedBox(
+                              const Text("Prix en groupe"),
+                              const SizedBox(
                                 height: Helper.PADDING / 5,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
+                                  const Text(
                                       "Voulez-vous faire cette activité en privée ?"),
                                   Row(
                                     children: [
-                                      Text("Horaire: "),
+                                      const Text("Horaire: "),
                                       Row(
                                         children: [
                                           SizedBox(
@@ -202,7 +202,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                               ),
                                             ),
                                           ),
-                                          Text("Oui "),
+                                          const Text("Oui "),
                                         ],
                                       ),
                                       Row(
@@ -214,7 +214,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                               setState(() {});
                                             },
                                           ),
-                                          Text("Non "),
+                                          const Text("Non "),
                                         ],
                                       ),
                                     ],

@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/controllers/reservation_page_controller.dart';
+import 'package:ancrage/models/HotelApp/Album.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +25,13 @@ class _GaleriePageState extends State<GaleriePage> {
 
   final ScrollController _pageController = ScrollController();
 
+  Album album = Album();
+
   @override
   void initState() {
     super.initState();
 
-    _pageController.addListener(() {
-      GaleriePagePageController.scrollPosition.value =
-          _pageController.position.pixels;
-    });
+    album = Get.arguments["album"];
   }
 
   void animateController(ScrollController controller, double position,
@@ -187,14 +184,14 @@ class _GaleriePageState extends State<GaleriePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "occaecati cupiditate non provident, similique sunt ",
+                                    album.name,
                                     style: AppTextStyle.titleSmall,
                                   ),
                                   SizedBox(
                                     height: Helper.PADDING,
                                   ),
                                   Text(
-                                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+                                    album.description,
                                     style: AppTextStyle.body,
                                   ),
                                 ],

@@ -3,8 +3,10 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
+import 'package:ancrage/controllers/activityController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/inderline_button.dart';
+import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/pages/come_to_us.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
@@ -25,6 +27,7 @@ class _IndexPageState extends State<IndexPage> {
 
   final ScrollController _scrollController = ScrollController();
   final ScrollController _sectionScrollController = ScrollController();
+  ActivityController activityController = Get.find();
 
   @override
   void initState() {
@@ -188,7 +191,7 @@ class _IndexPageState extends State<IndexPage> {
                                 ),
                                 DropdownButton(
                                   elevation: 0,
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.add_outlined,
                                     size: 0,
                                   ),
@@ -247,7 +250,7 @@ class _IndexPageState extends State<IndexPage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: Helper.PADDING / 4,
                                           ),
                                           Text(item),
@@ -534,66 +537,76 @@ class _IndexPageState extends State<IndexPage> {
                                 height: Helper.PADDING * 2,
                               ),
                               Wrap(
-                                children: List.generate(
-                                  6,
-                                  (index) => Container(
-                                    width: 450,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        Helper.PADDING / 2,
-                                        0,
-                                        Helper.PADDING / 2,
-                                        Helper.PADDING * 2),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: Image.asset(
-                                              "assets/images/bg/plage.png",
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: Helper.PADDING / 2,
-                                        ),
-                                        Row(
+                                children: activityController.activities
+                                    .map(
+                                      (activity) => Container(
+                                        width: 450,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            Helper.PADDING / 2,
+                                            0,
+                                            Helper.PADDING / 2,
+                                            Helper.PADDING * 2),
+                                        child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "#Tourism",
-                                                    style: AppTextStyle
-                                                        .bodygrasitalic,
-                                                  ),
-                                                  Text(
-                                                    "Visit to tourist sites",
-                                                    style: AppTextStyle.body,
-                                                  ),
-                                                ],
+                                            Container(
+                                              child: MouseRegion(
+                                                cursor:
+                                                    SystemMouseCursors.click,
+                                                child: Image.network(
+                                                  ApiService.MEDIA_URL +
+                                                      activity.image,
+                                                  height: 500,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                            InderlineButton(
-                                              ontap: () {
-                                                Get.toNamed("/activity",
-                                                    arguments: {
-                                                      "activity": ""
-                                                    });
-                                              },
-                                              title: "Learn more",
+                                            const SizedBox(
+                                              height: Helper.PADDING / 2,
                                             ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "#${activity.tag}",
+                                                        style: AppTextStyle
+                                                            .bodygrasitalic,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                InderlineButton(
+                                                  ontap: () {
+                                                    Get.toNamed("/activity",
+                                                        arguments: {
+                                                          "activity": activity
+                                                        });
+                                                  },
+                                                  title: "En savoir plus",
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  activity.name,
+                                                  style: AppTextStyle.body,
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                      ),
+                                    )
+                                    .toList(),
                               )
                             ],
                           ),

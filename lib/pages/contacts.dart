@@ -5,12 +5,14 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -276,14 +278,49 @@ class _ContactsPageState extends State<ContactsPage> {
                           ],
                         ),
                         const SizedBox(height: Helper.PADDING),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
-                          height: Get.size.height,
-                          color: Colors.blue,
+                          height: Get.size.height / 2,
+                          child: FlutterMap(
+                            options: const MapOptions(
+                              initialCenter: LatLng(52.518611, 13.408056),
+                              initialZoom: 14,
+                              minZoom: 6,
+                              maxZoom: 20,
+                            ),
+                            children: [
+                              TileLayer(
+                                  urlTemplate:
+                                      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                  userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+                                  subdomains: const ['mt0', 'mt1', 'mt2', 'mt3']),
+                              PopupMarkerLayer(
+                                options: PopupMarkerLayerOptions(
+                                  markers: [
+                                    const Marker(
+                                        point: LatLng(52.518611, 13.408056),
+                                        width: 250,
+                                        height: 250,
+                                        child: Text("jk")),
+                                  ],
+                                  popupDisplayOptions: PopupDisplayOptions(
+                                      builder: (BuildContext context,
+                                          Marker marker) {
+                                    return Container(
+                                      padding: const EdgeInsets.all(7),
+                                      margin: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: const Text("Nous sommes ici !"),
+                                    );
+                                  }),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        // const ComeToUs(
-                        //   start: 2000,
-                        // ),
                       ],
                     ),
                   ),

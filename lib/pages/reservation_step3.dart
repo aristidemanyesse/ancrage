@@ -2,7 +2,6 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
@@ -436,6 +435,14 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                   "Avons-nous pensé à tous ?",
                                   style: AppTextStyle.titleMedium,
                                 ),
+                              ),
+                              Checkbox(
+                                isError: true,
+                                tristate: true,
+                                value: false,
+                                onChanged: (bool? value) {
+                                  setState(() {});
+                                },
                               ),
                               // Container(
                               //     margin: const EdgeInsets.all(0),

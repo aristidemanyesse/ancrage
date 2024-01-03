@@ -1,5 +1,4 @@
 // This file is "main.dart"
-import 'package:ancrage/core/apiservice.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'Option.freezed.dart';

@@ -1,11 +1,9 @@
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/main_button.dart';
-import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
+import 'package:ancrage/controllers/galerieController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/pages/come_to_us.dart';
+import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -24,21 +22,11 @@ class _GaleriesPageState extends State<GaleriesPage> {
   PagesController pageController = Get.find();
 
   final ScrollController _scrollController = ScrollController();
-  final ScrollController _sectionScrollController = ScrollController();
+  GalerieController galerieController = Get.find();
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(() {
-      pageController.scrollPosition.value = _scrollController.position.pixels;
-
-      if (_sectionScrollController.position.pixels == 0) {
-        animateController(_sectionScrollController, 1500, milliseconds: 3000);
-      } else {
-        animateController(_sectionScrollController, 0, milliseconds: 3000);
-      }
-    });
   }
 
   void animateController(ScrollController controller, double position,
@@ -118,7 +106,7 @@ class _GaleriesPageState extends State<GaleriesPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         horizontal: Helper.PADDING * 2,
                         vertical: Helper.PADDING * 2),
                     decoration: const BoxDecoration(
@@ -130,47 +118,54 @@ class _GaleriesPageState extends State<GaleriesPage> {
                       children: [
                         Container(
                           child: GridView.count(
-                              crossAxisCount: 2,
-                              childAspectRatio: .85,
-                              controller:
-                                  ScrollController(keepScrollOffset: false),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              mainAxisSpacing: Helper.PADDING,
-                              crossAxisSpacing: Helper.PADDING,
-                              children: List.generate(6, (index) {
-                                return MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed("/galerie");
-                                    },
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            child: Image.asset(
-                                              "assets/images/bg/Bg.png",
-                                              fit: BoxFit.fitHeight,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: Helper.PADDING / 2,
-                                          ),
-                                          Row(
+                            crossAxisCount: 2,
+                            childAspectRatio: .85,
+                            controller:
+                                ScrollController(keepScrollOffset: false),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            mainAxisSpacing: Helper.PADDING,
+                            crossAxisSpacing: Helper.PADDING,
+                            children: galerieController.albums.map((album) {
+                              return album.imageAlbum.length > 0
+                                  ? MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed("/galerie",
+                                              arguments: {"album": album});
+                                        },
+                                        child: Container(
+                                          child: Column(
                                             children: [
-                                              Text(
-                                                "ghhgkj",
-                                                style: AppTextStyle.titleMedium,
+                                              Expanded(
+                                                child: Image.network(
+                                                  ApiService.MEDIA_URL +
+                                                      album.imageAlbum.first
+                                                          .image,
+                                                  fit: BoxFit.fitHeight,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: Helper.PADDING / 2,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    album.name,
+                                                    style: AppTextStyle
+                                                        .titleMedium,
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              })),
+                                    )
+                                  : Container();
+                            }).toList(),
+                          ),
                         ),
                       ],
                     ),

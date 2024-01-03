@@ -14,11 +14,19 @@ class Activity with _$Activity {
     @Default("") String updateAt,
     @Default(false) bool deleted,
     @Default("") String name,
+    @Default("") String tag,
     @Default(0) int publicPrice,
     @Default(0) int privatePrice,
     @Default("") String description,
     @Default("") String prerequis,
     @Default("") String image,
+    @Default("") String image1,
+    @Default("") String image2,
+    @Default("") String image3,
+    @Default("") String image4,
+    @Default("") String image5,
+    @Default("") String background,
+    @Default("") String ittineraire,
   }) = _Activity;
 
   factory Activity.fromJson(Map<String, Object?> json) =>
@@ -31,11 +39,19 @@ class Activity with _$Activity {
     updateAt
     deleted
     name
+    tag
     publicPrice
     privatePrice
     description
     prerequis
     image
+    image1
+    image2
+    image3
+    image4
+    image5
+    background
+    ittineraire
   }
   """;
 

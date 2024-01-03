@@ -1,10 +1,8 @@
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

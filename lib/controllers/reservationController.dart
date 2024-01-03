@@ -11,9 +11,9 @@ class ReservationController extends GetxController {
   final Map<GlobalKey<AdvanceExpansionTileState>, Activity> listActivitiesKey =
       {};
 
-  Rx<Pack> packSelected = Pack().obs;
+  Rx<Pack> packSelected = const Pack().obs;
   Rx<DateTime> debut = DateTime.now().obs;
-  Rx<DateTime> fin = DateTime.now().add(Duration(days: 1)).obs;
+  Rx<DateTime> fin = DateTime.now().add(const Duration(days: 1)).obs;
   RxInt montant = 0.obs;
 
   @override
@@ -21,7 +21,7 @@ class ReservationController extends GetxController {
     super.onInit();
 
     packs.value = await Pack.all({});
-    if (packs.length > 0) {
+    if (packs.isNotEmpty) {
       packSelected.value = packs.first;
     }
     for (Pack pack in packs) {

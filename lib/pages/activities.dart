@@ -1,12 +1,9 @@
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
-import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/my_text_field.dart';
-import 'package:ancrage/components/secondary_button.dart';
+import 'package:ancrage/controllers/activityController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/modals/alert.dart';
+import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +20,7 @@ class ActivitiesPage extends StatefulWidget {
 class _ActivitiesPageState extends State<ActivitiesPage> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
+  ActivityController activityController = Get.find();
 
   @override
   void initState() {
@@ -155,10 +153,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                           top: BorderSide(color: Colors.white, width: 0)),
                     ),
                     padding:
-                        EdgeInsets.symmetric(horizontal: Helper.PADDING * 2),
+                        const EdgeInsets.symmetric(horizontal: Helper.PADDING * 2),
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
+                          width: double.infinity,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -169,79 +168,134 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                               ),
                               const SizedBox(height: Helper.PADDING * 2),
                               Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "#Tourism",
-                                              style:
-                                                  AppTextStyle.bodygrasitalic,
-                                            ),
-                                            Text(
-                                              "Visit to tourist sites",
-                                              style: AppTextStyle.body,
-                                            ),
-                                            InderlineButton(
-                                              ontap: () {
-                                                Get.toNamed("/activity");
-                                              },
-                                              title: "Learn more",
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                          child: Container(
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Img@2x (1).png",
-                                                  width: Get.size.width / 5,
+                                  children: activityController.activities
+                                      .map((activity) => Container(
+                                            padding: const EdgeInsets.only(
+                                                bottom: Helper.PADDING * 2),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "#${activity.tag}",
+                                                        style: AppTextStyle
+                                                            .bodygrasitalic,
+                                                      ),
+                                                      Text(
+                                                        activity.name,
+                                                        style:
+                                                            AppTextStyle.body,
+                                                      ),
+                                                      InderlineButton(
+                                                        ontap: () {
+                                                          Get.toNamed(
+                                                              "/activity",
+                                                              arguments: {
+                                                                "activity":
+                                                                    activity
+                                                              });
+                                                        },
+                                                        title:
+                                                            "En savoir plus...",
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Imgml@2x.png",
-                                                  width: Get.size.width / 5,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Helper.PADDING / 2),
-                                                child: Image.asset(
-                                                  "assets/images/bg/Img@2x (3).png",
-                                                  width: Get.size.width / 5,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ))
-                                    ],
-                                  ),
-                                ],
-                              )
+                                                Expanded(
+                                                    child: Container(
+                                                  child: SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          padding: const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: Helper
+                                                                      .PADDING /
+                                                                  2),
+                                                          child: Image.network(
+                                                            ApiService
+                                                                    .MEDIA_URL +
+                                                                activity.image,
+                                                            width:
+                                                                Get.size.width /
+                                                                    5,
+                                                            height: 500,
+                                                            fit: BoxFit
+                                                                .fitHeight,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: Helper
+                                                                      .PADDING /
+                                                                  2),
+                                                          child: Image.network(
+                                                            ApiService
+                                                                    .MEDIA_URL +
+                                                                activity.image1,
+                                                            width:
+                                                                Get.size.width /
+                                                                    5,
+                                                            height: 500,
+                                                            fit: BoxFit
+                                                                .fitHeight,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: Helper
+                                                                      .PADDING /
+                                                                  2),
+                                                          child: Image.network(
+                                                            ApiService
+                                                                    .MEDIA_URL +
+                                                                activity.image2,
+                                                            width:
+                                                                Get.size.width /
+                                                                    5,
+                                                            height: 500,
+                                                            fit: BoxFit
+                                                                .fitHeight,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: Helper
+                                                                      .PADDING /
+                                                                  2),
+                                                          child: Image.network(
+                                                            ApiService
+                                                                    .MEDIA_URL +
+                                                                activity.image3,
+                                                            width:
+                                                                Get.size.width /
+                                                                    5,
+                                                            height: 500,
+                                                            fit: BoxFit
+                                                                .fitHeight,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ))
+                                              ],
+                                            ),
+                                          ))
+                                      .toList())
                             ],
                           ),
                         ),
