@@ -188,7 +188,7 @@ class _ActivityPageState extends State<ActivityPage> {
                                               "De 2 à 3 heures",
                                               style: AppTextStyle.small,
                                             ),
-                                            Spacer(),
+                                            const Spacer(),
                                             Text(
                                               "A choisir",
                                               style: AppTextStyle.titleSmall,
@@ -225,7 +225,7 @@ class _ActivityPageState extends State<ActivityPage> {
                                                   "${activity.privatePrice} Fcfa / en privé",
                                                   style: AppTextStyle.small,
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 GridView.count(
                                                   crossAxisCount: 3,
                                                   childAspectRatio: (5 / 1),
@@ -332,6 +332,7 @@ class _ActivityPageState extends State<ActivityPage> {
                                 case 5:
                                   return ImageActivity(path: activity.image5);
                               }
+                              return null;
                             },
                           ),
                         ),

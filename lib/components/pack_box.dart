@@ -184,6 +184,8 @@ class _PackBoxState extends State<PackBox> {
                               children: [
                                 FormMainButton(
                                     onTap: () {
+                                      reservationController.packSelected.value =
+                                          widget.pack;
                                       Get.toNamed("/reservation_next_2");
                                     },
                                     title: "Suivant")

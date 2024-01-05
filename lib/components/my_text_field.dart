@@ -7,29 +7,36 @@ class MyTextField extends StatelessWidget {
   final String label;
   final int maxlines;
   final TextInputType keyboardType;
+  final TextEditingController controller;
+  final Function onChanged;
 
   const MyTextField(
       {super.key,
       required this.placeholer,
       required this.label,
       this.maxlines = 1,
-      this.keyboardType = TextInputType.text});
+      this.keyboardType = TextInputType.text,
+      required this.controller,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.only(left: 10),
-          child: Text(
-            label,
-            style: AppTextStyle.label,
+        if (label.length > 0)
+          Container(
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(
+              label,
+              style: AppTextStyle.label,
+            ),
           ),
-        ),
         TextField(
           keyboardType: keyboardType,
           maxLines: maxlines,
+          controller: controller,
+          onChanged: (value) => onChanged(value),
           inputFormatters: keyboardType == TextInputType.number
               ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
               : [],

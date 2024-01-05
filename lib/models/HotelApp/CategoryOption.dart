@@ -29,7 +29,7 @@ class CategoryOption with _$CategoryOption {
     deleted
     name
     categorieOption{
-      ..OptionFragment
+      ...OptionFragment
     }
   }
   """;

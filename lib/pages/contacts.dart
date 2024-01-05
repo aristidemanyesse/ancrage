@@ -2,7 +2,6 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
@@ -224,35 +223,35 @@ class _ContactsPageState extends State<ContactsPage> {
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              MyTextField(
-                                                label: "Nom complet",
-                                                placeholer:
-                                                    "Date et heure de départ",
-                                              ),
-                                              SizedBox(
-                                                  height: Helper.PADDING / 3),
-                                              MyTextField(
-                                                label: "Sujet",
-                                                placeholer:
-                                                    "Date et heure de départ",
-                                              ),
-                                              SizedBox(
-                                                  height: Helper.PADDING / 3),
-                                              MyTextField(
-                                                label: "Email ou contacts",
-                                                placeholer:
-                                                    "Date et heure de départ",
-                                              )
+                                              // MyTextField(
+                                              //   label: "Nom complet",
+                                              //   placeholer:
+                                              //       "Date et heure de départ",
+                                              // ),
+                                              // SizedBox(
+                                              //     height: Helper.PADDING / 3),
+                                              // MyTextField(
+                                              //   label: "Sujet",
+                                              //   placeholer:
+                                              //       "Date et heure de départ",
+                                              // ),
+                                              // SizedBox(
+                                              //     height: Helper.PADDING / 3),
+                                              // MyTextField(
+                                              //   label: "Email ou contacts",
+                                              //   placeholer:
+                                              //       "Date et heure de départ",
+                                              // )
                                             ],
                                           ),
                                         ),
                                         SizedBox(width: Helper.PADDING / 2),
-                                        Expanded(
-                                            child: MyTextField(
-                                          label: "Message",
-                                          placeholer: "Date et heure de départ",
-                                          maxlines: 9,
-                                        ))
+                                        // Expanded(
+                                        //     child: MyTextField(
+                                        //   label: "Message",
+                                        //   placeholer: "Date et heure de départ",
+                                        //   maxlines: 9,
+                                        // ))
                                       ],
                                     ),
                                     const SizedBox(height: Helper.PADDING),
@@ -293,7 +292,12 @@ class _ContactsPageState extends State<ContactsPage> {
                                   urlTemplate:
                                       'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                                   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-                                  subdomains: const ['mt0', 'mt1', 'mt2', 'mt3']),
+                                  subdomains: const [
+                                    'mt0',
+                                    'mt1',
+                                    'mt2',
+                                    'mt3'
+                                  ]),
                               PopupMarkerLayer(
                                 options: PopupMarkerLayerOptions(
                                   markers: [

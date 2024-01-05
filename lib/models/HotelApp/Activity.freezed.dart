@@ -38,6 +38,8 @@ mixin _$Activity {
   String get image5 => throw _privateConstructorUsedError;
   String get background => throw _privateConstructorUsedError;
   String get ittineraire => throw _privateConstructorUsedError;
+  bool get choosePublic => throw _privateConstructorUsedError;
+  bool get horaire1 => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +70,9 @@ abstract class $ActivityCopyWith<$Res> {
       String image4,
       String image5,
       String background,
-      String ittineraire});
+      String ittineraire,
+      bool choosePublic,
+      bool horaire1});
 }
 
 /// @nodoc
@@ -102,6 +106,8 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
     Object? image5 = null,
     Object? background = null,
     Object? ittineraire = null,
+    Object? choosePublic = null,
+    Object? horaire1 = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -176,6 +182,14 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
           ? _value.ittineraire
           : ittineraire // ignore: cast_nullable_to_non_nullable
               as String,
+      choosePublic: null == choosePublic
+          ? _value.choosePublic
+          : choosePublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      horaire1: null == horaire1
+          ? _value.horaire1
+          : horaire1 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -206,7 +220,9 @@ abstract class _$$ActivityImplCopyWith<$Res>
       String image4,
       String image5,
       String background,
-      String ittineraire});
+      String ittineraire,
+      bool choosePublic,
+      bool horaire1});
 }
 
 /// @nodoc
@@ -238,6 +254,8 @@ class __$$ActivityImplCopyWithImpl<$Res>
     Object? image5 = null,
     Object? background = null,
     Object? ittineraire = null,
+    Object? choosePublic = null,
+    Object? horaire1 = null,
   }) {
     return _then(_$ActivityImpl(
       id: null == id
@@ -312,6 +330,14 @@ class __$$ActivityImplCopyWithImpl<$Res>
           ? _value.ittineraire
           : ittineraire // ignore: cast_nullable_to_non_nullable
               as String,
+      choosePublic: null == choosePublic
+          ? _value.choosePublic
+          : choosePublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      horaire1: null == horaire1
+          ? _value.horaire1
+          : horaire1 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -337,7 +363,9 @@ class _$ActivityImpl implements _Activity {
       this.image4 = "",
       this.image5 = "",
       this.background = "",
-      this.ittineraire = ""});
+      this.ittineraire = "",
+      this.choosePublic = false,
+      this.horaire1 = true});
 
   factory _$ActivityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ActivityImplFromJson(json);
@@ -396,10 +424,16 @@ class _$ActivityImpl implements _Activity {
   @override
   @JsonKey()
   final String ittineraire;
+  @override
+  @JsonKey()
+  final bool choosePublic;
+  @override
+  @JsonKey()
+  final bool horaire1;
 
   @override
   String toString() {
-    return 'Activity(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, tag: $tag, publicPrice: $publicPrice, privatePrice: $privatePrice, description: $description, prerequis: $prerequis, image: $image, image1: $image1, image2: $image2, image3: $image3, image4: $image4, image5: $image5, background: $background, ittineraire: $ittineraire)';
+    return 'Activity(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, tag: $tag, publicPrice: $publicPrice, privatePrice: $privatePrice, description: $description, prerequis: $prerequis, image: $image, image1: $image1, image2: $image2, image3: $image3, image4: $image4, image5: $image5, background: $background, ittineraire: $ittineraire, choosePublic: $choosePublic, horaire1: $horaire1)';
   }
 
   @override
@@ -432,31 +466,38 @@ class _$ActivityImpl implements _Activity {
             (identical(other.background, background) ||
                 other.background == background) &&
             (identical(other.ittineraire, ittineraire) ||
-                other.ittineraire == ittineraire));
+                other.ittineraire == ittineraire) &&
+            (identical(other.choosePublic, choosePublic) ||
+                other.choosePublic == choosePublic) &&
+            (identical(other.horaire1, horaire1) ||
+                other.horaire1 == horaire1));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      createdAt,
-      updateAt,
-      deleted,
-      name,
-      tag,
-      publicPrice,
-      privatePrice,
-      description,
-      prerequis,
-      image,
-      image1,
-      image2,
-      image3,
-      image4,
-      image5,
-      background,
-      ittineraire);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        createdAt,
+        updateAt,
+        deleted,
+        name,
+        tag,
+        publicPrice,
+        privatePrice,
+        description,
+        prerequis,
+        image,
+        image1,
+        image2,
+        image3,
+        image4,
+        image5,
+        background,
+        ittineraire,
+        choosePublic,
+        horaire1
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -491,7 +532,9 @@ abstract class _Activity implements Activity {
       final String image4,
       final String image5,
       final String background,
-      final String ittineraire}) = _$ActivityImpl;
+      final String ittineraire,
+      final bool choosePublic,
+      final bool horaire1}) = _$ActivityImpl;
 
   factory _Activity.fromJson(Map<String, dynamic> json) =
       _$ActivityImpl.fromJson;
@@ -532,6 +575,10 @@ abstract class _Activity implements Activity {
   String get background;
   @override
   String get ittineraire;
+  @override
+  bool get choosePublic;
+  @override
+  bool get horaire1;
   @override
   @JsonKey(ignore: true)
   _$$ActivityImplCopyWith<_$ActivityImpl> get copyWith =>

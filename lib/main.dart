@@ -2,6 +2,7 @@ import 'package:ancrage/controllers/ConnexionController.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/activityController.dart';
 import 'package:ancrage/controllers/galerieController.dart';
+import 'package:ancrage/controllers/optionController.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/core/TranslationClass.dart';
 import 'package:ancrage/pages/activities.dart';
@@ -27,6 +28,7 @@ void main() {
   Get.put(PagesController());
   Get.put(ReservationController());
   Get.put(ActivityController());
+  Get.put(OptionController());
   Get.put(GalerieController());
   Get.put(ReservationPageController());
 

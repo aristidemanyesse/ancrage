@@ -5,12 +5,14 @@ import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/components/pack_box_activity.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ReservationStep2Page extends StatefulWidget {
   const ReservationStep2Page({super.key});
@@ -23,6 +25,9 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
   ReservationController reservationController = Get.find();
+
+  DateFormat dateFormat1 = DateFormat('E dd MMM yyyy à kk:mm');
+  DateFormat dateFormat2 = DateFormat('E dd MMM yyyy');
 
   @override
   void initState() {
@@ -179,7 +184,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Package Villa",
+                                            "${reservationController.packSelected.value.name}",
                                             style: AppTextStyle.subtitle,
                                           ),
                                           const SizedBox(
@@ -201,7 +206,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                           Helper.PADDING / 5,
                                                     ),
                                                     Text(
-                                                      "Lun. 25 Dec. 2023 - Lun. 25 Dec. 2023",
+                                                      "${dateFormat2.format(reservationController.debut.value)} - ${dateFormat2.format(reservationController.fin.value)}",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
@@ -235,7 +240,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                           Helper.PADDING / 5,
                                                     ),
                                                     Text(
-                                                      "5 050 050 FCFA",
+                                                      "${reservationController.montant} FCFA",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
@@ -306,8 +311,10 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                   children: [
                                     Expanded(
                                         flex: 3,
-                                        child: Image.asset(
-                                          "assets/images/bg/facade.png",
+                                        child: Image.network(
+                                          ApiService.MEDIA_URL +
+                                              reservationController
+                                                  .packSelected.value.image,
                                           fit: BoxFit.fitHeight,
                                         )),
                                     const SizedBox(
@@ -326,12 +333,12 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "1 - Villa",
+                                                    "1 - ${reservationController.packSelected.value.name}",
                                                     style: AppTextStyle
                                                         .titleMedium,
                                                   ),
                                                   Text(
-                                                      "2 lits | California King | 75 m²",
+                                                      "${reservationController.packSelected.value.nbreLit} lits | ${reservationController.packSelected.value.modeleLit} | ${reservationController.packSelected.value.superficie} m²",
                                                       style: AppTextStyle.body
                                                           .copyWith(
                                                               letterSpacing:
@@ -354,7 +361,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                             Helper.PADDING / 5,
                                                       ),
                                                       Text(
-                                                        "Lun. 25 Dec 2020",
+                                                        "${dateFormat1.format(reservationController.debut.value)}",
                                                         style: AppTextStyle
                                                             .bodysmall
                                                             .copyWith(
@@ -375,7 +382,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                             Helper.PADDING / 5,
                                                       ),
                                                       Text(
-                                                        "Lun. 25 Dec 2020",
+                                                        "${dateFormat1.format(reservationController.fin.value)}",
                                                         style: AppTextStyle
                                                             .bodysmall
                                                             .copyWith(
@@ -396,7 +403,8 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 4),
-                                                  Text("2 adultes    1 chambre",
+                                                  Text(
+                                                      "${reservationController.nbrPersonne} personnes    ${reservationController.nbrChambre} chambre",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(

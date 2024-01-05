@@ -1,14 +1,19 @@
+import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
+import 'package:ancrage/components/my_text_field.dart';
+import 'package:ancrage/controllers/optionController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
+import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ReservationStep3Page extends StatefulWidget {
   const ReservationStep3Page({super.key});
@@ -20,10 +25,25 @@ class ReservationStep3Page extends StatefulWidget {
 class _ReservationStep3PageState extends State<ReservationStep3Page> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
+  ReservationController reservationController = Get.find();
+  OptionController optionController = Get.find();
+
+  DateFormat dateFormat1 = DateFormat('E dd MMM yyyy à kk:mm');
+  DateFormat dateFormat2 = DateFormat('E dd MMM yyyy');
+
+  TextEditingController allergieController = TextEditingController();
+
+  final Map<GlobalKey<AdvanceExpansionTileState>, bool> listKey = {};
 
   @override
   void initState() {
     super.initState();
+
+    int i = 0;
+    while (i < 3) {
+      listKey[GlobalKey<AdvanceExpansionTileState>()] = false;
+      i += 1;
+    }
 
     _scrollController.addListener(() {
       pageController.scrollPosition.value = _scrollController.position.pixels;
@@ -176,7 +196,7 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Package Villa",
+                                            "${reservationController.packSelected.value.name}",
                                             style: AppTextStyle.subtitle,
                                           ),
                                           const SizedBox(
@@ -198,7 +218,7 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                           Helper.PADDING / 5,
                                                     ),
                                                     Text(
-                                                      "Lun. 25 Dec. 2023 - Lun. 25 Dec. 2023",
+                                                      "${dateFormat2.format(reservationController.debut.value)} - ${dateFormat2.format(reservationController.fin.value)}",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
@@ -232,7 +252,7 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                           Helper.PADDING / 5,
                                                     ),
                                                     Text(
-                                                      "5 050 050 FCFA",
+                                                      "${reservationController.montant} FCFA",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
@@ -436,28 +456,400 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                   style: AppTextStyle.titleMedium,
                                 ),
                               ),
-                              Checkbox(
-                                isError: true,
-                                tristate: true,
-                                value: false,
-                                onChanged: (bool? value) {
-                                  setState(() {});
+                              AdvanceExpansionTile(
+                                onExpansionChanged: (value) {
+                                  setState(() {
+                                    listKey[listKey.keys.toList()[0]] = !value;
+                                  });
+                                  if (value) {
+                                    for (var key in listKey.keys) {
+                                      if (key != listKey.keys.toList()[0]) {
+                                        key.currentState?.collapse();
+                                      }
+                                    }
+                                  }
                                 },
+                                maintainState: true,
+                                initiallyExpanded: true,
+                                textColor: AppColor.textColor,
+                                collapsedTextColor: AppColor.textColor,
+                                hideIcon: true,
+                                key: listKey.keys.toList()[0],
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Définissez votre confort",
+                                      style: AppTextStyle.subtitle,
+                                    ),
+                                    Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          border: Border.all(
+                                              color: AppColor.orange)),
+                                      child: Center(
+                                          child: Icon(
+                                              listKey[listKey.keys.toList()[0]]!
+                                                  ? Icons.add
+                                                  : Icons.close,
+                                              color: AppColor.orange)),
+                                    )
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColor.background, width: 2),
+                                ),
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(
+                                        color: AppColor.white,
+                                        border: Border(
+                                            top: BorderSide(
+                                                color: AppColor.background,
+                                                width: 1))),
+                                    padding: const EdgeInsets.all(
+                                        Helper.PADDING / 3),
+                                    child: Column(
+                                      children: optionController.groupes
+                                          .map((groupe) {
+                                        return groupe.name != "HEALTHCARE"
+                                            ? Container(
+                                                margin: EdgeInsets.only(
+                                                    bottom: Helper.PADDING / 2),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "A• ${groupe.name}",
+                                                      style:
+                                                          AppTextStyle.subtitle,
+                                                    ),
+                                                    Obx(() {
+                                                      return GridView.count(
+                                                        crossAxisCount: 5,
+                                                        childAspectRatio:
+                                                            (8 / 1),
+                                                        controller:
+                                                            ScrollController(
+                                                                keepScrollOffset:
+                                                                    false),
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        children:
+                                                            groupe
+                                                                .categorieOption
+                                                                .map((item) =>
+                                                                    MouseRegion(
+                                                                      cursor: SystemMouseCursors
+                                                                          .click,
+                                                                      child:
+                                                                          GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          if (reservationController
+                                                                              .optionsSelected
+                                                                              .contains(item)) {
+                                                                            reservationController.optionsSelected.remove(item);
+                                                                          } else {
+                                                                            reservationController.optionsSelected.add(item);
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Checkbox(
+                                                                              value: reservationController.optionsSelected.contains(item),
+                                                                              onChanged: (bool? value) {
+                                                                                if (value!) {
+                                                                                  reservationController.optionsSelected.add(item);
+                                                                                } else {
+                                                                                  reservationController.optionsSelected.remove(item);
+                                                                                }
+                                                                              },
+                                                                            ),
+                                                                            const SizedBox(
+                                                                              width: 5,
+                                                                            ),
+                                                                            Text(item.name,
+                                                                                style: AppTextStyle.bodysmall),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ))
+                                                                .toList(),
+                                                      );
+                                                    }),
+                                                  ],
+                                                ),
+                                              )
+                                            : Container();
+                                      }).toList(),
+                                    ),
+                                  )
+                                ],
+                                onTap: () {},
                               ),
-                              // Container(
-                              //     margin: const EdgeInsets.all(0),
-                              //     child: Column(
-                              //       children: pageController.listKey.map((key) {
-                              //         return Container(
-                              //           margin: const EdgeInsets.only(
-                              //               bottom: Helper.PADDING / 2),
-                              //           child: PackBoxActivity(
-                              //             key_value: key,
-                              //             initiallyExpanded: false,
-                              //           ),
-                              //         );
-                              //       }).toList(),
-                              //     )),
+                              const SizedBox(
+                                height: Helper.PADDING / 2,
+                              ),
+                              AdvanceExpansionTile(
+                                onExpansionChanged: (value) {
+                                  setState(() {
+                                    listKey[listKey.keys.toList()[1]] = !value;
+                                  });
+                                  if (value) {
+                                    for (var key in listKey.keys) {
+                                      if (key != listKey.keys.toList()[1]) {
+                                        key.currentState?.collapse();
+                                      }
+                                    }
+                                  }
+                                },
+                                maintainState: true,
+                                initiallyExpanded: false,
+                                textColor: AppColor.textColor,
+                                collapsedTextColor: AppColor.textColor,
+                                hideIcon: true,
+                                key: listKey.keys.toList()[1],
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Devrions-nous savoir quelque chose sur votre santé:",
+                                      style: AppTextStyle.subtitle,
+                                    ),
+                                    Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          border: Border.all(
+                                              color: AppColor.orange)),
+                                      child: Center(
+                                          child: Icon(
+                                              listKey[listKey.keys.toList()[1]]!
+                                                  ? Icons.add
+                                                  : Icons.close,
+                                              color: AppColor.orange)),
+                                    )
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColor.background, width: 2),
+                                ),
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(
+                                        color: AppColor.white,
+                                        border: Border(
+                                            top: BorderSide(
+                                                color: AppColor.background,
+                                                width: 1))),
+                                    padding: const EdgeInsets.all(
+                                        Helper.PADDING / 3),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Checkbox(
+                                              value: false,
+                                              onChanged: (bool? value) {},
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text("Allergies alimentaires",
+                                                style: AppTextStyle.bodysmall),
+                                            const SizedBox(
+                                              width: Helper.PADDING,
+                                            ),
+                                            Expanded(
+                                              child: MyTextField(
+                                                onChanged: (String value) {
+                                                  if (int.parse(value) > 0) {
+                                                    reservationController
+                                                            .nbrPersonne.value =
+                                                        int.parse(value);
+                                                  }
+                                                },
+                                                controller: allergieController,
+                                                label: "",
+                                                placeholer:
+                                                    "Spécifiez vos allergies en les séparant par une virgule",
+                                              ),
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: Helper.PADDING / 2,
+                                        ),
+                                        Column(
+                                          children: optionController.groupes
+                                              .map((groupe) {
+                                            return groupe.name == "HEALTHCARE"
+                                                ? Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            Helper.PADDING / 2),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // Text(
+                                                        //   "A• ${groupe.name}",
+                                                        //   style: AppTextStyle
+                                                        //       .subtitle,
+                                                        // ),
+                                                        Obx(() {
+                                                          return GridView.count(
+                                                            crossAxisCount: 5,
+                                                            childAspectRatio:
+                                                                (8 / 1),
+                                                            controller:
+                                                                ScrollController(
+                                                                    keepScrollOffset:
+                                                                        false),
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            children: groupe
+                                                                .categorieOption
+                                                                .map((item) =>
+                                                                    MouseRegion(
+                                                                      cursor: SystemMouseCursors
+                                                                          .click,
+                                                                      child:
+                                                                          GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          if (reservationController
+                                                                              .optionsSelected
+                                                                              .contains(item)) {
+                                                                            reservationController.optionsSelected.remove(item);
+                                                                          } else {
+                                                                            reservationController.optionsSelected.add(item);
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Checkbox(
+                                                                              value: reservationController.optionsSelected.contains(item),
+                                                                              onChanged: (bool? value) {
+                                                                                if (value!) {
+                                                                                  reservationController.optionsSelected.add(item);
+                                                                                } else {
+                                                                                  reservationController.optionsSelected.remove(item);
+                                                                                }
+                                                                              },
+                                                                            ),
+                                                                            const SizedBox(
+                                                                              width: 5,
+                                                                            ),
+                                                                            Text(item.name,
+                                                                                style: AppTextStyle.bodysmall),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ))
+                                                                .toList(),
+                                                          );
+                                                        }),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Container();
+                                          }).toList(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                                onTap: () {},
+                              ),
+                              const SizedBox(
+                                height: Helper.PADDING / 2,
+                              ),
+                              AdvanceExpansionTile(
+                                onExpansionChanged: (value) {
+                                  setState(() {
+                                    listKey[listKey.keys.toList()[2]] = !value;
+                                  });
+                                  if (value) {
+                                    for (var key in listKey.keys) {
+                                      if (key != listKey.keys.toList()[2]) {
+                                        key.currentState?.collapse();
+                                      }
+                                    }
+                                  }
+                                },
+                                maintainState: true,
+                                initiallyExpanded: false,
+                                textColor: AppColor.textColor,
+                                collapsedTextColor: AppColor.textColor,
+                                hideIcon: true,
+                                key: listKey.keys.toList()[2],
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Résumé des charges",
+                                      style: AppTextStyle.subtitle,
+                                    ),
+                                    Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          border: Border.all(
+                                              color: AppColor.orange)),
+                                      child: Center(
+                                          child: Icon(
+                                              listKey[listKey.keys.toList()[2]]!
+                                                  ? Icons.add
+                                                  : Icons.close,
+                                              color: AppColor.orange)),
+                                    )
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColor.background, width: 2),
+                                ),
+                                children: [
+                                  Container(
+                                      width: double.infinity,
+                                      decoration: const BoxDecoration(
+                                          color: AppColor.white,
+                                          border: Border(
+                                              top: BorderSide(
+                                                  color: AppColor.background,
+                                                  width: 1))),
+                                      padding: const EdgeInsets.all(
+                                          Helper.PADDING / 3),
+                                      child: Container())
+                                ],
+                                onTap: () {},
+                              ),
+                              const SizedBox(
+                                height: Helper.PADDING,
+                              ),
                             ],
                           ),
                         ),

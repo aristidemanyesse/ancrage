@@ -31,8 +31,11 @@ class _ReservationPageState extends State<ReservationPage> {
 
   TextEditingController debutController = TextEditingController();
   TextEditingController finController = TextEditingController();
+  TextEditingController nbrPersonneController =
+      TextEditingController(text: "1");
+  TextEditingController nbrChambreController = TextEditingController(text: "1");
   DateFormat dateFormat = DateFormat('dd MMMM yyy – kk:mm');
-  DateFormat dateFormat2 = DateFormat('E dd MMM yyyy');
+  DateFormat dateFormat2 = DateFormat('E dd MMM yyyy à kk:mm');
 
   @override
   void initState() {
@@ -229,20 +232,45 @@ class _ReservationPageState extends State<ReservationPage> {
                                         const SizedBox(
                                           height: Helper.PADDING / 2,
                                         ),
-                                        const Row(
+                                        Row(
                                           children: [
                                             Expanded(
-                                                child: MyTextField(
-                                              label: "Personnes",
-                                              placeholer: "Nombre de personnes",
-                                              keyboardType:
-                                                  TextInputType.number,
-                                            )),
-                                            SizedBox(
+                                              child: MyTextField(
+                                                onChanged: (String value) {
+                                                  if (int.parse(value) > 0) {
+                                                    reservationController
+                                                            .nbrPersonne.value =
+                                                        int.parse(value);
+                                                  } else {
+                                                    nbrPersonneController.text =
+                                                        "1";
+                                                  }
+                                                },
+                                                controller:
+                                                    nbrPersonneController,
+                                                label: "Personnes",
+                                                placeholer:
+                                                    "Nombre de personnes",
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                            ),
+                                            const SizedBox(
                                               width: Helper.PADDING / 2,
                                             ),
                                             Expanded(
                                                 child: MyTextField(
+                                              onChanged: (String value) {
+                                                if (int.parse(value) > 0) {
+                                                  reservationController
+                                                      .nbrChambre
+                                                      .value = int.parse(value);
+                                                } else {
+                                                  nbrChambreController.text =
+                                                      "1";
+                                                }
+                                              },
+                                              controller: nbrChambreController,
                                               label: "Chambres",
                                               placeholer: "Nombre de chambres",
                                               keyboardType:
@@ -308,39 +336,51 @@ class _ReservationPageState extends State<ReservationPage> {
                                                     const SizedBox(
                                                       width: Helper.PADDING / 4,
                                                     ),
-                                                    Text(
-                                                      Jiffy.parseFromDateTime(DateTime.parse("2024-01-04 15:00")).fromNow(),
-                                                      style: AppTextStyle
-                                                          .subtitle
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                    )
+                                                    Obx(() {
+                                                      return Text(
+                                                        Jiffy.parseFromDateTime(
+                                                                reservationController
+                                                                    .debut
+                                                                    .value)
+                                                            .fromNow(),
+                                                        style: AppTextStyle
+                                                            .subtitle
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                      );
+                                                    })
                                                   ],
                                                 ),
                                                 const SizedBox(
                                                   height: Helper.PADDING / 5,
                                                 ),
-                                                Text(
-                                                  dateFormat2.format(DateTime.parse("2024-01-01")),
-                                                  style: AppTextStyle.subtitle
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 19),
-                                                ),
+                                                Obx(() {
+                                                  return Text(
+                                                    dateFormat2.format(
+                                                        reservationController
+                                                            .debut.value),
+                                                    style: AppTextStyle.subtitle
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 19),
+                                                  );
+                                                }),
                                                 const SizedBox(
                                                   height: Helper.PADDING / 5,
                                                 ),
-                                                Text(
-                                                  "2 adultes",
-                                                  style: AppTextStyle.subtitle
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 19),
-                                                )
+                                                Obx(() {
+                                                  return Text(
+                                                    "${reservationController.nbrPersonne} personnes",
+                                                    style: AppTextStyle.subtitle
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 19),
+                                                  );
+                                                })
                                               ],
                                             ),
                                           ),
@@ -359,40 +399,50 @@ class _ReservationPageState extends State<ReservationPage> {
                                                     const SizedBox(
                                                       width: Helper.PADDING / 4,
                                                     ),
-                                                    Text(
-                                                      "Avant 11:00",
-                                                      style: AppTextStyle
-                                                          .subtitle
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 19),
-                                                    )
+                                                    Obx(() {
+                                                      return Text(
+                                                        Jiffy.parseFromDateTime(
+                                                                reservationController
+                                                                    .fin.value)
+                                                            .fromNow(),
+                                                        style: AppTextStyle
+                                                            .subtitle
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                      );
+                                                    })
                                                   ],
                                                 ),
                                                 const SizedBox(
                                                   height: Helper.PADDING / 5,
                                                 ),
-                                                Text(
-                                                  "Dim. 07 Jan. 2024",
-                                                  style: AppTextStyle.subtitle
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 19),
-                                                ),
+                                                Obx(() {
+                                                  return Text(
+                                                    dateFormat2.format(
+                                                        reservationController
+                                                            .fin.value),
+                                                    style: AppTextStyle.subtitle
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 19),
+                                                  );
+                                                }),
                                                 const SizedBox(
                                                   height: Helper.PADDING / 5,
                                                 ),
-                                                Text(
-                                                  "1 chambre",
-                                                  style: AppTextStyle.subtitle
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 19),
-                                                )
+                                                Obx(() {
+                                                  return Text(
+                                                    "${reservationController.nbrChambre} chambre",
+                                                    style: AppTextStyle.subtitle
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 19),
+                                                  );
+                                                })
                                               ],
                                             ),
                                           ),
@@ -419,14 +469,16 @@ class _ReservationPageState extends State<ReservationPage> {
                                               style: AppTextStyle.subtitle,
                                             ),
                                             const Spacer(),
-                                            Text(
-                                              "0 Xof",
-                                              style: AppTextStyle.subtitle
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 19),
-                                            ),
+                                            Obx(() {
+                                              return Text(
+                                                "${reservationController.montant} Xof",
+                                                style: AppTextStyle.subtitle
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 19),
+                                              );
+                                            }),
                                           ],
                                         ),
                                       ),
@@ -440,6 +492,7 @@ class _ReservationPageState extends State<ReservationPage> {
                         ),
                         Container(
                             child: Container(
+                          width: double.infinity,
                           padding: const EdgeInsets.symmetric(
                               horizontal: Helper.PADDING * 2,
                               vertical: Helper.PADDING),

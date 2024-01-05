@@ -26,6 +26,8 @@ _$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
       image5: json['image5'] as String? ?? "",
       background: json['background'] as String? ?? "",
       ittineraire: json['ittineraire'] as String? ?? "",
+      choosePublic: json['choosePublic'] as bool? ?? false,
+      horaire1: json['horaire1'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
@@ -48,4 +50,6 @@ Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
       'image5': instance.image5,
       'background': instance.background,
       'ittineraire': instance.ittineraire,
+      'choosePublic': instance.choosePublic,
+      'horaire1': instance.horaire1,
     };

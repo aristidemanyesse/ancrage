@@ -12,6 +12,7 @@ class Option with _$Option {
     @Default("") String updateAt,
     @Default(false) bool deleted,
     @Default("") String name,
+    @Default(false) bool isChecked,
   }) = _Option;
 
   factory Option.fromJson(Map<String, Object?> json) => _$OptionFromJson(json);

@@ -127,7 +127,7 @@ class _GaleriesPageState extends State<GaleriesPage> {
                             mainAxisSpacing: Helper.PADDING,
                             crossAxisSpacing: Helper.PADDING,
                             children: galerieController.albums.map((album) {
-                              return album.imageAlbum.length > 0
+                              return album.imageAlbum.isNotEmpty
                                   ? MouseRegion(
                                       cursor: SystemMouseCursors.click,
                                       child: GestureDetector(

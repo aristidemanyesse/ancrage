@@ -27,6 +27,8 @@ class Activity with _$Activity {
     @Default("") String image5,
     @Default("") String background,
     @Default("") String ittineraire,
+    @Default(false) bool choosePublic,
+    @Default(true) bool horaire1,
   }) = _Activity;
 
   factory Activity.fromJson(Map<String, Object?> json) =>

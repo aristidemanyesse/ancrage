@@ -12,6 +12,7 @@ _$OptionImpl _$$OptionImplFromJson(Map<String, dynamic> json) => _$OptionImpl(
       updateAt: json['updateAt'] as String? ?? "",
       deleted: json['deleted'] as bool? ?? false,
       name: json['name'] as String? ?? "",
+      isChecked: json['isChecked'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$OptionImplToJson(_$OptionImpl instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$OptionImplToJson(_$OptionImpl instance) =>
       'updateAt': instance.updateAt,
       'deleted': instance.deleted,
       'name': instance.name,
+      'isChecked': instance.isChecked,
     };

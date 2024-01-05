@@ -25,6 +25,9 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
   ReservationController reservationController = Get.find();
   late bool iconValue = !widget.initiallyExpanded;
 
+  late bool horaire1 = true;
+  late bool public = false;
+
   @override
   Widget build(BuildContext context) {
     return AdvanceExpansionTile(
@@ -108,34 +111,52 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                           ),
                           Text(
                             widget.activity.description,
-                            style: AppTextStyle.body.copyWith(letterSpacing: 0),
+                            style: AppTextStyle.bodysmall
+                                .copyWith(letterSpacing: 0),
+                          ),
+                          const SizedBox(
+                            height: Helper.PADDING / 2,
                           ),
                           Row(
                             children: [
-                              const Text("Horaire: "),
+                              Text("Horaire: ", style: AppTextStyle.body),
                               Row(
                                 children: [
                                   SizedBox(
-                                    height: 30,
+                                    height: 25,
                                     child: FittedBox(
                                       fit: BoxFit.fill,
                                       child: Switch(
-                                        value: true,
-                                        onChanged: (bool value1) {},
+                                        value: horaire1,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            horaire1 = value;
+                                          });
+                                        },
                                       ),
                                     ),
                                   ),
                                   const Text("Matin "),
                                 ],
                               ),
+                              const SizedBox(
+                                width: Helper.PADDING / 2,
+                              ),
                               Row(
                                 children: [
-                                  Radio(
-                                    value: 2,
-                                    groupValue: true,
-                                    onChanged: (value) {
-                                      setState(() {});
-                                    },
+                                  SizedBox(
+                                    height: 25,
+                                    child: FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Switch(
+                                        value: !horaire1,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            horaire1 = !value;
+                                          });
+                                        },
+                                      ),
+                                    ),
                                   ),
                                   const Text("Soir "),
                                 ],
@@ -161,7 +182,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                           width: 5,
                                         ),
                                         Text(item.trim(),
-                                            style: AppTextStyle.menuButtonText),
+                                            style: AppTextStyle.bodysmall),
                                       ],
                                     ))
                                 .toList(),
@@ -187,35 +208,58 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 children: [
                                   const Text(
                                       "Voulez-vous faire cette activité en privée ?"),
+                                  SizedBox(
+                                    width: Helper.PADDING / 2,
+                                  ),
                                   Row(
                                     children: [
-                                      const Text("Horaire: "),
                                       Row(
                                         children: [
                                           SizedBox(
-                                            height: 30,
+                                            height: 25,
                                             child: FittedBox(
                                               fit: BoxFit.fill,
                                               child: Switch(
-                                                value: true,
-                                                onChanged: (bool value1) {},
+                                                value: public,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    public = value;
+                                                  });
+                                                },
                                               ),
                                             ),
                                           ),
                                           const Text("Oui "),
                                         ],
                                       ),
+                                      SizedBox(
+                                        width: Helper.PADDING / 3,
+                                      ),
                                       Row(
                                         children: [
-                                          Radio(
-                                            value: 2,
-                                            groupValue: true,
-                                            onChanged: (value) {
-                                              setState(() {});
-                                            },
+                                          SizedBox(
+                                            height: 25,
+                                            child: FittedBox(
+                                              fit: BoxFit.fill,
+                                              child: Switch(
+                                                value: !public,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    public = !value;
+                                                  });
+                                                },
+                                              ),
+                                            ),
                                           ),
                                           const Text("Non "),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        width: Helper.PADDING / 2,
+                                      ),
+                                      Text(
+                                        "${public ? widget.activity.publicPrice : widget.activity.privatePrice} Fcfa",
+                                        style: AppTextStyle.body,
                                       ),
                                     ],
                                   ),
@@ -231,7 +275,13 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                             children: [
                               FormMainButton(
                                   onTap: () {
-                                    Get.toNamed("/reservation_next");
+                                    reservationController.activitySelected
+                                        .value = widget.activity;
+                                    reservationController.horaire.value =
+                                        horaire1;
+                                    reservationController.public.value = public;
+
+                                    Get.toNamed("/reservation_next_3");
                                   },
                                   title: "Suivant")
                             ],

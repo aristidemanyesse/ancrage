@@ -25,6 +25,7 @@ mixin _$Option {
   String get updateAt => throw _privateConstructorUsedError;
   bool get deleted => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  bool get isChecked => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $OptionCopyWith<$Res> {
       String createdAt,
       String updateAt,
       bool deleted,
-      String name});
+      String name,
+      bool isChecked});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
     Object? updateAt = null,
     Object? deleted = null,
     Object? name = null,
+    Object? isChecked = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -84,6 +87,10 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      isChecked: null == isChecked
+          ? _value.isChecked
+          : isChecked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -100,7 +107,8 @@ abstract class _$$OptionImplCopyWith<$Res> implements $OptionCopyWith<$Res> {
       String createdAt,
       String updateAt,
       bool deleted,
-      String name});
+      String name,
+      bool isChecked});
 }
 
 /// @nodoc
@@ -119,6 +127,7 @@ class __$$OptionImplCopyWithImpl<$Res>
     Object? updateAt = null,
     Object? deleted = null,
     Object? name = null,
+    Object? isChecked = null,
   }) {
     return _then(_$OptionImpl(
       id: null == id
@@ -141,6 +150,10 @@ class __$$OptionImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      isChecked: null == isChecked
+          ? _value.isChecked
+          : isChecked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -153,7 +166,8 @@ class _$OptionImpl implements _Option {
       this.createdAt = "",
       this.updateAt = "",
       this.deleted = false,
-      this.name = ""});
+      this.name = "",
+      this.isChecked = false});
 
   factory _$OptionImpl.fromJson(Map<String, dynamic> json) =>
       _$$OptionImplFromJson(json);
@@ -173,10 +187,13 @@ class _$OptionImpl implements _Option {
   @override
   @JsonKey()
   final String name;
+  @override
+  @JsonKey()
+  final bool isChecked;
 
   @override
   String toString() {
-    return 'Option(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name)';
+    return 'Option(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, isChecked: $isChecked)';
   }
 
   @override
@@ -190,13 +207,15 @@ class _$OptionImpl implements _Option {
             (identical(other.updateAt, updateAt) ||
                 other.updateAt == updateAt) &&
             (identical(other.deleted, deleted) || other.deleted == deleted) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.isChecked, isChecked) ||
+                other.isChecked == isChecked));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, updateAt, deleted, name);
+  int get hashCode => Object.hash(
+      runtimeType, id, createdAt, updateAt, deleted, name, isChecked);
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +237,8 @@ abstract class _Option implements Option {
       final String createdAt,
       final String updateAt,
       final bool deleted,
-      final String name}) = _$OptionImpl;
+      final String name,
+      final bool isChecked}) = _$OptionImpl;
 
   factory _Option.fromJson(Map<String, dynamic> json) = _$OptionImpl.fromJson;
 
@@ -232,6 +252,8 @@ abstract class _Option implements Option {
   bool get deleted;
   @override
   String get name;
+  @override
+  bool get isChecked;
   @override
   @JsonKey(ignore: true)
   _$$OptionImplCopyWith<_$OptionImpl> get copyWith =>
