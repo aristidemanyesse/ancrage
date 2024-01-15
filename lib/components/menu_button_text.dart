@@ -1,5 +1,7 @@
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MenuButtonText extends StatelessWidget {
   final String title;
@@ -20,7 +22,7 @@ class MenuButtonText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: withPadding
-          ? const EdgeInsets.only(left: Helper.PADDING * 1.5)
+          ? EdgeInsets.only(left: Helper.PADDING * (Get.size.width / 2200))
           : null,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
@@ -31,6 +33,7 @@ class MenuButtonText extends StatelessWidget {
           child: Text(
             title.toUpperCase(),
             style: AppTextStyle.menuButtonText.copyWith(
+                fontSize: Responsive.isMonitor(context) ? 20 : 17,
                 color: color,
                 fontWeight: active ? FontWeight.bold : FontWeight.w200),
           ),

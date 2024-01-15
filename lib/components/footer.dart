@@ -1,5 +1,6 @@
 import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/components/secondary_button.dart';
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,67 +17,107 @@ class Footer extends StatelessWidget {
       children: [
         Container(
           width: Get.size.width,
-          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 150),
+          padding: EdgeInsets.symmetric(
+              vertical: 80,
+              horizontal: Responsive.isMonitor(context)
+                  ? Helper.PADDING * 3
+                  : Helper.PADDING),
           color: AppColor.green,
           child: Column(
             children: [
-              SvgPicture.asset(
-                "assets/images/main/Logo-Lancrage.svg",
-                height: 180,
+              Responsive(
+                mobile: SvgPicture.asset(
+                  "assets/images/main/Logo-Lancrage.svg",
+                  height: 120,
+                ),
+                desktop: SvgPicture.asset(
+                  "assets/images/main/Logo-Lancrage.svg",
+                  height: 150,
+                ),
+                monitor: SvgPicture.asset(
+                  "assets/images/main/Logo-Lancrage.svg",
+                  height: 180,
+                ),
               ),
               const SizedBox(
                 height: 80,
               ),
               Row(
                 children: [
-                  const Spacer(
-                    flex: 1,
+                  Responsive(
+                    mobile: SizedBox(
+                      width: Helper.PADDING,
+                    ),
+                    tablet: SizedBox(
+                      width: Helper.PADDING * 1.5,
+                    ),
+                    desktop: SizedBox(
+                      width: Helper.PADDING * 3,
+                    ),
+                    monitor: SizedBox(
+                      width: Helper.PADDING * 5,
+                    ),
                   ),
                   Expanded(
-                    flex: 3,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/");
-                          },
-                          title: "ACCEUIL",
-                          color: AppColor.white,
-                        ),
+                            onTap: () {
+                              Get.toNamed("/");
+                            },
+                            title: "ACCEUIL",
+                            color: AppColor.white,
+                            withPadding: (Responsive.isDesktop(context) ||
+                                Responsive.isMonitor(context))),
                         MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/activities");
-                          },
-                          title: "ACTIVITés",
-                          color: AppColor.white,
-                        ),
+                            onTap: () {
+                              Get.toNamed("/activities");
+                            },
+                            title: "ACTIVITés",
+                            color: AppColor.white,
+                            withPadding: (Responsive.isDesktop(context) ||
+                                Responsive.isMonitor(context))),
                         MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/galeries");
-                          },
-                          title: "GALERIE",
-                          color: AppColor.white,
-                        ),
+                            onTap: () {
+                              Get.toNamed("/galeries");
+                            },
+                            title: "GALERIE",
+                            color: AppColor.white,
+                            withPadding: (Responsive.isDesktop(context) ||
+                                Responsive.isMonitor(context))),
                         MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/a_propos");
-                          },
-                          title: "à propos",
-                          color: AppColor.white,
-                        ),
+                            onTap: () {
+                              Get.toNamed("/a_propos");
+                            },
+                            title: "à propos",
+                            color: AppColor.white,
+                            withPadding: (Responsive.isDesktop(context) ||
+                                Responsive.isMonitor(context))),
                         MenuButtonText(
-                          onTap: () {
-                            Get.toNamed("/contacts");
-                          },
-                          title: "Contacts",
-                          color: AppColor.white,
-                        ),
+                            onTap: () {
+                              Get.toNamed("/contacts");
+                            },
+                            title: "Contacts",
+                            color: AppColor.white,
+                            withPadding: (Responsive.isDesktop(context) ||
+                                Responsive.isMonitor(context))),
                       ],
                     ),
                   ),
-                  const Spacer(
-                    flex: 1,
+                  Responsive(
+                    mobile: SizedBox(
+                      width: Helper.PADDING,
+                    ),
+                    tablet: SizedBox(
+                      width: Helper.PADDING * 1.5,
+                    ),
+                    desktop: SizedBox(
+                      width: Helper.PADDING * 3,
+                    ),
+                    monitor: SizedBox(
+                      width: Helper.PADDING * 5,
+                    ),
                   ),
                 ],
               ),

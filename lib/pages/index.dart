@@ -1,5 +1,6 @@
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
+import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
@@ -8,6 +9,9 @@ import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/pages/come_to_us.dart';
+import 'package:ancrage/pages/slide_image.dart';
+import 'package:ancrage/pages/transparent_header_menu.dart';
+import 'package:ancrage/pages/transparent_header_menu_mini.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -104,171 +108,15 @@ class _IndexPageState extends State<IndexPage> {
                           left: 0,
                           right: 0,
                           top: 0,
-                          child: Container(
-                            margin: const EdgeInsets.all(0),
-                            padding: const EdgeInsets.symmetric(horizontal: 80),
-                            height: Helper.PADDING * 2,
-                            child: Row(
-                              children: [
-                                MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.toNamed("/");
-                                    },
-                                    child: SvgPicture.asset(
-                                      "assets/images/logo/logo-blanc.svg",
-                                      height: 60,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    MenuButtonText(
-                                      color: Colors.white,
-                                      onTap: () {
-                                        Get.toNamed("/");
-                                      },
-                                      active: Get.currentRoute == "/",
-                                      withPadding: true,
-                                      title: "menubar_home".tr,
-                                    ),
-                                    MenuButtonText(
-                                      onTap: () {
-                                        Get.toNamed("/activities");
-                                      },
-                                      active:
-                                          Get.currentRoute == "/activities" ||
-                                              Get.currentRoute == "/activity",
-                                      color: AppColor.white,
-                                      withPadding: true,
-                                      title: "ACTIVITés",
-                                    ),
-                                    MenuButtonText(
-                                      onTap: () {
-                                        Get.toNamed("/galeries");
-                                      },
-                                      active: Get.currentRoute == "/galeries" ||
-                                          Get.currentRoute == "/activity",
-                                      color: AppColor.white,
-                                      withPadding: true,
-                                      title: "GALERIE",
-                                    ),
-                                    MenuButtonText(
-                                      color: Colors.white,
-                                      onTap: () {
-                                        Get.toNamed("/a_propos");
-                                      },
-                                      active: Get.currentRoute == "/a_propos",
-                                      withPadding: true,
-                                      title: "à propos",
-                                    ),
-                                    MenuButtonText(
-                                      color: Colors.white,
-                                      onTap: () {
-                                        Get.toNamed("/contacts");
-                                      },
-                                      active: Get.currentRoute == "/contacts",
-                                      withPadding: true,
-                                      title: "Contacts",
-                                    ),
-                                  ],
-                                )),
-                                const SizedBox(
-                                  width: Helper.PADDING * 2,
-                                ),
-                                MainButton(
-                                  color: Colors.white,
-                                  title: "réservation",
-                                  onTap: () {
-                                    Get.toNamed("/reservation");
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: Helper.PADDING * 2,
-                                ),
-                                DropdownButton(
-                                  elevation: 0,
-                                  icon: const Icon(
-                                    Icons.add_outlined,
-                                    size: 0,
-                                  ),
-                                  underline: Container(),
-                                  hint: MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    child: Obx(() {
-                                      return Row(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: SizedBox(
-                                              height: 30,
-                                              width: 30,
-                                              child: SvgPicture.asset(
-                                                pageController.languageSelected
-                                                            .value ==
-                                                        "English"
-                                                    ? "assets/images/socials/English-Circle.svg"
-                                                    : "assets/images/socials/English-Circle.svg",
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            pageController
-                                                .languageSelected.value
-                                                .substring(0, 2),
-                                            style: AppTextStyle.menuButtonText
-                                                .copyWith(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.keyboard_arrow_down,
-                                            size: 20,
-                                            color: Colors.white,
-                                          )
-                                        ],
-                                      );
-                                    }),
-                                  ),
-                                  items: pageController.languages.keys
-                                      .map((String item) {
-                                    return DropdownMenuItem(
-                                      value: item,
-                                      child: Row(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: SizedBox(
-                                              height: 30,
-                                              width: 30,
-                                              child: SvgPicture.asset(
-                                                "assets/images/socials/English-Circle.svg",
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: Helper.PADDING / 4,
-                                          ),
-                                          Text(item),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    pageController.languageSelected.value =
-                                        newValue!;
-                                  },
-                                ),
-                              ],
-                            ),
+                          child: Responsive(
+                            mobile: TransparentHeaderMenuMini(
+                                pageController: pageController),
+                            mobileLarge: TransparentHeaderMenuMini(
+                                pageController: pageController),
+                            tablet: TransparentHeaderMenuMini(
+                                pageController: pageController),
+                            desktop: TransparentHeaderMenu(
+                                pageController: pageController),
                           ),
                         ),
                         Positioned(
@@ -300,14 +148,19 @@ class _IndexPageState extends State<IndexPage> {
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                               vertical: Helper.PADDING * 1.5,
-                              horizontal: Helper.PADDING * 3),
+                              horizontal: Responsive.isMonitor(context)
+                                  ? Helper.PADDING * 3
+                                  : Helper.PADDING),
                           child: Column(
                             children: [
                               Text(
                                 "In the heart of nature",
-                                style: AppTextStyle.titleLarge,
+                                style: AppTextStyle.titleLarge.copyWith(
+                                  fontSize:
+                                      Responsive.isMonitor(context) ? 50 : 40,
+                                ),
                               ),
                               const SizedBox(
                                 height: Helper.PADDING / 2,
@@ -321,73 +174,46 @@ class _IndexPageState extends State<IndexPage> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: Helper.PADDING * 3),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Responsive.isMonitor(context)
+                                  ? Helper.PADDING * 3
+                                  : Helper.PADDING),
                           child: SingleChildScrollView(
                             controller: _sectionScrollController,
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/Img@2x (1).png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
+                                SlideImage(
+                                  path: "assets/images/bg/Img@2x (1).png",
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/Imgml@2x.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
+                                SlideImage(
+                                    path: "assets/images/bg/Imgml@2x.png"),
+                                SlideImage(
+                                  path: "assets/images/bg/Img@2x (3).png",
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/Img@2x (3).png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
+                                SlideImage(
+                                  path: "assets/images/bg/Img@2x (2).png",
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/Img@2x (2).png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
+                                SlideImage(
+                                  path: "assets/images/bg/facade.png",
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/facade.png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Helper.PADDING / 2),
-                                  child: Image.asset(
-                                    "assets/images/bg/Img@2x (4).png",
-                                    height: 500,
-                                    width: 650,
-                                  ),
+                                SlideImage(
+                                  path: "assets/images/bg/Img@2x (4).png",
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: Helper.PADDING * 2,
+                        Responsive(
+                          mobile: SizedBox(
+                            height: Helper.PADDING,
+                          ),
+                          desktop: SizedBox(
+                            height: Helper.PADDING,
+                          ),
+                          monitor: SizedBox(
+                            height: Helper.PADDING * 2,
+                          ),
                         ),
                         Container(
                           child: Column(
@@ -403,43 +229,89 @@ class _IndexPageState extends State<IndexPage> {
                                   )
                                 ],
                               ),
-                              const SizedBox(
-                                height: Helper.PADDING * 2,
+                              Responsive(
+                                mobile: SizedBox(
+                                  height: Helper.PADDING,
+                                ),
+                                desktop: SizedBox(
+                                  height: Helper.PADDING,
+                                ),
+                                monitor: SizedBox(
+                                  height: Helper.PADDING * 2,
+                                ),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(
+                                padding: EdgeInsets.symmetric(
                                     vertical: Helper.PADDING * 1.5,
-                                    horizontal: Helper.PADDING * 3),
+                                    horizontal: Responsive.isMonitor(context)
+                                        ? Helper.PADDING * 3
+                                        : Helper.PADDING),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       "Naturel & Moderne",
-                                      style: AppTextStyle.titleLarge,
+                                      style: AppTextStyle.titleLarge.copyWith(
+                                        fontSize: Responsive.isMonitor(context)
+                                            ? 50
+                                            : 40,
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: Helper.PADDING,
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: Helper.PADDING * 5),
-                                      child: Text(
-                                        "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
-                                        textAlign: TextAlign.center,
-                                        style: AppTextStyle.subtitle.copyWith(
-                                            letterSpacing: 3,
-                                            wordSpacing: 2,
-                                            height: 1.6,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 24),
+                                    Responsive(
+                                      mobile: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: Helper.PADDING),
+                                        child: Text(
+                                          "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
+                                          textAlign: TextAlign.center,
+                                          style: AppTextStyle.subtitle.copyWith(
+                                              letterSpacing: 3,
+                                              wordSpacing: 2,
+                                              height: 1.6,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 24),
+                                        ),
+                                      ),
+                                      desktop: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: Helper.PADDING * 2),
+                                        child: Text(
+                                          "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
+                                          textAlign: TextAlign.center,
+                                          style: AppTextStyle.subtitle.copyWith(
+                                              letterSpacing: 3,
+                                              wordSpacing: 2,
+                                              height: 1.6,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 24),
+                                        ),
+                                      ),
+                                      monitor: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: Helper.PADDING * 5),
+                                        child: Text(
+                                          "Mettant en commun modernisme et nature, nos chambres sont une ouverture vers le monde et la diversité naturelle. \n Le calme et la sérénité de notre hôtel sont étudiés pour vous.",
+                                          textAlign: TextAlign.center,
+                                          style: AppTextStyle.subtitle.copyWith(
+                                              letterSpacing: 3,
+                                              wordSpacing: 2,
+                                              height: 1.6,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 24),
+                                        ),
                                       ),
                                     )
                                   ],
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: Helper.PADDING * 3),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Responsive.isMonitor(context)
+                                        ? Helper.PADDING * 3
+                                        : Helper.PADDING),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -457,124 +329,166 @@ class _IndexPageState extends State<IndexPage> {
                           height: Helper.PADDING * 3,
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: Helper.PADDING * 3),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Responsive.isMonitor(context)
+                                  ? Helper.PADDING * 3
+                                  : Helper.PADDING),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "Services and facilities".toUpperCase(),
-                                style: AppTextStyle.titleLarge,
+                                style: AppTextStyle.titleLarge.copyWith(
+                                  fontSize:
+                                      Responsive.isMonitor(context) ? 50 : 40,
+                                ),
                               ),
                               const SizedBox(
                                 height: Helper.PADDING,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: List.generate(
-                                    3,
-                                    (index) => Expanded(
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: Helper.PADDING / 2),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  child: Image.asset(
-                                                    "assets/images/bg/plage.png",
-                                                    fit: BoxFit.fitWidth,
-                                                  ),
+                              GridView.count(
+                                  crossAxisCount:
+                                      Responsive.isMonitor(context) ? 3 : 2,
+                                  childAspectRatio:
+                                      Responsive.isMonitor(context)
+                                          ? (3 / 4)
+                                          : (3 / 4.5),
+                                  controller:
+                                      ScrollController(keepScrollOffset: false),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: ["12", "45", "45"]
+                                      .map(
+                                        (item) => Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: Helper.PADDING / 2),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  "assets/images/bg/plage.png",
+                                                  fit: BoxFit.fitWidth,
                                                 ),
-                                                Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical:
-                                                          Helper.PADDING / 3),
-                                                  child: Text(
-                                                    "Overview".toUpperCase(),
-                                                    style: AppTextStyle
-                                                        .titleMedium,
-                                                  ),
+                                              ),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical:
+                                                            Helper.PADDING / 3),
+                                                child: Text(
+                                                  "Overview".toUpperCase(),
+                                                  style:
+                                                      AppTextStyle.titleMedium,
                                                 ),
-                                                Text(
-                                                  "L’ANCRAGE is located in one of the most exclusive destinations in the world…",
-                                                  style: AppTextStyle.subtitle,
-                                                ),
-                                                const SizedBox(
-                                                  height: Helper.PADDING / 2,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    MainButton(
-                                                      title: "discovery",
-                                                      onTap: () {},
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                              ),
+                                              Text(
+                                                "L’ANCRAGE is located in one of the most exclusive destinations in the world…",
+                                                style: AppTextStyle.subtitle,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(
+                                                height: Helper.PADDING / 2,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  MainButton(
+                                                    title: "discovery",
+                                                    onTap: () {},
+                                                  )
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                        )),
-                              )
+                                        ),
+                                      )
+                                      .toList()),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: Helper.PADDING * 2,
+                        Responsive(
+                          mobile: SizedBox(
+                            height: Helper.PADDING,
+                          ),
+                          desktop: SizedBox(
+                            height: Helper.PADDING,
+                          ),
+                          monitor: SizedBox(
+                            height: Helper.PADDING * 2,
+                          ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: Helper.PADDING * 3),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Responsive.isMonitor(context)
+                                  ? Helper.PADDING * 3
+                                  : Helper.PADDING),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "WHAT’S ON IN L’ANCRAGE".toUpperCase(),
-                                style: AppTextStyle.titleLarge,
+                                style: AppTextStyle.titleLarge.copyWith(
+                                  fontSize:
+                                      Responsive.isMonitor(context) ? 50 : 40,
+                                ),
                               ),
-                              const SizedBox(
-                                height: Helper.PADDING * 2,
+                              Responsive(
+                                mobile: SizedBox(
+                                  height: Helper.PADDING,
+                                ),
+                                desktop: SizedBox(
+                                  height: Helper.PADDING,
+                                ),
+                                monitor: SizedBox(
+                                  height: Helper.PADDING * 2,
+                                ),
                               ),
-                              Wrap(
-                                children: activityController.activities
-                                    .map(
-                                      (activity) => Container(
-                                        width: 450,
-                                        margin: const EdgeInsets.fromLTRB(
-                                            Helper.PADDING / 2,
-                                            0,
-                                            Helper.PADDING / 2,
-                                            Helper.PADDING * 2),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              child: MouseRegion(
-                                                cursor:
-                                                    SystemMouseCursors.click,
-                                                child: Image.network(
-                                                  ApiService.MEDIA_URL +
-                                                      activity.image,
-                                                  height: 500,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: Helper.PADDING / 2,
-                                            ),
-                                            Row(
+                              GridView.count(
+                                  crossAxisCount:
+                                      Responsive.isMonitor(context) ? 3 : 2,
+                                  childAspectRatio:
+                                      Responsive.isMonitor(context)
+                                          ? (3 / 4)
+                                          : (5 / 6),
+                                  controller:
+                                      ScrollController(keepScrollOffset: false),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: activityController.activities
+                                      .map((activity) => Container(
+                                            margin: const EdgeInsets.fromLTRB(
+                                                Helper.PADDING / 2,
+                                                0,
+                                                Helper.PADDING / 2,
+                                                Helper.PADDING * 2),
+                                            child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Expanded(
-                                                  child: Column(
+                                                Container(
+                                                  child: MouseRegion(
+                                                    cursor: SystemMouseCursors
+                                                        .click,
+                                                    child: Image.network(
+                                                      ApiService.MEDIA_URL +
+                                                          activity.image,
+                                                      height:
+                                                          Responsive.isMonitor(
+                                                                  context)
+                                                              ? 500
+                                                              : 300,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: Helper.PADDING / 2,
+                                                ),
+                                                Responsive(
+                                                  mobile: Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
@@ -584,34 +498,86 @@ class _IndexPageState extends State<IndexPage> {
                                                         style: AppTextStyle
                                                             .bodygrasitalic,
                                                       ),
+                                                      InderlineButton(
+                                                        ontap: () {
+                                                          Get.toNamed(
+                                                              "/activity",
+                                                              arguments: {
+                                                                "activity":
+                                                                    activity
+                                                              });
+                                                        },
+                                                        title: "En savoir plus",
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  desktop: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "#${activity.tag}",
+                                                        style: AppTextStyle
+                                                            .bodygrasitalic,
+                                                      ),
+                                                      InderlineButton(
+                                                        ontap: () {
+                                                          Get.toNamed(
+                                                              "/activity",
+                                                              arguments: {
+                                                                "activity":
+                                                                    activity
+                                                              });
+                                                        },
+                                                        title: "En savoir plus",
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  monitor: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "#${activity.tag}",
+                                                              style: AppTextStyle
+                                                                  .bodygrasitalic,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      InderlineButton(
+                                                        ontap: () {
+                                                          Get.toNamed(
+                                                              "/activity",
+                                                              arguments: {
+                                                                "activity":
+                                                                    activity
+                                                              });
+                                                        },
+                                                        title: "En savoir plus",
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
-                                                InderlineButton(
-                                                  ontap: () {
-                                                    Get.toNamed("/activity",
-                                                        arguments: {
-                                                          "activity": activity
-                                                        });
-                                                  },
-                                                  title: "En savoir plus",
-                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      activity.name,
+                                                      style: AppTextStyle.body,
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  activity.name,
-                                                  style: AppTextStyle.body,
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                              )
+                                          ))
+                                      .toList()),
                             ],
                           ),
                         ),
@@ -626,7 +592,12 @@ class _IndexPageState extends State<IndexPage> {
               ),
             ),
           ),
-          const HeaderMenu(),
+          Responsive(
+            mobile: HeaderMenuMini(),
+            mobileLarge: HeaderMenuMini(),
+            tablet: HeaderMenuMini(),
+            desktop: HeaderMenu(),
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

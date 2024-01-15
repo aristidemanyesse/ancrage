@@ -1,6 +1,7 @@
 import 'package:ancrage/components/main_button.dart';
 import 'package:ancrage/components/menu_button_text.dart';
 import 'package:ancrage/controllers/page_controller.dart';
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,11 +36,14 @@ class _HeaderMenuState extends State<HeaderMenu> {
                 margin: const EdgeInsets.all(0),
                 child: Container(
                   margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Get.size.width * 0.1),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.zero,
                       color: AppColor.background.withOpacity(1)),
-                  height: Helper.PADDING * 2,
+                  height: Responsive.isMonitor(context)
+                      ? Helper.PADDING * 2
+                      : Helper.PADDING * 1.5,
                   child: Row(
                     children: [
                       MouseRegion(
@@ -50,7 +54,7 @@ class _HeaderMenuState extends State<HeaderMenu> {
                           },
                           child: SvgPicture.asset(
                             "assets/images/logo/logo-noir.svg",
-                            height: 60,
+                            height: Responsive.isMonitor(context) ? 60 : 45,
                           ),
                         ),
                       ),
@@ -102,8 +106,15 @@ class _HeaderMenuState extends State<HeaderMenu> {
                           ),
                         ],
                       )),
-                      const SizedBox(
-                        width: Helper.PADDING * 2,
+                      Responsive(
+                        mobile: Container(),
+                        tablet: Container(),
+                        desktop: SizedBox(
+                          width: Get.size.width * 0.02,
+                        ),
+                        monitor: SizedBox(
+                          width: Get.size.width * 0.05,
+                        ),
                       ),
                       MainButton(
                         title: "réservation",
@@ -111,8 +122,15 @@ class _HeaderMenuState extends State<HeaderMenu> {
                           Get.toNamed("/reservation");
                         },
                       ),
-                      const SizedBox(
-                        width: Helper.PADDING * 2,
+                      Responsive(
+                        mobile: Container(),
+                        tablet: Container(),
+                        desktop: SizedBox(
+                          width: Get.size.width * 0.02,
+                        ),
+                        monitor: SizedBox(
+                          width: Get.size.width * 0.05,
+                        ),
                       ),
                       DropdownButton(
                         elevation: 0,
@@ -129,8 +147,10 @@ class _HeaderMenuState extends State<HeaderMenu> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: SizedBox(
-                                    height: 30,
-                                    width: 30,
+                                    height:
+                                        Responsive.isMonitor(context) ? 30 : 23,
+                                    width:
+                                        Responsive.isMonitor(context) ? 30 : 23,
                                     child: SvgPicture.asset(
                                       pageController.languageSelected.value ==
                                               "English"
@@ -163,8 +183,10 @@ class _HeaderMenuState extends State<HeaderMenu> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: SizedBox(
-                                    height: 30,
-                                    width: 30,
+                                    height:
+                                        Responsive.isMonitor(context) ? 30 : 23,
+                                    width:
+                                        Responsive.isMonitor(context) ? 30 : 23,
                                     child: SvgPicture.asset(
                                       "assets/images/socials/English-Circle.svg",
                                     ),
