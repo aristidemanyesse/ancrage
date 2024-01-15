@@ -1,37 +1,56 @@
+import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/inderline_button.dart';
-import 'package:ancrage/components/pack_box_activity.dart';
+import 'package:ancrage/components/my_text_field.dart';
+import 'package:ancrage/controllers/optionController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/controllers/reservationController.dart';
-import 'package:ancrage/core/apiservice.dart';
+import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:collection/collection.dart';
 
-class ReservationStep2Page extends StatefulWidget {
-  const ReservationStep2Page({super.key});
+class ReservationStep4Page extends StatefulWidget {
+  const ReservationStep4Page({super.key});
 
   @override
-  State<ReservationStep2Page> createState() => _ReservationStep2PageState();
+  State<ReservationStep4Page> createState() => _ReservationStep4PageState();
 }
 
-class _ReservationStep2PageState extends State<ReservationStep2Page> {
+class _ReservationStep4PageState extends State<ReservationStep4Page> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
   ReservationController reservationController = Get.find();
+  OptionController optionController = Get.find();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController telController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   DateFormat dateFormat1 = DateFormat('E dd MMM yyyy à kk:mm');
   DateFormat dateFormat2 = DateFormat('E dd MMM yyyy');
 
+  final Map<GlobalKey<AdvanceExpansionTileState>, bool> listKey = {};
+  int _selectedItem = 0;
+
   @override
   void initState() {
     super.initState();
+
+    nameController.text = reservationController.client["name"] ?? "";
+    emailController.text = reservationController.client["email"] ?? "";
+    telController.text = reservationController.client["contact"] ?? "";
+
+    int i = 0;
+    while (i < 3) {
+      listKey[GlobalKey<AdvanceExpansionTileState>()] = false;
+      i += 1;
+    }
 
     _scrollController.addListener(() {
       pageController.scrollPosition.value = _scrollController.position.pixels;
@@ -140,7 +159,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                     width: Helper.PADDING / 3,
                                   ),
                                   Text(
-                                    "contacts@ancrage.com",
+                                    "info@ancrage.com",
                                     style: AppTextStyle.bodysmall,
                                   )
                                 ],
@@ -279,10 +298,10 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                 ),
                                                 FormMainButton(
                                                     onTap: () {
-                                                      Get.toNamed(
-                                                          "/reservation_next_3");
+                                                      Get.dialog(
+                                                          const AlertModal());
                                                     },
-                                                    title: "Passer cette étape")
+                                                    title: "Continuer")
                                               ],
                                             ),
                                           ],
@@ -295,7 +314,6 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                             ],
                           ),
                         ),
-
                         Container(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -305,17 +323,15 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(
-                                  Helper.PADDING / 4,
+                                  Helper.PADDING / 2,
                                 ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                         flex: 3,
-                                        child: Image.network(
-                                          ApiService.MEDIA_URL +
-                                              reservationController
-                                                  .packSelected.value.image,
+                                        child: Image.asset(
+                                          "assets/images/bg/facade.png",
                                           fit: BoxFit.fitHeight,
                                         )),
                                     const SizedBox(
@@ -334,7 +350,7 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "1 - ${reservationController.packSelected.value.name}",
+                                                    "1 -${reservationController.packSelected.value.name}",
                                                     style: AppTextStyle
                                                         .titleMedium,
                                                   ),
@@ -415,6 +431,22 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                                           .copyWith(
                                                               letterSpacing:
                                                                   -1)),
+                                                  const SizedBox(
+                                                      height:
+                                                          Helper.PADDING / 2),
+                                                  Text(
+                                                    "Activité : ${reservationController.activitySelected.value.name}",
+                                                    style: AppTextStyle
+                                                        .titleMedium,
+                                                  ),
+                                                  const SizedBox(
+                                                      height:
+                                                          Helper.PADDING / 2),
+                                                  Text(
+                                                    "Confort défini",
+                                                    style: AppTextStyle
+                                                        .titleMedium,
+                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -445,40 +477,149 @@ class _ReservationStep2PageState extends State<ReservationStep2Page> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: Helper.PADDING / 2,
-                                    horizontal: Helper.PADDING / 4),
-                                child: Text(
-                                  "Avons-nous pensé à tous ?",
-                                  style: AppTextStyle.titleMedium,
-                                ),
+                              const SizedBox(
+                                height: Helper.PADDING / 2,
                               ),
                               Container(
-                                  child: Column(
-                                children:
-                                    reservationController.listActivitiesKey.keys
-                                        .mapIndexed((index, key) => Container(
-                                              margin: const EdgeInsets.only(
-                                                  bottom: Helper.PADDING / 2),
-                                              child: PackBoxActivity(
-                                                key_value: key,
-                                                activity: reservationController
-                                                    .listActivitiesKey[key]!,
-                                                initiallyExpanded:
-                                                    (reservationController
-                                                                .activitySelected
-                                                                .value
-                                                                .id ==
-                                                            reservationController
-                                                                .listActivitiesKey[
-                                                                    key]!
-                                                                .id) ||
-                                                        index == 0,
+                                padding:
+                                    const EdgeInsets.all(Helper.PADDING / 2),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: Helper.PADDING / 2),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColor.background, width: 3)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Sélection de votre package",
+                                      style: AppTextStyle.titleMedium,
+                                    ),
+                                    const SizedBox(
+                                      height: Helper.PADDING / 2,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: Text(
+                                                  "Civilité",
+                                                  style: AppTextStyle.label,
+                                                ),
                                               ),
-                                            ))
-                                        .toList(),
-                              )),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            Helper.PADDING / 4),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 2.0,
+                                                  ),
+                                                ),
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  value: _selectedItem,
+                                                  underline: Container(),
+                                                  items: const [
+                                                    DropdownMenuItem(
+                                                        value: 0,
+                                                        child:
+                                                            Text("Monsieur")),
+                                                    DropdownMenuItem(
+                                                        value: 1,
+                                                        child: Text("Madame")),
+                                                    DropdownMenuItem(
+                                                        value: 2,
+                                                        child: Text(
+                                                            "Mademoiselle")),
+                                                  ],
+                                                  onChanged: (value) {
+                                                    reservationController
+                                                                .client[
+                                                            "civilite"] =
+                                                        value.toString();
+                                                    setState(() {
+                                                      _selectedItem = value!;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 2,
+                                        ),
+                                        Expanded(
+                                          child: MyTextField(
+                                            onChanged: (String value) {
+                                              reservationController
+                                                  .client["name"] = value;
+                                            },
+                                            controller: nameController,
+                                            label: "Nom complet",
+                                            placeholer: "Nom & prénoms",
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 2,
+                                        ),
+                                        Expanded(
+                                          child: MyTextField(
+                                              onChanged: (String value) {
+                                                reservationController
+                                                    .client["email"] = value;
+                                              },
+                                              controller: emailController,
+                                              label: "Email",
+                                              placeholer: "Adresse email"),
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 2,
+                                        ),
+                                        Expanded(
+                                          child: MyTextField(
+                                              onChanged: (String value) {
+                                                reservationController
+                                                    .client["contact"] = value;
+                                              },
+                                              controller: telController,
+                                              label: "Téléphone",
+                                              placeholer: "N° de téléphone"),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: Helper.PADDING / 2,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        FormMainButton(
+                                            onTap: () {
+                                              reservationController.save();
+                                            },
+                                            title: "Valider "),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: Helper.PADDING / 2,
+                              ),
                             ],
                           ),
                         ),

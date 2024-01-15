@@ -43,6 +43,9 @@ class _ReservationPageState extends State<ReservationPage> {
     Intl.defaultLocale = "fr_FR";
     Jiffy.setLocale('fr_FR');
 
+    debutController.text = dateFormat.format(reservationController.debut.value);
+    finController.text = dateFormat.format(reservationController.fin.value);
+
     _scrollController.addListener(() {
       pageController.scrollPosition.value = _scrollController.position.pixels;
     });
@@ -281,21 +284,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ],
                                     ),
                                     const Spacer(),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        const FormSecondaryButton(
-                                            title: "Annuler"),
-                                        const SizedBox(
-                                          width: Helper.PADDING / 2,
-                                        ),
-                                        FormMainButton(
-                                            onTap: () {
-                                              Get.toNamed("/");
-                                            },
-                                            title: "Valider")
-                                      ],
-                                    )
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.end,
+                                    //   children: [
+                                    //     const FormSecondaryButton(
+                                    //         title: "Annuler"),
+                                    //     const SizedBox(
+                                    //       width: Helper.PADDING / 2,
+                                    //     ),
+                                    //     FormMainButton(
+                                    //         onTap: () {
+                                    //           Get.toNamed("/");
+                                    //         },
+                                    //         title: "Valider")
+                                    //   ],
+                                    // )
                                   ],
                                 ),
                               )),
@@ -373,7 +376,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 ),
                                                 Obx(() {
                                                   return Text(
-                                                    "${reservationController.nbrPersonne} personnes",
+                                                    "${reservationController.nbrPersonne} personne${reservationController.nbrPersonne.value > 1 ? "s" : ""}",
                                                     style: AppTextStyle.subtitle
                                                         .copyWith(
                                                             fontWeight:
@@ -435,7 +438,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                                 ),
                                                 Obx(() {
                                                   return Text(
-                                                    "${reservationController.nbrChambre} chambre",
+                                                    "${reservationController.nbrChambre} chambre${reservationController.nbrChambre.value > 1 ? "s" : ""}",
                                                     style: AppTextStyle.subtitle
                                                         .copyWith(
                                                             fontWeight:
@@ -520,7 +523,13 @@ class _ReservationPageState extends State<ReservationPage> {
                                             key_value: key,
                                             pack: reservationController
                                                 .listKey[key]!,
-                                            initiallyExpanded: index == 0,
+                                            initiallyExpanded:
+                                                reservationController
+                                                        .packSelected
+                                                        .value
+                                                        .id ==
+                                                    reservationController
+                                                        .listKey[key]!.id,
                                           ),
                                         ))
                                     .toList(),

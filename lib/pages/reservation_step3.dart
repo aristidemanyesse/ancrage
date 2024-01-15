@@ -7,7 +7,6 @@ import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/controllers/optionController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/controllers/reservationController.dart';
-import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -196,7 +195,8 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${reservationController.packSelected.value.name}",
+                                            reservationController
+                                                .packSelected.value.name,
                                             style: AppTextStyle.subtitle,
                                           ),
                                           const SizedBox(
@@ -276,9 +276,9 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                Image.asset(
-                                                  "assets/images/socials/Times@2x.png",
-                                                  height: 20,
+                                                SvgPicture.asset(
+                                                  "assets/images/socials/Heure.svg",
+                                                  height: 18,
                                                 ),
                                                 InderlineButton2(
                                                   onTap: () {},
@@ -290,10 +290,10 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                 ),
                                                 FormMainButton(
                                                     onTap: () {
-                                                      Get.dialog(
-                                                          const AlertModal());
+                                                      Get.toNamed(
+                                                          "/reservation_next_4");
                                                     },
-                                                    title: "Continuer")
+                                                    title: "Passer cette étape")
                                               ],
                                             ),
                                           ],
@@ -342,12 +342,12 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "1 - Villa",
+                                                    "1 -${reservationController.packSelected.value.name}",
                                                     style: AppTextStyle
                                                         .titleMedium,
                                                   ),
                                                   Text(
-                                                      "2 lits | California King | 75 m²",
+                                                      "${reservationController.packSelected.value.nbreLit} lits | ${reservationController.packSelected.value.modeleLit} | ${reservationController.packSelected.value.superficie} m²",
                                                       style: AppTextStyle.body
                                                           .copyWith(
                                                               letterSpacing:
@@ -370,7 +370,9 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                             Helper.PADDING / 5,
                                                       ),
                                                       Text(
-                                                        "Lun. 25 Dec 2020",
+                                                        dateFormat1.format(
+                                                            reservationController
+                                                                .debut.value),
                                                         style: AppTextStyle
                                                             .bodysmall
                                                             .copyWith(
@@ -391,7 +393,9 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                             Helper.PADDING / 5,
                                                       ),
                                                       Text(
-                                                        "Lun. 25 Dec 2020",
+                                                        dateFormat1.format(
+                                                            reservationController
+                                                                .fin.value),
                                                         style: AppTextStyle
                                                             .bodysmall
                                                             .copyWith(
@@ -413,16 +417,26 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                       height:
                                                           Helper.PADDING / 4),
                                                   Text(
-                                                      "2 personnes    1 chambre",
+                                                      "${reservationController.nbrPersonne} personnes    ${reservationController.nbrChambre} chambre",
                                                       style: AppTextStyle
                                                           .bodysmall
                                                           .copyWith(
                                                               letterSpacing:
                                                                   -1)),
+                                                  const SizedBox(
+                                                      height:
+                                                          Helper.PADDING / 2),
+                                                  Text(
+                                                    "Activité : ${reservationController.activitySelected.value.name}",
+                                                    style: AppTextStyle
+                                                        .titleMedium,
+                                                  ),
                                                 ],
                                               ),
                                             ],
                                           ),
+                                          const SizedBox(
+                                              height: Helper.PADDING * 3),
                                           Container(
                                             child: Column(
                                               children: [
@@ -520,7 +534,7 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                           .map((groupe) {
                                         return groupe.name != "HEALTHCARE"
                                             ? Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     bottom: Helper.PADDING / 2),
                                                 child: Column(
                                                   crossAxisAlignment:
@@ -663,34 +677,59 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                       children: [
                                         Row(
                                           children: [
-                                            Checkbox(
-                                              value: false,
-                                              onChanged: (bool? value) {},
-                                            ),
+                                            Obx(() {
+                                              return Checkbox(
+                                                value: reservationController
+                                                    .isAllergies.value,
+                                                onChanged: (bool? value) {
+                                                  reservationController
+                                                      .isAllergies
+                                                      .value = value ?? false;
+                                                },
+                                              );
+                                            }),
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Text("Allergies alimentaires",
-                                                style: AppTextStyle.bodysmall),
+                                            MouseRegion(
+                                                cursor:
+                                                    SystemMouseCursors.click,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    reservationController
+                                                            .isAllergies.value =
+                                                        !reservationController
+                                                            .isAllergies.value;
+                                                  },
+                                                  child: Text(
+                                                      "Allergies alimentaires",
+                                                      style: AppTextStyle
+                                                          .bodysmall),
+                                                )),
                                             const SizedBox(
                                               width: Helper.PADDING,
                                             ),
-                                            Expanded(
-                                              child: MyTextField(
-                                                onChanged: (String value) {
-                                                  if (int.parse(value) > 0) {
-                                                    reservationController
-                                                            .nbrPersonne.value =
-                                                        int.parse(value);
-                                                  }
-                                                },
-                                                controller: allergieController,
-                                                label: "",
-                                                placeholer:
-                                                    "Spécifiez vos allergies en les séparant par une virgule",
-                                              ),
-                                            ),
-                                            Spacer(),
+                                            Obx(() {
+                                              return Visibility(
+                                                visible: reservationController
+                                                    .isAllergies.value,
+                                                child: Expanded(
+                                                  child: MyTextField(
+                                                    onChanged: (String value) {
+                                                      reservationController
+                                                          .allergies
+                                                          .value = value;
+                                                    },
+                                                    controller:
+                                                        allergieController,
+                                                    label: "",
+                                                    placeholer:
+                                                        "Spécifiez vos allergies en les séparant par une virgule",
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                            const Spacer(),
                                           ],
                                         ),
                                         const SizedBox(
@@ -701,9 +740,11 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                               .map((groupe) {
                                             return groupe.name == "HEALTHCARE"
                                                 ? Container(
-                                                    margin: EdgeInsets.only(
-                                                        bottom:
-                                                            Helper.PADDING / 2),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            bottom:
+                                                                Helper.PADDING /
+                                                                    2),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -737,23 +778,23 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                                         onTap:
                                                                             () {
                                                                           if (reservationController
-                                                                              .optionsSelected
+                                                                              .careSelected
                                                                               .contains(item)) {
-                                                                            reservationController.optionsSelected.remove(item);
+                                                                            reservationController.careSelected.remove(item);
                                                                           } else {
-                                                                            reservationController.optionsSelected.add(item);
+                                                                            reservationController.careSelected.add(item);
                                                                           }
                                                                         },
                                                                         child:
                                                                             Row(
                                                                           children: [
                                                                             Checkbox(
-                                                                              value: reservationController.optionsSelected.contains(item),
+                                                                              value: reservationController.careSelected.contains(item),
                                                                               onChanged: (bool? value) {
                                                                                 if (value!) {
-                                                                                  reservationController.optionsSelected.add(item);
+                                                                                  reservationController.careSelected.add(item);
                                                                                 } else {
-                                                                                  reservationController.optionsSelected.remove(item);
+                                                                                  reservationController.careSelected.remove(item);
                                                                                 }
                                                                               },
                                                                             ),
@@ -834,21 +875,185 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                 ),
                                 children: [
                                   Container(
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(
-                                          color: AppColor.white,
-                                          border: Border(
-                                              top: BorderSide(
-                                                  color: AppColor.background,
-                                                  width: 1))),
-                                      padding: const EdgeInsets.all(
-                                          Helper.PADDING / 3),
-                                      child: Container())
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(
+                                        color: AppColor.white,
+                                        border: Border(
+                                            top: BorderSide(
+                                                color: AppColor.background,
+                                                width: 1))),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: Helper.PADDING / 4,
+                                        vertical: Helper.PADDING / 2),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Montant de la chambre par séjour",
+                                                    style: AppTextStyle.small,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: Helper.PADDING / 5,
+                                                  ),
+                                                  Text(
+                                                    "${reservationController.packSelected.value.price} FCFA",
+                                                    style: AppTextStyle
+                                                        .bodysmall
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: Helper.PADDING,
+                                              child: Center(
+                                                  child: Container(
+                                                height: 40,
+                                                width: 1,
+                                                color: Colors.black,
+                                              )),
+                                            ),
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Montant de la chambre pour votre séjour",
+                                                    style: AppTextStyle.small,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: Helper.PADDING / 5,
+                                                  ),
+                                                  Text(
+                                                    "${reservationController.packSelected.value.price * reservationController.jours.value} FCFA pour un séjour de ${reservationController.jours}Jrs",
+                                                    style: AppTextStyle
+                                                        .bodysmall
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: Helper.PADDING,
+                                              child: Center(
+                                                  child: Container(
+                                                height: 40,
+                                                width: 1,
+                                                color: Colors.black,
+                                              )),
+                                            ),
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Charges extra",
+                                                    style: AppTextStyle.small,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: Helper.PADDING / 5,
+                                                  ),
+                                                  Text(
+                                                    "${reservationController.montant.value - (reservationController.packSelected.value.price * reservationController.jours.value)} FCFA",
+                                                    style: AppTextStyle
+                                                        .bodysmall
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: Helper.PADDING,
+                                              child: Center(
+                                                  child: Container(
+                                                height: 40,
+                                                width: 1,
+                                                color: Colors.black,
+                                              )),
+                                            ),
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Taxes & TVA",
+                                                    style: AppTextStyle.small,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: Helper.PADDING / 5,
+                                                  ),
+                                                  Text(
+                                                    "${reservationController.montant.value * 0.18} Fcfa",
+                                                    style: AppTextStyle
+                                                        .bodysmall
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            Text("Imprimer reçu",
+                                                style: AppTextStyle.body
+                                                    .copyWith(
+                                                        letterSpacing: -1,
+                                                        color: AppColor.orange,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: Helper.PADDING / 2,
+                                  ),
                                 ],
                                 onTap: () {},
                               ),
                               const SizedBox(
-                                height: Helper.PADDING,
+                                height: Helper.PADDING / 2,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: Helper.PADDING / 2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    FormMainButton(
+                                        onTap: () {
+                                          Get.toNamed("/reservation_next_4");
+                                        },
+                                        title: "Commander")
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: Helper.PADDING / 2,
                               ),
                             ],
                           ),

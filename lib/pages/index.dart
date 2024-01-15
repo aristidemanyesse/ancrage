@@ -567,7 +567,7 @@ class _IndexPageState extends State<IndexPage> {
                                             ),
                                             Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Expanded(
                                                   child: Column(

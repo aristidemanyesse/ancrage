@@ -105,21 +105,33 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 vertical: Helper.PADDING / 2),
                             child: Text(
                               "Description :",
-                              style: AppTextStyle.subtitle
-                                  .copyWith(letterSpacing: 0),
+                              style: AppTextStyle.body.copyWith(
+                                letterSpacing: 0,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           Text(
                             widget.activity.description,
-                            style: AppTextStyle.bodysmall
-                                .copyWith(letterSpacing: 0),
+                            style: AppTextStyle.body.copyWith(
+                              letterSpacing: 0,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           const SizedBox(
                             height: Helper.PADDING / 2,
                           ),
                           Row(
                             children: [
-                              Text("Horaire: ", style: AppTextStyle.body),
+                              Text("Horaires: ",
+                                  style: AppTextStyle.body.copyWith(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0,
+                                    decoration: TextDecoration.underline,
+                                  )),
                               Row(
                                 children: [
                                   SizedBox(
@@ -127,6 +139,9 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                     child: FittedBox(
                                       fit: BoxFit.fill,
                                       child: Switch(
+                                        hoverColor: Colors.transparent,
+                                        inactiveThumbColor: AppColor.white,
+                                        inactiveTrackColor: AppColor.background,
                                         value: horaire1,
                                         onChanged: (value) {
                                           setState(() {
@@ -140,7 +155,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 ],
                               ),
                               const SizedBox(
-                                width: Helper.PADDING / 2,
+                                width: Helper.PADDING / 3,
                               ),
                               Row(
                                 children: [
@@ -149,6 +164,9 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                     child: FittedBox(
                                       fit: BoxFit.fill,
                                       child: Switch(
+                                        hoverColor: Colors.transparent,
+                                        inactiveThumbColor: AppColor.white,
+                                        inactiveTrackColor: AppColor.background,
                                         value: !horaire1,
                                         onChanged: (value) {
                                           setState(() {
@@ -162,6 +180,9 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 ],
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            height: Helper.PADDING / 2,
                           ),
                           GridView.count(
                             crossAxisCount: 4,
@@ -181,8 +202,14 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                         const SizedBox(
                                           width: 5,
                                         ),
-                                        Text(item.trim(),
-                                            style: AppTextStyle.bodysmall),
+                                        Text(
+                                          item.trim(),
+                                          style: AppTextStyle.body.copyWith(
+                                            letterSpacing: 0,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
                                       ],
                                     ))
                                 .toList(),
@@ -208,7 +235,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                 children: [
                                   const Text(
                                       "Voulez-vous faire cette activité en privée ?"),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: Helper.PADDING / 2,
                                   ),
                                   Row(
@@ -220,7 +247,12 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                             child: FittedBox(
                                               fit: BoxFit.fill,
                                               child: Switch(
+                                                hoverColor: Colors.transparent,
                                                 value: public,
+                                                inactiveThumbColor:
+                                                    AppColor.white,
+                                                inactiveTrackColor:
+                                                    AppColor.background,
                                                 onChanged: (value) {
                                                   setState(() {
                                                     public = value;
@@ -229,10 +261,10 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                               ),
                                             ),
                                           ),
-                                          const Text("Oui "),
+                                          const Text("Oui"),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: Helper.PADDING / 3,
                                       ),
                                       Row(
@@ -242,6 +274,11 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                             child: FittedBox(
                                               fit: BoxFit.fill,
                                               child: Switch(
+                                                hoverColor: Colors.transparent,
+                                                inactiveThumbColor:
+                                                    AppColor.white,
+                                                inactiveTrackColor:
+                                                    AppColor.background,
                                                 value: !public,
                                                 onChanged: (value) {
                                                   setState(() {
@@ -251,15 +288,18 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                                               ),
                                             ),
                                           ),
-                                          const Text("Non "),
+                                          const Text("Non"),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: Helper.PADDING / 2,
                                       ),
                                       Text(
-                                        "${public ? widget.activity.publicPrice : widget.activity.privatePrice} Fcfa",
-                                        style: AppTextStyle.body,
+                                        "${public ? widget.activity.privatePrice : widget.activity.publicPrice} Fcfa",
+                                        style: AppTextStyle.body.copyWith(
+                                            letterSpacing: -1,
+                                            color: AppColor.orange,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -283,7 +323,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
 
                                     Get.toNamed("/reservation_next_3");
                                   },
-                                  title: "Suivant")
+                                  title: "Choisir cette activité")
                             ],
                           ),
                         ],

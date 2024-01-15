@@ -32,13 +32,13 @@ class AppTextStyle {
     letterSpacing: 0,
   );
 
-  static TextStyle subtitle = baseTenorSans.copyWith(
-      fontSize: 21, letterSpacing: 0, fontWeight: FontWeight.w600);
-
   static TextStyle titleMedium =
       baseTenorSans.copyWith(fontSize: 35, letterSpacing: 3);
 
   static TextStyle titleSmall = baseTenorSans.copyWith(fontSize: 30);
+
+  static TextStyle subtitle = baseTenorSans.copyWith(
+      fontSize: 21, letterSpacing: 0, fontWeight: FontWeight.w600);
 
   static TextStyle body =
       baseTenorSans.copyWith(fontSize: 20, letterSpacing: 3);
@@ -63,8 +63,8 @@ class AppTextStyle {
       fontWeight: FontWeight.bold);
 
   static TextStyle textsub = baseTenorSans.copyWith(
-      fontSize: 21,
-      letterSpacing: 2,
+      fontSize: 20,
+      letterSpacing: 1,
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold);
 

@@ -48,7 +48,10 @@ class _AproposPageState extends State<AproposPage> {
                 children: [
                   Container(
                     decoration: const BoxDecoration(
-                      color: AppColor.white,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [AppColor.white, AppColor.background]),
                       border: Border(
                           top: BorderSide(color: Colors.white, width: 0)),
                     ),

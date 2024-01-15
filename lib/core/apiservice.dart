@@ -1,10 +1,9 @@
 import 'package:ancrage/controllers/ConnexionController.dart';
 import 'package:get/get.dart';
-import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ApiService {
-  static const BASE_URL = "http://192.168.1.45:8000/";
+  static const BASE_URL = "http://192.168.1.24:8001/";
   // static const BASE_URL = "http://10.10.10.33:8000/";
   static const GRAPH_URL = "${BASE_URL}graphql/";
   static const MEDIA_URL = "${BASE_URL}media/";

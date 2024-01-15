@@ -188,7 +188,7 @@ class _PackBoxState extends State<PackBox> {
                                           widget.pack;
                                       Get.toNamed("/reservation_next_2");
                                     },
-                                    title: "Suivant")
+                                    title: "Choisir ce pack")
                               ],
                             ),
                           ],

@@ -24,13 +24,17 @@ mixin _$Reservation {
   String get createdAt => throw _privateConstructorUsedError;
   String get updateAt => throw _privateConstructorUsedError;
   bool get deleted => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  int get nbreLit => throw _privateConstructorUsedError;
-  int get superficie => throw _privateConstructorUsedError;
-  String get modeleLit => throw _privateConstructorUsedError;
-  String get inclus => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String get debut => throw _privateConstructorUsedError;
+  String get fin => throw _privateConstructorUsedError;
+  int get personne => throw _privateConstructorUsedError;
+  int get chambre => throw _privateConstructorUsedError;
+  String get clientCivility => throw _privateConstructorUsedError;
+  String get clientName => throw _privateConstructorUsedError;
+  String get clientEmail => throw _privateConstructorUsedError;
+  String get clientContact => throw _privateConstructorUsedError;
+  bool get isAllergie => throw _privateConstructorUsedError;
+  String get allergies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,13 +53,17 @@ abstract class $ReservationCopyWith<$Res> {
       String createdAt,
       String updateAt,
       bool deleted,
-      String name,
       int price,
-      int nbreLit,
-      int superficie,
-      String modeleLit,
-      String inclus,
-      String image});
+      String debut,
+      String fin,
+      int personne,
+      int chambre,
+      String clientCivility,
+      String clientName,
+      String clientEmail,
+      String clientContact,
+      bool isAllergie,
+      String allergies});
 }
 
 /// @nodoc
@@ -75,13 +83,17 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
     Object? createdAt = null,
     Object? updateAt = null,
     Object? deleted = null,
-    Object? name = null,
     Object? price = null,
-    Object? nbreLit = null,
-    Object? superficie = null,
-    Object? modeleLit = null,
-    Object? inclus = null,
-    Object? image = null,
+    Object? debut = null,
+    Object? fin = null,
+    Object? personne = null,
+    Object? chambre = null,
+    Object? clientCivility = null,
+    Object? clientName = null,
+    Object? clientEmail = null,
+    Object? clientContact = null,
+    Object? isAllergie = null,
+    Object? allergies = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -100,33 +112,49 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      nbreLit: null == nbreLit
-          ? _value.nbreLit
-          : nbreLit // ignore: cast_nullable_to_non_nullable
-              as int,
-      superficie: null == superficie
-          ? _value.superficie
-          : superficie // ignore: cast_nullable_to_non_nullable
-              as int,
-      modeleLit: null == modeleLit
-          ? _value.modeleLit
-          : modeleLit // ignore: cast_nullable_to_non_nullable
+      debut: null == debut
+          ? _value.debut
+          : debut // ignore: cast_nullable_to_non_nullable
               as String,
-      inclus: null == inclus
-          ? _value.inclus
-          : inclus // ignore: cast_nullable_to_non_nullable
+      fin: null == fin
+          ? _value.fin
+          : fin // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      personne: null == personne
+          ? _value.personne
+          : personne // ignore: cast_nullable_to_non_nullable
+              as int,
+      chambre: null == chambre
+          ? _value.chambre
+          : chambre // ignore: cast_nullable_to_non_nullable
+              as int,
+      clientCivility: null == clientCivility
+          ? _value.clientCivility
+          : clientCivility // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientName: null == clientName
+          ? _value.clientName
+          : clientName // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientEmail: null == clientEmail
+          ? _value.clientEmail
+          : clientEmail // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientContact: null == clientContact
+          ? _value.clientContact
+          : clientContact // ignore: cast_nullable_to_non_nullable
+              as String,
+      isAllergie: null == isAllergie
+          ? _value.isAllergie
+          : isAllergie // ignore: cast_nullable_to_non_nullable
+              as bool,
+      allergies: null == allergies
+          ? _value.allergies
+          : allergies // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -145,13 +173,17 @@ abstract class _$$ReservationImplCopyWith<$Res>
       String createdAt,
       String updateAt,
       bool deleted,
-      String name,
       int price,
-      int nbreLit,
-      int superficie,
-      String modeleLit,
-      String inclus,
-      String image});
+      String debut,
+      String fin,
+      int personne,
+      int chambre,
+      String clientCivility,
+      String clientName,
+      String clientEmail,
+      String clientContact,
+      bool isAllergie,
+      String allergies});
 }
 
 /// @nodoc
@@ -169,13 +201,17 @@ class __$$ReservationImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updateAt = null,
     Object? deleted = null,
-    Object? name = null,
     Object? price = null,
-    Object? nbreLit = null,
-    Object? superficie = null,
-    Object? modeleLit = null,
-    Object? inclus = null,
-    Object? image = null,
+    Object? debut = null,
+    Object? fin = null,
+    Object? personne = null,
+    Object? chambre = null,
+    Object? clientCivility = null,
+    Object? clientName = null,
+    Object? clientEmail = null,
+    Object? clientContact = null,
+    Object? isAllergie = null,
+    Object? allergies = null,
   }) {
     return _then(_$ReservationImpl(
       id: null == id
@@ -194,33 +230,49 @@ class __$$ReservationImplCopyWithImpl<$Res>
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      nbreLit: null == nbreLit
-          ? _value.nbreLit
-          : nbreLit // ignore: cast_nullable_to_non_nullable
-              as int,
-      superficie: null == superficie
-          ? _value.superficie
-          : superficie // ignore: cast_nullable_to_non_nullable
-              as int,
-      modeleLit: null == modeleLit
-          ? _value.modeleLit
-          : modeleLit // ignore: cast_nullable_to_non_nullable
+      debut: null == debut
+          ? _value.debut
+          : debut // ignore: cast_nullable_to_non_nullable
               as String,
-      inclus: null == inclus
-          ? _value.inclus
-          : inclus // ignore: cast_nullable_to_non_nullable
+      fin: null == fin
+          ? _value.fin
+          : fin // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      personne: null == personne
+          ? _value.personne
+          : personne // ignore: cast_nullable_to_non_nullable
+              as int,
+      chambre: null == chambre
+          ? _value.chambre
+          : chambre // ignore: cast_nullable_to_non_nullable
+              as int,
+      clientCivility: null == clientCivility
+          ? _value.clientCivility
+          : clientCivility // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientName: null == clientName
+          ? _value.clientName
+          : clientName // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientEmail: null == clientEmail
+          ? _value.clientEmail
+          : clientEmail // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientContact: null == clientContact
+          ? _value.clientContact
+          : clientContact // ignore: cast_nullable_to_non_nullable
+              as String,
+      isAllergie: null == isAllergie
+          ? _value.isAllergie
+          : isAllergie // ignore: cast_nullable_to_non_nullable
+              as bool,
+      allergies: null == allergies
+          ? _value.allergies
+          : allergies // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -228,19 +280,24 @@ class __$$ReservationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ReservationImpl implements _Reservation {
+class _$ReservationImpl extends _Reservation {
   const _$ReservationImpl(
       {this.id = "",
       this.createdAt = "",
       this.updateAt = "",
       this.deleted = false,
-      this.name = "",
       this.price = 0,
-      this.nbreLit = 0,
-      this.superficie = 0,
-      this.modeleLit = "",
-      this.inclus = "",
-      this.image = ""});
+      this.debut = "",
+      this.fin = "",
+      this.personne = 0,
+      this.chambre = 0,
+      this.clientCivility = "",
+      this.clientName = "",
+      this.clientEmail = "",
+      this.clientContact = "",
+      this.isAllergie = false,
+      this.allergies = ""})
+      : super._();
 
   factory _$ReservationImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReservationImplFromJson(json);
@@ -259,29 +316,41 @@ class _$ReservationImpl implements _Reservation {
   final bool deleted;
   @override
   @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
   final int price;
   @override
   @JsonKey()
-  final int nbreLit;
+  final String debut;
   @override
   @JsonKey()
-  final int superficie;
+  final String fin;
   @override
   @JsonKey()
-  final String modeleLit;
+  final int personne;
   @override
   @JsonKey()
-  final String inclus;
+  final int chambre;
   @override
   @JsonKey()
-  final String image;
+  final String clientCivility;
+  @override
+  @JsonKey()
+  final String clientName;
+  @override
+  @JsonKey()
+  final String clientEmail;
+  @override
+  @JsonKey()
+  final String clientContact;
+  @override
+  @JsonKey()
+  final bool isAllergie;
+  @override
+  @JsonKey()
+  final String allergies;
 
   @override
   String toString() {
-    return 'Reservation(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, name: $name, price: $price, nbreLit: $nbreLit, superficie: $superficie, modeleLit: $modeleLit, inclus: $inclus, image: $image)';
+    return 'Reservation(id: $id, createdAt: $createdAt, updateAt: $updateAt, deleted: $deleted, price: $price, debut: $debut, fin: $fin, personne: $personne, chambre: $chambre, clientCivility: $clientCivility, clientName: $clientName, clientEmail: $clientEmail, clientContact: $clientContact, isAllergie: $isAllergie, allergies: $allergies)';
   }
 
   @override
@@ -295,21 +364,45 @@ class _$ReservationImpl implements _Reservation {
             (identical(other.updateAt, updateAt) ||
                 other.updateAt == updateAt) &&
             (identical(other.deleted, deleted) || other.deleted == deleted) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.price, price) || other.price == price) &&
-            (identical(other.nbreLit, nbreLit) || other.nbreLit == nbreLit) &&
-            (identical(other.superficie, superficie) ||
-                other.superficie == superficie) &&
-            (identical(other.modeleLit, modeleLit) ||
-                other.modeleLit == modeleLit) &&
-            (identical(other.inclus, inclus) || other.inclus == inclus) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.debut, debut) || other.debut == debut) &&
+            (identical(other.fin, fin) || other.fin == fin) &&
+            (identical(other.personne, personne) ||
+                other.personne == personne) &&
+            (identical(other.chambre, chambre) || other.chambre == chambre) &&
+            (identical(other.clientCivility, clientCivility) ||
+                other.clientCivility == clientCivility) &&
+            (identical(other.clientName, clientName) ||
+                other.clientName == clientName) &&
+            (identical(other.clientEmail, clientEmail) ||
+                other.clientEmail == clientEmail) &&
+            (identical(other.clientContact, clientContact) ||
+                other.clientContact == clientContact) &&
+            (identical(other.isAllergie, isAllergie) ||
+                other.isAllergie == isAllergie) &&
+            (identical(other.allergies, allergies) ||
+                other.allergies == allergies));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, createdAt, updateAt, deleted,
-      name, price, nbreLit, superficie, modeleLit, inclus, image);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      createdAt,
+      updateAt,
+      deleted,
+      price,
+      debut,
+      fin,
+      personne,
+      chambre,
+      clientCivility,
+      clientName,
+      clientEmail,
+      clientContact,
+      isAllergie,
+      allergies);
 
   @JsonKey(ignore: true)
   @override
@@ -325,19 +418,24 @@ class _$ReservationImpl implements _Reservation {
   }
 }
 
-abstract class _Reservation implements Reservation {
+abstract class _Reservation extends Reservation {
   const factory _Reservation(
       {final String id,
       final String createdAt,
       final String updateAt,
       final bool deleted,
-      final String name,
       final int price,
-      final int nbreLit,
-      final int superficie,
-      final String modeleLit,
-      final String inclus,
-      final String image}) = _$ReservationImpl;
+      final String debut,
+      final String fin,
+      final int personne,
+      final int chambre,
+      final String clientCivility,
+      final String clientName,
+      final String clientEmail,
+      final String clientContact,
+      final bool isAllergie,
+      final String allergies}) = _$ReservationImpl;
+  const _Reservation._() : super._();
 
   factory _Reservation.fromJson(Map<String, dynamic> json) =
       _$ReservationImpl.fromJson;
@@ -351,19 +449,27 @@ abstract class _Reservation implements Reservation {
   @override
   bool get deleted;
   @override
-  String get name;
-  @override
   int get price;
   @override
-  int get nbreLit;
+  String get debut;
   @override
-  int get superficie;
+  String get fin;
   @override
-  String get modeleLit;
+  int get personne;
   @override
-  String get inclus;
+  int get chambre;
   @override
-  String get image;
+  String get clientCivility;
+  @override
+  String get clientName;
+  @override
+  String get clientEmail;
+  @override
+  String get clientContact;
+  @override
+  bool get isAllergie;
+  @override
+  String get allergies;
   @override
   @JsonKey(ignore: true)
   _$$ReservationImplCopyWith<_$ReservationImpl> get copyWith =>

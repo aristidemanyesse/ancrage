@@ -2,6 +2,7 @@ import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/form_secondary_button.dart';
 import 'package:ancrage/components/header_menu.dart';
+import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -23,6 +25,8 @@ class ContactsPage extends StatefulWidget {
 class _ContactsPageState extends State<ContactsPage> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
+
+  TextEditingController debutController = TextEditingController();
 
   @override
   void initState() {
@@ -218,51 +222,50 @@ class _ContactsPageState extends State<ContactsPage> {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     const SizedBox(height: Helper.PADDING),
-                                    const Row(
+                                    Row(
                                       children: [
                                         Expanded(
                                           child: Column(
                                             children: [
-                                              // MyTextField(
-                                              //   label: "Nom complet",
-                                              //   placeholer:
-                                              //       "Date et heure de départ",
-                                              // ),
-                                              // SizedBox(
-                                              //     height: Helper.PADDING / 3),
-                                              // MyTextField(
-                                              //   label: "Sujet",
-                                              //   placeholer:
-                                              //       "Date et heure de départ",
-                                              // ),
-                                              // SizedBox(
-                                              //     height: Helper.PADDING / 3),
-                                              // MyTextField(
-                                              //   label: "Email ou contacts",
-                                              //   placeholer:
-                                              //       "Date et heure de départ",
-                                              // )
+                                              MyTextField(
+                                                controller: debutController,
+                                                label: "Nom complet",
+                                                placeholer:
+                                                    "Date et heure de départ",
+                                              ),
+                                              SizedBox(
+                                                  height: Helper.PADDING / 3),
+                                              MyTextField(
+                                                controller: debutController,
+                                                label: "Sujet",
+                                                placeholer:
+                                                    "Date et heure de départ",
+                                              ),
+                                              SizedBox(
+                                                  height: Helper.PADDING / 3),
+                                              MyTextField(
+                                                controller: debutController,
+                                                label: "Email ou contacts",
+                                                placeholer:
+                                                    "Date et heure de départ",
+                                              )
                                             ],
                                           ),
                                         ),
                                         SizedBox(width: Helper.PADDING / 2),
-                                        // Expanded(
-                                        //     child: MyTextField(
-                                        //   label: "Message",
-                                        //   placeholer: "Date et heure de départ",
-                                        //   maxlines: 9,
-                                        // ))
+                                        Expanded(
+                                            child: MyTextField(
+                                          controller: debutController,
+                                          label: "Message",
+                                          placeholer: "Date et heure de départ",
+                                          maxlines: 9,
+                                        ))
                                       ],
                                     ),
                                     const SizedBox(height: Helper.PADDING),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        const FormSecondaryButton(
-                                            title: "Annuler"),
-                                        const SizedBox(
-                                          width: Helper.PADDING / 2,
-                                        ),
                                         FormMainButton(
                                             onTap: () {
                                               Get.toNamed("/");
@@ -280,48 +283,57 @@ class _ContactsPageState extends State<ContactsPage> {
                         SizedBox(
                           width: double.infinity,
                           height: Get.size.height / 2,
-                          child: FlutterMap(
-                            options: const MapOptions(
-                              initialCenter: LatLng(52.518611, 13.408056),
-                              initialZoom: 14,
-                              minZoom: 6,
-                              maxZoom: 20,
-                            ),
+                          child: Stack(
                             children: [
-                              TileLayer(
-                                  urlTemplate:
-                                      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                  userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-                                  subdomains: const [
-                                    'mt0',
-                                    'mt1',
-                                    'mt2',
-                                    'mt3'
-                                  ]),
-                              PopupMarkerLayer(
-                                options: PopupMarkerLayerOptions(
-                                  markers: [
-                                    const Marker(
-                                        point: LatLng(52.518611, 13.408056),
-                                        width: 250,
-                                        height: 250,
-                                        child: Text("jk")),
-                                  ],
-                                  popupDisplayOptions: PopupDisplayOptions(
-                                      builder: (BuildContext context,
-                                          Marker marker) {
-                                    return Container(
-                                      padding: const EdgeInsets.all(7),
-                                      margin: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: const Text("Nous sommes ici !"),
-                                    );
-                                  }),
+                              FlutterMap(
+                                options: const MapOptions(
+                                  initialCenter: LatLng(52.518611, 13.408056),
+                                  initialZoom: 14,
+                                  minZoom: 6,
+                                  maxZoom: 20,
                                 ),
-                              )
+                                children: [
+                                  TileLayer(
+                                      urlTemplate:
+                                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                      userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+                                      subdomains: const [
+                                        'mt0',
+                                        'mt1',
+                                        'mt2',
+                                        'mt3'
+                                      ]),
+                                  PopupMarkerLayer(
+                                    options: PopupMarkerLayerOptions(
+                                      markers: [
+                                        const Marker(
+                                            point: LatLng(52.518611, 13.408056),
+                                            width: 250,
+                                            height: 250,
+                                            child: Text("jk")),
+                                      ],
+                                      popupDisplayOptions: PopupDisplayOptions(
+                                          builder: (BuildContext context,
+                                              Marker marker) {
+                                        return Container(
+                                          padding: const EdgeInsets.all(7),
+                                          margin: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child:
+                                              const Text("Nous sommes ici !"),
+                                        );
+                                      }),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Container(
+                                height: double.infinity,
+                                width: double.infinity,
+                              ),
                             ],
                           ),
                         ),

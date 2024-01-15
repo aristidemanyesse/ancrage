@@ -71,7 +71,7 @@ class _GaleriesPageState extends State<GaleriesPage> {
               left: Helper.PADDING * 2,
               child: Text(
                 "Notre galerie photo",
-                style: AppTextStyle.playfair.copyWith(color: AppColor.green),
+                style: AppTextStyle.playfair.copyWith(color: AppColor.white),
               )),
           SizedBox(
             width: Get.size.width,

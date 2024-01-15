@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   final int maxlines;
   final TextInputType keyboardType;
   final TextEditingController controller;
-  final Function onChanged;
+  final Function? onChanged;
 
   const MyTextField(
       {super.key,
@@ -17,14 +17,14 @@ class MyTextField extends StatelessWidget {
       this.maxlines = 1,
       this.keyboardType = TextInputType.text,
       required this.controller,
-      required this.onChanged});
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label.length > 0)
+        if (label.isNotEmpty)
           Container(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
@@ -36,7 +36,7 @@ class MyTextField extends StatelessWidget {
           keyboardType: keyboardType,
           maxLines: maxlines,
           controller: controller,
-          onChanged: (value) => onChanged(value),
+          onChanged: (value) => onChanged ?? (value),
           inputFormatters: keyboardType == TextInputType.number
               ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
               : [],
