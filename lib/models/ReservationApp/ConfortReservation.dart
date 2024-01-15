@@ -47,12 +47,12 @@ class ConfortReservation with _$ConfortReservation {
     } else {
       response = ResponseModel(
           field: datas["createConfortReservation"]["errors"][0]["field"],
-          message: datas["createConfortReservation"]["errors"][0]["message"],
+          message: datas["createConfortReservation"]["errors"][0]["messages"],
           ok: false,
           data: const ConfortReservation());
 
       Get.snackbar("Ouups, Erreur !",
-          datas["createConfortReservation"]["errors"][0]["message"]);
+          datas["createConfortReservation"]["errors"][0]["messages"]);
     }
     return response;
   }

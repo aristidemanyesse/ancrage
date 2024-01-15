@@ -423,14 +423,24 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                           .copyWith(
                                                               letterSpacing:
                                                                   -1)),
-                                                  const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 2),
-                                                  Text(
-                                                    "Activité : ${reservationController.activitySelected.value.name}",
-                                                    style: AppTextStyle
-                                                        .titleMedium,
-                                                  ),
+                                                  if (reservationController
+                                                          .activitySelected
+                                                          .value
+                                                          .id !=
+                                                      "")
+                                                    Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                            height:
+                                                                Helper.PADDING /
+                                                                    2),
+                                                        Text(
+                                                          "Activité : ${reservationController.activitySelected.value.name}",
+                                                          style: AppTextStyle
+                                                              .titleMedium,
+                                                        ),
+                                                      ],
+                                                    ),
                                                 ],
                                               ),
                                             ],
@@ -1016,14 +1026,14 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                 ],
                                               ),
                                             ),
-                                            const Spacer(),
-                                            Text("Imprimer reçu",
-                                                style: AppTextStyle.body
-                                                    .copyWith(
-                                                        letterSpacing: -1,
-                                                        color: AppColor.orange,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
+                                            // const Spacer(),
+                                            // Text("Imprimer reçu",
+                                            //     style: AppTextStyle.body
+                                            //         .copyWith(
+                                            //             letterSpacing: -1,
+                                            //             color: AppColor.orange,
+                                            //             fontWeight:
+                                            //                 FontWeight.bold)),
                                           ],
                                         ),
                                       ],

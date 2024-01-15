@@ -293,15 +293,15 @@ class _ReservationStep4PageState extends State<ReservationStep4Page> {
                                                   title:
                                                       "Assistance en chambre disponible dès 08h30",
                                                 ),
-                                                const SizedBox(
-                                                  width: Helper.PADDING / 4,
-                                                ),
-                                                FormMainButton(
-                                                    onTap: () {
-                                                      Get.dialog(
-                                                          const AlertModal());
-                                                    },
-                                                    title: "Continuer")
+                                                // const SizedBox(
+                                                //   width: Helper.PADDING / 4,
+                                                // ),
+                                                // FormMainButton(
+                                                //     onTap: () {
+                                                //       Get.dialog(
+                                                //           const AlertModal());
+                                                //     },
+                                                //     title: "Continuer")
                                               ],
                                             ),
                                           ],
@@ -431,14 +431,24 @@ class _ReservationStep4PageState extends State<ReservationStep4Page> {
                                                           .copyWith(
                                                               letterSpacing:
                                                                   -1)),
-                                                  const SizedBox(
-                                                      height:
-                                                          Helper.PADDING / 2),
-                                                  Text(
-                                                    "Activité : ${reservationController.activitySelected.value.name}",
-                                                    style: AppTextStyle
-                                                        .titleMedium,
-                                                  ),
+                                                  if (reservationController
+                                                          .activitySelected
+                                                          .value
+                                                          .id !=
+                                                      "")
+                                                    Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                            height:
+                                                                Helper.PADDING /
+                                                                    2),
+                                                        Text(
+                                                          "Activité : ${reservationController.activitySelected.value.name}",
+                                                          style: AppTextStyle
+                                                              .titleMedium,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 2),
@@ -548,7 +558,7 @@ class _ReservationStep4PageState extends State<ReservationStep4Page> {
                                                   onChanged: (value) {
                                                     reservationController
                                                                 .client[
-                                                            "civilite"] =
+                                                            "civility"] =
                                                         value.toString();
                                                     setState(() {
                                                       _selectedItem = value!;
@@ -611,7 +621,7 @@ class _ReservationStep4PageState extends State<ReservationStep4Page> {
                                             onTap: () {
                                               reservationController.save();
                                             },
-                                            title: "Valider "),
+                                            title: "Valider la reservation"),
                                       ],
                                     )
                                   ],

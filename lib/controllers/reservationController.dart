@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:advance_expansion_tile/advance_expansion_tile.dart';
 import 'package:ancrage/components/loader.dart';
+import 'package:ancrage/modals/alert.dart';
 import 'package:ancrage/models/HotelApp/Activity.dart';
 import 'package:ancrage/models/HotelApp/Option.dart';
 import 'package:ancrage/models/HotelApp/Pack.dart';
@@ -11,6 +12,7 @@ import 'package:ancrage/models/ReservationApp/OptionSanteReservation.dart';
 import 'package:ancrage/models/ReservationApp/PackReservation.dart';
 import 'package:ancrage/models/ReservationApp/Reservation.dart';
 import 'package:ancrage/models/coreApp/ResponseModel.dart';
+import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,13 +35,30 @@ class ReservationController extends GetxController {
   RxInt nbrPersonne = 1.obs;
   RxBool public = true.obs;
   RxBool horaire = false.obs;
-  RxMap<String, String> client = {"civility": "0"}.obs;
+  RxMap<String, String> client =
+      {"civility": "0", "name": "", "email": "", "contact": ""}.obs;
   RxBool isAllergies = false.obs;
   RxString allergies = "".obs;
 
   @override
   void onInit() async {
     super.onInit();
+
+    packSelected = const Pack().obs;
+    activitySelected = const Activity().obs;
+    optionsSelected = RxList<Option>([]);
+    careSelected = RxList<Option>([]);
+    debut = DateTime.now().obs;
+    fin = DateTime.now().add(const Duration(days: 1)).obs;
+    montant = 0.obs;
+    jours = 1.obs;
+    nbrChambre = 1.obs;
+    nbrPersonne = 1.obs;
+    public = true.obs;
+    horaire = false.obs;
+    client = {"civility": "0", "name": "", "email": "", "contact": ""}.obs;
+    isAllergies = false.obs;
+    allergies = "".obs;
 
     packs.value = await Pack.all({});
     if (packs.isNotEmpty) {
@@ -88,6 +107,20 @@ class ReservationController extends GetxController {
 
   void save() async {
     Get.dialog(Loader());
+    if (client["name"] == "" ||
+        client["email"] == "" ||
+        client["contact"] == "") {
+      Get.back();
+      Get.snackbar("Erreur", "Veuillez renseigner toutes vos coordonnées !",
+          colorText: AppColor.background,
+          backgroundColor: AppColor.orange,
+          icon: const Icon(
+            Icons.add_alert,
+            color: AppColor.background,
+          ),
+          barBlur: 5,
+          snackPosition: SnackPosition.BOTTOM);
+    }
     ResponseModel response = await Reservation.createReservation({
       "price": montant.value,
       "debut": debut.value.toString().replaceFirst(" ", "T"),
@@ -114,39 +147,48 @@ class ReservationController extends GetxController {
 
       if (packresponse.ok) {
         //enregistrement des activites
-        ResponseModel actiresponse = await ActivityReservation.create({
-          "price": public.value
-              ? activitySelected.value.publicPrice
-              : activitySelected.value.privatePrice,
-          "reservation": reservation.id,
-          "activity": activitySelected.value.id,
-          "isPublic": public.value
-        });
+        if (activitySelected.value.id != "") {
+          ResponseModel actiresponse = await ActivityReservation.create({
+            "price": public.value
+                ? activitySelected.value.publicPrice
+                : activitySelected.value.privatePrice,
+            "reservation": reservation.id,
+            "activity": activitySelected.value.id,
+            "isPublic": public.value
+          });
+        }
 
-        if (actiresponse.ok) {
-          //enregistrement du confort
-          for (Option option in optionsSelected) {
-            ResponseModel optiresponse = await ConfortReservation.create(
-                {"reservation": reservation.id, "option": option.id});
-          }
+        //enregistrement du confort
+        for (Option option in optionsSelected) {
+          ResponseModel optiresponse = await ConfortReservation.create(
+              {"reservation": reservation.id, "option": option.id});
+        }
 
-          //enregistrement du confort
-          for (Option option in careSelected) {
-            ResponseModel optiresponse = await OptionSanteReservation.create(
-                {"reservation": reservation.id, "option": option.id});
-          }
+        //enregistrement du confort
+        for (Option option in careSelected) {
+          ResponseModel optiresponse = await OptionSanteReservation.create(
+              {"reservation": reservation.id, "option": option.id});
         }
       }
 
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(Duration(milliseconds: 1500));
 
       Get.back();
 
-      // Fluttertoast.showToast(
-      //         msg:
-      //             response.message ?? "Ouups, Produit Veuillez recommencer !",
-      //         gravity: ToastGravity.BOTTOM,
-      //       );
+      String civ = client['civility'] == "0"
+          ? "M"
+          : client['civility'] == "1"
+              ? "Mme"
+              : "Mlle";
+      Get.dialog(AlertModal(
+        onClick: () {
+          super.onInit();
+          Get.offAllNamed("/");
+        },
+        title: "Réservation",
+        message:
+            "Bonjour ${civ}. ${client['name']}, merci d’avoir réservé, notre équipe vous contactera dans les meilleurs délais.",
+      ));
     }
   }
 }

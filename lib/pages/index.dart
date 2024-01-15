@@ -223,11 +223,15 @@ class _IndexPageState extends State<IndexPage> {
                                             pageController
                                                 .languageSelected.value
                                                 .substring(0, 2),
-                                            style: AppTextStyle.menuButtonText,
+                                            style: AppTextStyle.menuButtonText
+                                                .copyWith(
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           const Icon(
                                             Icons.keyboard_arrow_down,
                                             size: 20,
+                                            color: Colors.white,
                                           )
                                         ],
                                       );

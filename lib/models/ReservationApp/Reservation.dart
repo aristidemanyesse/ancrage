@@ -76,12 +76,12 @@ class Reservation with _$Reservation {
     } else {
       response = ResponseModel(
           field: datas["createReservation"]["errors"][0]["field"],
-          message: datas["createReservation"]["errors"][0]["message"],
+          message: datas["createReservation"]["errors"][0]["messages"],
           ok: false,
           data: const Reservation());
-
-      Get.snackbar("Ouups, Erreur !",
-          datas["createReservation"]["errors"][0]["message"]);
+      Get.snackbar(
+          "Ouups, Erreur ! ${datas["createReservation"]["errors"][0]["messages"]}",
+          datas["createReservation"]["errors"][0]["messages"]);
     }
     return response;
   }

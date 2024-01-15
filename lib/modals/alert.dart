@@ -7,7 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AlertModal extends StatefulWidget {
-  const AlertModal({super.key});
+  final String title;
+  final String message;
+  final Function onClick;
+
+  const AlertModal(
+      {super.key,
+      required this.title,
+      required this.message,
+      required this.onClick});
 
   @override
   State<AlertModal> createState() => _AlertModalState();
@@ -40,7 +48,7 @@ class _AlertModalState extends State<AlertModal> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Réservation',
+                    widget.title,
                     style: AppTextStyle.titleSmall,
                   ),
                   const Spacer(),
@@ -49,7 +57,7 @@ class _AlertModalState extends State<AlertModal> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: Helper.PADDING),
                     child: Text(
-                      'Bonjour M. Lambertin, merci d’avoir réservé, notre équipe vous contactera dans les meilleurs délais.',
+                      widget.message,
                       style: AppTextStyle.label,
                       textAlign: TextAlign.center,
                     ),
@@ -60,7 +68,7 @@ class _AlertModalState extends State<AlertModal> {
                     children: [
                       SecondaryButton(
                           onTap: () {
-                            Get.back();
+                            widget.onClick();
                           },
                           title: "Ok "),
                     ],

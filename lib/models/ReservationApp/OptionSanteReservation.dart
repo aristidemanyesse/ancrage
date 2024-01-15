@@ -53,7 +53,7 @@ class OptionSanteReservation with _$OptionSanteReservation {
           data: const OptionSanteReservation());
 
       Get.snackbar("Ouups, Erreur !",
-          datas["createOptionSanteReservation"]["errors"][0]["message"]);
+          datas["createOptionSanteReservation"]["errors"][0]["messages"]);
     }
     return response;
   }

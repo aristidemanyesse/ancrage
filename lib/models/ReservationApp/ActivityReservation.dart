@@ -51,12 +51,12 @@ class ActivityReservation with _$ActivityReservation {
     } else {
       response = ResponseModel(
           field: datas["createActivityReservation"]["errors"][0]["field"],
-          message: datas["createActivityReservation"]["errors"][0]["message"],
+          message: datas["createActivityReservation"]["errors"][0]["messages"],
           ok: false,
           data: const ActivityReservation());
 
       Get.snackbar("Ouups, Erreur !",
-          datas["createActivityReservation"]["errors"][0]["message"]);
+          datas["createActivityReservation"]["errors"][0]["messages"]);
     }
     return response;
   }

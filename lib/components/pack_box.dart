@@ -184,9 +184,25 @@ class _PackBoxState extends State<PackBox> {
                               children: [
                                 FormMainButton(
                                     onTap: () {
-                                      reservationController.packSelected.value =
-                                          widget.pack;
-                                      Get.toNamed("/reservation_next_2");
+                                      if (reservationController.debut.value
+                                          .isAfter(reservationController
+                                              .fin.value)) {
+                                        Get.snackbar("Erreur",
+                                            "Les dates de début et de fin de séjour ne sont pas correctes !",
+                                            colorText: AppColor.background,
+                                            backgroundColor: AppColor.orange,
+                                            icon: const Icon(
+                                              Icons.add_alert,
+                                              color: AppColor.background,
+                                            ),
+                                            barBlur: 5,
+                                            snackPosition:
+                                                SnackPosition.BOTTOM);
+                                      } else {
+                                        reservationController
+                                            .packSelected.value = widget.pack;
+                                        Get.toNamed("/reservation_next_2");
+                                      }
                                     },
                                     title: "Choisir ce pack")
                               ],

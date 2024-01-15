@@ -245,8 +245,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                                             .nbrPersonne.value =
                                                         int.parse(value);
                                                   } else {
-                                                    nbrPersonneController.text =
-                                                        "1";
+                                                    setState(() {
+                                                      nbrPersonneController
+                                                          .text = "1";
+                                                    });
                                                   }
                                                 },
                                                 controller:
@@ -269,8 +271,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                                       .nbrChambre
                                                       .value = int.parse(value);
                                                 } else {
-                                                  nbrChambreController.text =
-                                                      "1";
+                                                  setState(() {
+                                                    nbrChambreController.text =
+                                                        "1";
+                                                  });
                                                 }
                                               },
                                               controller: nbrChambreController,

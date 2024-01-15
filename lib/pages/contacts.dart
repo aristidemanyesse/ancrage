@@ -5,6 +5,8 @@ import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
+import 'package:ancrage/modals/alert.dart';
+import 'package:ancrage/models/HotelApp/Message.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,10 @@ class _ContactsPageState extends State<ContactsPage> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
 
-  TextEditingController debutController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController sujetController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
@@ -228,26 +233,27 @@ class _ContactsPageState extends State<ContactsPage> {
                                           child: Column(
                                             children: [
                                               MyTextField(
-                                                controller: debutController,
+                                                onChanged: () {},
+                                                controller: nameController,
                                                 label: "Nom complet",
-                                                placeholer:
-                                                    "Date et heure de départ",
+                                                placeholer: "Votre nom complet",
                                               ),
                                               SizedBox(
                                                   height: Helper.PADDING / 3),
                                               MyTextField(
-                                                controller: debutController,
+                                                onChanged: () {},
+                                                controller: sujetController,
                                                 label: "Sujet",
-                                                placeholer:
-                                                    "Date et heure de départ",
+                                                placeholer: "Objet du message",
                                               ),
                                               SizedBox(
                                                   height: Helper.PADDING / 3),
                                               MyTextField(
-                                                controller: debutController,
+                                                onChanged: () {},
+                                                controller: emailController,
                                                 label: "Email ou contacts",
                                                 placeholer:
-                                                    "Date et heure de départ",
+                                                    "vos coordonnées pour vous joindre",
                                               )
                                             ],
                                           ),
@@ -255,9 +261,11 @@ class _ContactsPageState extends State<ContactsPage> {
                                         SizedBox(width: Helper.PADDING / 2),
                                         Expanded(
                                             child: MyTextField(
-                                          controller: debutController,
+                                          onChanged: () {},
+                                          controller: messageController,
                                           label: "Message",
-                                          placeholer: "Date et heure de départ",
+                                          placeholer:
+                                              "Saisissez votre message ici...",
                                           maxlines: 9,
                                         ))
                                       ],
@@ -267,8 +275,48 @@ class _ContactsPageState extends State<ContactsPage> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         FormMainButton(
-                                            onTap: () {
-                                              Get.toNamed("/");
+                                            onTap: () async {
+                                              Message message = Message(
+                                                  contact: emailController.text,
+                                                  message:
+                                                      messageController.text,
+                                                  sujet: sujetController.text,
+                                                  fullname:
+                                                      nameController.text);
+                                              bool ok = await message.save();
+                                              if (ok) {
+                                                Get.dialog(AlertModal(
+                                                    title: "Message envoyé",
+                                                    message:
+                                                        "Votre message a bien été envoyé, nous vous reviendrons sous peu ...",
+                                                    onClick: () {
+                                                      setState(() {
+                                                        nameController.text =
+                                                            "";
+                                                        emailController.text =
+                                                            "";
+                                                        sujetController.text =
+                                                            "";
+                                                        messageController.text =
+                                                            "";
+                                                      });
+                                                    }));
+                                              } else {
+                                                Get.snackbar("Erreur",
+                                                    "Une erreur s'est produite lors de l'envoi de votre message. Veuillez reessayer SVP !",
+                                                    colorText:
+                                                        AppColor.background,
+                                                    backgroundColor:
+                                                        AppColor.orange,
+                                                    icon: const Icon(
+                                                      Icons.add_alert,
+                                                      color:
+                                                          AppColor.background,
+                                                    ),
+                                                    barBlur: 5,
+                                                    snackPosition:
+                                                        SnackPosition.BOTTOM);
+                                              }
                                             },
                                             title: "Valider")
                                       ],
@@ -306,25 +354,70 @@ class _ContactsPageState extends State<ContactsPage> {
                                   PopupMarkerLayer(
                                     options: PopupMarkerLayerOptions(
                                       markers: [
-                                        const Marker(
-                                            point: LatLng(52.518611, 13.408056),
-                                            width: 250,
-                                            height: 250,
-                                            child: Text("jk")),
+                                        Marker(
+                                          point: LatLng(52.518611, 13.408056),
+                                          width: 30,
+                                          height: 30,
+                                          child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: SvgPicture.asset(
+                                              "assets/images/logo/logo-noir.svg",
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                       popupDisplayOptions: PopupDisplayOptions(
                                           builder: (BuildContext context,
                                               Marker marker) {
                                         return Container(
-                                          padding: const EdgeInsets.all(7),
-                                          margin: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child:
-                                              const Text("Nous sommes ici !"),
-                                        );
+                                            padding: const EdgeInsets.all(7),
+                                            margin: const EdgeInsets.all(10),
+                                            height: 80,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                                color: AppColor.background,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/images/logo/logo-noir.svg",
+                                                  height: 70,
+                                                ),
+                                                SizedBox(
+                                                  width: Helper.PADDING / 3,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "L'ANCRAGE",
+                                                      style: AppTextStyle
+                                                          .subtitle
+                                                          .copyWith(
+                                                              fontSize: 15),
+                                                    ),
+                                                    Spacer(),
+                                                    Text(
+                                                      "Nous sommes ici",
+                                                      style: AppTextStyle.body
+                                                          .copyWith(
+                                                              fontSize: 13),
+                                                    ),
+                                                    Spacer(),
+                                                    Text(
+                                                      "52.518611, 13.408056",
+                                                      style: AppTextStyle.body
+                                                          .copyWith(
+                                                              color: AppColor
+                                                                  .green,
+                                                              fontSize: 10),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ));
                                       }),
                                     ),
                                   )

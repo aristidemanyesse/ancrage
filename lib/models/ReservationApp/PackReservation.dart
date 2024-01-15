@@ -49,12 +49,12 @@ class PackReservation with _$PackReservation {
     } else {
       response = ResponseModel(
           field: datas["createPackReservation"]["errors"][0]["field"],
-          message: datas["createPackReservation"]["errors"][0]["message"],
+          message: datas["createPackReservation"]["errors"][0]["messages"],
           ok: false,
           data: const PackReservation());
 
       Get.snackbar("Ouups, Erreur !",
-          datas["createPackReservation"]["errors"][0]["message"]);
+          datas["createPackReservation"]["errors"][0]["messages"]);
     }
     return response;
   }

@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   final int maxlines;
   final TextInputType keyboardType;
   final TextEditingController controller;
-  final Function? onChanged;
+  final Function onChanged;
 
   const MyTextField(
       {super.key,
@@ -17,7 +17,7 @@ class MyTextField extends StatelessWidget {
       this.maxlines = 1,
       this.keyboardType = TextInputType.text,
       required this.controller,
-      this.onChanged});
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MyTextField extends StatelessWidget {
           keyboardType: keyboardType,
           maxLines: maxlines,
           controller: controller,
-          onChanged: (value) => onChanged ?? (value),
+          onChanged: (value) => onChanged(value),
           inputFormatters: keyboardType == TextInputType.number
               ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
               : [],
