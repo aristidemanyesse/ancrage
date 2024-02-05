@@ -1,16 +1,19 @@
 import 'package:advance_expansion_tile/advance_expansion_tile.dart';
+import 'package:ancrage/components/affiche_reservation.dart';
+import 'package:ancrage/components/assistance_bloc.dart';
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/components/header_menu.dart';
+import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/components/my_text_field.dart';
 import 'package:ancrage/controllers/optionController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/controllers/reservationController.dart';
+import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -62,12 +65,12 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                 fit: BoxFit.scaleDown,
               ),
               tablet: Image.asset(
-                "assets/images/bg/IMG_7053@2x.png",
+                "assets/images/bg/IMG_7053@2x _dr.png",
                 fit: BoxFit.fitHeight,
               ),
               mobile: Image.asset(
-                "assets/images/bg/IMG_7053@2x.png",
-                fit: BoxFit.fitHeight,
+                "assets/images/bg/IMG_7053@3x.png",
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
@@ -91,80 +94,15 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                           height: 30,
                           color: Colors.white,
                         ),
-                        Container(
-                          margin:
-                              const EdgeInsets.only(left: Helper.PADDING * 2),
-                          padding: const EdgeInsets.all(Helper.PADDING / 1.5),
-                          width: Get.size.width * 0.35,
-                          height: 250,
-                          color: AppColor.background,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "réservation".toUpperCase(),
-                                style: AppTextStyle.titleLarge.copyWith(
-                                    fontSize: 38,
-                                    letterSpacing: 5,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Times@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "L'ANCRAGE est disponible en permanence pour vous.",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "+225 07 07 070 707",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/images/socials/Email.svg",
-                                    height: 25,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "contacts@ancrage.com",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                        const AfficheReservation()
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Helper.PADDING * 3),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Responsive.isMonitor(context)
+                            ? Helper.PADDING * 3
+                            : Helper.PADDING),
                     decoration: const BoxDecoration(
                       color: AppColor.white,
                       border: Border(
@@ -267,38 +205,7 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                           ),
                                         ],
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                  "assets/images/socials/Heure.svg",
-                                                  height: 18,
-                                                ),
-                                                InderlineButton2(
-                                                  onTap: () {},
-                                                  title:
-                                                      "Assistance en chambre disponible dès 08h30",
-                                                ),
-                                                const SizedBox(
-                                                  width: Helper.PADDING / 4,
-                                                ),
-                                                FormMainButton(
-                                                    onTap: () {
-                                                      Get.toNamed(
-                                                          "/reservation_next_4");
-                                                    },
-                                                    title: "Passer cette étape")
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      const Expanded(child: AssistanceBloc()),
                                     ],
                                   ),
                                 ),
@@ -321,16 +228,29 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                        flex: 3,
-                                        child: Image.asset(
-                                          "assets/images/bg/facade.png",
+                                        flex: Responsive.isMonitor(context)
+                                            ? 3
+                                            : 5,
+                                        child: Image.network(
+                                          ApiService.MEDIA_URL +
+                                              reservationController
+                                                  .packSelected.value.image,
                                           fit: BoxFit.fitHeight,
                                         )),
-                                    const SizedBox(
-                                      width: Helper.PADDING,
+                                    const Responsive(
+                                      mobile: SizedBox(
+                                        width: Helper.PADDING,
+                                      ),
+                                      tablet: SizedBox(
+                                        width: Helper.PADDING / 2,
+                                      ),
+                                      desktop: SizedBox(
+                                        width: Helper.PADDING,
+                                      ),
                                     ),
                                     Expanded(
-                                      flex: 4,
+                                      flex:
+                                          Responsive.isMonitor(context) ? 4 : 3,
                                       child: Column(
                                         children: [
                                           Row(
@@ -341,69 +261,243 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    "1 -${reservationController.packSelected.value.name}",
-                                                    style: AppTextStyle
-                                                        .titleMedium,
+                                                  Responsive(
+                                                    mobile: const Text(""),
+                                                    tablet: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "1 -${reservationController.packSelected.value.name}",
+                                                          style: AppTextStyle
+                                                              .titleMedium
+                                                              .copyWith(
+                                                                  fontSize: 28),
+                                                        ),
+                                                        Text(
+                                                            "${reservationController.packSelected.value.nbreLit} lits | ${reservationController.packSelected.value.modeleLit} | ${reservationController.packSelected.value.superficie} m²",
+                                                            style: AppTextStyle
+                                                                .body
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        15,
+                                                                    letterSpacing:
+                                                                        -1)),
+                                                      ],
+                                                    ),
+                                                    desktop: Column(
+                                                      children: [
+                                                        Text(
+                                                          "1 -${reservationController.packSelected.value.name}",
+                                                          style: AppTextStyle
+                                                              .titleMedium,
+                                                        ),
+                                                        Text(
+                                                            "${reservationController.packSelected.value.nbreLit} lits | ${reservationController.packSelected.value.modeleLit} | ${reservationController.packSelected.value.superficie} m²",
+                                                            style: AppTextStyle
+                                                                .body
+                                                                .copyWith(
+                                                                    letterSpacing:
+                                                                        -1)),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Text(
-                                                      "${reservationController.packSelected.value.nbreLit} lits | ${reservationController.packSelected.value.modeleLit} | ${reservationController.packSelected.value.superficie} m²",
-                                                      style: AppTextStyle.body
-                                                          .copyWith(
-                                                              letterSpacing:
-                                                                  -1)),
                                                   const SizedBox(
                                                       height:
                                                           Helper.PADDING / 4),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Arrivée",
-                                                        style:
-                                                            AppTextStyle.small,
-                                                      ),
-                                                      const SizedBox(
-                                                        width:
-                                                            Helper.PADDING / 5,
-                                                      ),
-                                                      Text(
-                                                        dateFormat1.format(
-                                                            reservationController
-                                                                .debut.value),
-                                                        style: AppTextStyle
-                                                            .bodysmall
-                                                            .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                  Responsive(
+                                                    mobile: Container(),
+                                                    tablet: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Arrivée",
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .small,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: Helper
+                                                                      .PADDING /
+                                                                  5,
+                                                            ),
+                                                            Text(
+                                                              dateFormat1.format(
+                                                                  reservationController
+                                                                      .debut
+                                                                      .value),
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .bodysmall
+                                                                      .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                      const SizedBox(
+                                                        const SizedBox(
+                                                            height:
+                                                                Helper.PADDING /
+                                                                    4),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Départ",
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .small,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: Helper
+                                                                      .PADDING /
+                                                                  5,
+                                                            ),
+                                                            Text(
+                                                              dateFormat1.format(
+                                                                  reservationController
+                                                                      .fin
+                                                                      .value),
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .bodysmall
+                                                                      .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                    desktop: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Arrivée",
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .small,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: Helper
+                                                                      .PADDING /
+                                                                  5,
+                                                            ),
+                                                            Text(
+                                                              dateFormat1.format(
+                                                                  reservationController
+                                                                      .debut
+                                                                      .value),
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .bodysmall
+                                                                      .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                            height:
+                                                                Helper.PADDING /
+                                                                    4),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Départ",
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .small,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: Helper
+                                                                      .PADDING /
+                                                                  5,
+                                                            ),
+                                                            Text(
+                                                              dateFormat1.format(
+                                                                  reservationController
+                                                                      .fin
+                                                                      .value),
+                                                              style:
+                                                                  AppTextStyle
+                                                                      .bodysmall
+                                                                      .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                    monitor: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Arrivée",
+                                                          style: AppTextStyle
+                                                              .small,
+                                                        ),
+                                                        const SizedBox(
                                                           width:
-                                                              Helper.PADDING),
-                                                      Text(
-                                                        "Départ",
-                                                        style:
-                                                            AppTextStyle.small,
-                                                      ),
-                                                      const SizedBox(
-                                                        width:
-                                                            Helper.PADDING / 5,
-                                                      ),
-                                                      Text(
-                                                        dateFormat1.format(
-                                                            reservationController
-                                                                .fin.value),
-                                                        style: AppTextStyle
-                                                            .bodysmall
-                                                            .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                              Helper.PADDING /
+                                                                  5,
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Text(
+                                                          dateFormat1.format(
+                                                              reservationController
+                                                                  .debut.value),
+                                                          style: AppTextStyle
+                                                              .bodysmall
+                                                              .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width:
+                                                                Helper.PADDING),
+                                                        Text(
+                                                          "Départ",
+                                                          style: AppTextStyle
+                                                              .small,
+                                                        ),
+                                                        const SizedBox(
+                                                          width:
+                                                              Helper.PADDING /
+                                                                  5,
+                                                        ),
+                                                        Text(
+                                                          dateFormat1.format(
+                                                              reservationController
+                                                                  .fin.value),
+                                                          style: AppTextStyle
+                                                              .bodysmall
+                                                              .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                       height:
@@ -434,11 +528,23 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                             height:
                                                                 Helper.PADDING /
                                                                     2),
-                                                        Text(
-                                                          "Activité : ${reservationController.activitySelected.value.name}",
-                                                          style: AppTextStyle
-                                                              .titleMedium,
-                                                        ),
+                                                        Responsive(
+                                                          mobile:
+                                                              const Text(""),
+                                                          tablet: Text(
+                                                            "Activité : ${reservationController.activitySelected.value.name}",
+                                                            style: AppTextStyle
+                                                                .titleSmall
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        20),
+                                                          ),
+                                                          desktop: Text(
+                                                            "Activité : ${reservationController.activitySelected.value.name}",
+                                                            style: AppTextStyle
+                                                                .titleSmall,
+                                                          ),
+                                                        )
                                                       ],
                                                     ),
                                                 ],
@@ -446,24 +552,22 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                             ],
                                           ),
                                           const SizedBox(
-                                              height: Helper.PADDING * 3),
-                                          Container(
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    InderlineButton2(
-                                                      onTap: () {
-                                                        Get.back();
-                                                      },
-                                                      title: "Modifier",
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                              height: Helper.PADDING),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  InderlineButton2(
+                                                    onTap: () {
+                                                      Get.back();
+                                                    },
+                                                    title: "Modifier",
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           )
                                         ],
                                       ),
@@ -557,7 +661,11 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                     ),
                                                     Obx(() {
                                                       return GridView.count(
-                                                        crossAxisCount: 5,
+                                                        crossAxisCount:
+                                                            Responsive.isTablet(
+                                                                    context)
+                                                                ? 3
+                                                                : 5,
                                                         childAspectRatio:
                                                             (8 / 1),
                                                         controller:
@@ -739,7 +847,10 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                 ),
                                               );
                                             }),
-                                            const Spacer(),
+                                            Responsive(
+                                              mobile: Container(),
+                                              desktop: const Spacer(),
+                                            )
                                           ],
                                         ),
                                         const SizedBox(
@@ -767,7 +878,11 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                                         // ),
                                                         Obx(() {
                                                           return GridView.count(
-                                                            crossAxisCount: 5,
+                                                            crossAxisCount:
+                                                                Responsive.isTablet(
+                                                                        context)
+                                                                    ? 3
+                                                                    : 5,
                                                             childAspectRatio:
                                                                 (8 / 1),
                                                             controller:
@@ -1058,7 +1173,10 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                                         onTap: () {
                                           Get.toNamed("/reservation_next_4");
                                         },
-                                        title: "Commander")
+                                        title: Text("Commander",
+                                            style: AppTextStyle.menuButtonText
+                                                .copyWith(
+                                                    color: AppColor.white)))
                                   ],
                                 ),
                               ),
@@ -1068,9 +1186,11 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: Helper.PADDING * 2,
-                        ),
+                        if (!Responsive.isMobile(context) &&
+                            !Responsive.isMobileLarge(context))
+                          const SizedBox(
+                            height: Helper.PADDING * 2,
+                          ),
                         // const ComeToUs(
                         //   start: 3000,
                         // ),
@@ -1082,7 +1202,12 @@ class _ReservationStep3PageState extends State<ReservationStep3Page> {
               ),
             ),
           ),
-          const HeaderMenu(),
+          const Responsive(
+            mobile: HeaderMenuMini(),
+            mobileLarge: HeaderMenuMini(),
+            tablet: HeaderMenuMini(),
+            desktop: HeaderMenu(),
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

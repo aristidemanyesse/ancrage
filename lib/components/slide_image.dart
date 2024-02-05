@@ -12,10 +12,10 @@ class SlideImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isMonitor(context)
-              ? Helper.PADDING / 2
-              : Helper.PADDING / 4),
+      padding: EdgeInsets.only(
+          right: Responsive.isMonitor(context)
+              ? Helper.PADDING
+              : Helper.PADDING / 2),
       child: Responsive(
         mobile: Image.asset(
           path,

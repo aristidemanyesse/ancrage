@@ -58,7 +58,7 @@ class AppTextStyle {
 
   static TextStyle bodygrasitalic = baseTenorSans.copyWith(
       fontSize: 20,
-      letterSpacing: 3,
+      letterSpacing: 1,
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold);
 

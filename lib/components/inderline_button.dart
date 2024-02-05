@@ -53,7 +53,7 @@ class InderlineButton2 extends StatelessWidget {
                 color: AppColor.orange,
                 decoration: TextDecoration.underline,
                 decorationColor: AppColor.orange,
-                fontSize: 16,
+                fontSize: 14,
                 decorationThickness: 1)),
       ),
     );

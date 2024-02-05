@@ -70,7 +70,11 @@ class _AlertModalState extends State<AlertModal> {
                           onTap: () {
                             widget.onClick();
                           },
-                          title: "Ok "),
+                          title: Text(
+                            "ok".toUpperCase(),
+                            style: AppTextStyle.menuButtonText
+                                .copyWith(color: AppColor.white),
+                          )),
                     ],
                   )
                 ],

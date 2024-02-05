@@ -17,7 +17,10 @@ import 'package:ancrage/controllers/reservation_page_controller.dart';
 import 'package:ancrage/pages/reservation.dart';
 import 'package:ancrage/pages/reservation_step2.dart';
 import 'package:ancrage/pages/reservation_step3.dart';
+import 'package:ancrage/pages/reservation_step3_mini.dart';
 import 'package:ancrage/pages/reservation_step4.dart';
+import 'package:ancrage/pages/reservation_step4_mini.dart';
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,8 +45,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    PagesController pagesController = Get.find();
-
     return GetMaterialApp(
       title: "L'ANCRAGE",
       debugShowCheckedModeBanner: false,
@@ -65,10 +66,18 @@ class MyApp extends StatelessWidget {
             page: () => const ReservationStep2Page()),
         GetPage(
             name: '/reservation_next_3',
-            page: () => const ReservationStep3Page()),
+            page: () => const Responsive(
+                mobile: ReservationStep3PageMini(),
+                mobileLarge: ReservationStep3PageMini(),
+                tablet: ReservationStep3Page(),
+                desktop: ReservationStep3Page())),
         GetPage(
             name: '/reservation_next_4',
-            page: () => const ReservationStep4Page()),
+            page: () => const Responsive(
+                mobile: ReservationStep4PageMini(),
+                mobileLarge: ReservationStep4PageMini(),
+                tablet: ReservationStep4Page(),
+                desktop: ReservationStep4Page())),
         GetPage(name: '/activities', page: () => const ActivitiesPage()),
         GetPage(name: '/activity', page: () => const ActivityPage()),
         GetPage(name: '/galeries', page: () => const GaleriesPage()),

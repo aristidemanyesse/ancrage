@@ -1,5 +1,4 @@
-import 'package:ancrage/components/main_button.dart';
-import 'package:ancrage/components/menu_button_text.dart';
+import 'package:ancrage/components/drawer.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +33,21 @@ class TransparentHeaderMenuMini extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: AppColor.background, width: 2)),
-            child: Icon(
-              Icons.menu,
-              color: AppColor.background,
+          const Spacer(),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                Get.dialog(
+                  const MyDrawer(),
+                  barrierColor: Colors.transparent,
+                );
+              },
+              child: Text(
+                "MENU",
+                style: AppTextStyle.menuButtonTextSelected
+                    .copyWith(color: Colors.white),
+              ),
             ),
           )
         ],

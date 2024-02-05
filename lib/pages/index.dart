@@ -1,17 +1,18 @@
+import 'package:ancrage/components/drawer.dart';
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
 import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/components/main_button.dart';
-import 'package:ancrage/components/menu_button_text.dart';
+import 'package:ancrage/components/slide_image.dart';
+import 'package:ancrage/components/transparent_header_menu.dart';
+import 'package:ancrage/components/transparent_header_menu_mini.dart';
+import 'package:ancrage/components/transparent_header_menu_mini_plus.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/activityController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/pages/come_to_us.dart';
-import 'package:ancrage/pages/slide_image.dart';
-import 'package:ancrage/pages/transparent_header_menu.dart';
-import 'package:ancrage/pages/transparent_header_menu_mini.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class IndexPage extends StatefulWidget {
   State<IndexPage> createState() => _IndexPageState();
 }
 
-class _IndexPageState extends State<IndexPage> {
+class _IndexPageState extends State<IndexPage>
+    with SingleTickerProviderStateMixin {
   LoaderController loaderController = Get.find();
   PagesController pageController = Get.find();
 
@@ -57,6 +59,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const MyDrawer(),
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -86,12 +89,26 @@ class _IndexPageState extends State<IndexPage> {
             ),
           ),
           Positioned(
-              bottom: Helper.PADDING,
-              left: Helper.PADDING * 2,
-              child: Text(
+            bottom: Helper.PADDING,
+            left: Helper.PADDING * 2,
+            child: Responsive(
+              mobile: Text(
                 "Just live it !",
-                style: AppTextStyle.playfair.copyWith(color: AppColor.white),
-              )),
+                style: AppTextStyle.playfair
+                    .copyWith(color: AppColor.white, fontSize: 30),
+              ),
+              tablet: Text(
+                "Just live it !",
+                style: AppTextStyle.playfair
+                    .copyWith(color: AppColor.white, fontSize: 35),
+              ),
+              desktop: Text(
+                "Just live it !",
+                style: AppTextStyle.playfair
+                    .copyWith(color: AppColor.white, fontSize: 50),
+              ),
+            ),
+          ),
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
@@ -109,8 +126,7 @@ class _IndexPageState extends State<IndexPage> {
                           right: 0,
                           top: 0,
                           child: Responsive(
-                            mobile: TransparentHeaderMenuMini(
-                                pageController: pageController),
+                            mobile: TransparentHeaderMenuMiniPlus(),
                             mobileLarge: TransparentHeaderMenuMini(
                                 pageController: pageController),
                             tablet: TransparentHeaderMenuMini(
@@ -119,23 +135,26 @@ class _IndexPageState extends State<IndexPage> {
                                 pageController: pageController),
                           ),
                         ),
-                        Positioned(
-                          bottom: Helper.PADDING,
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: InkWell(
-                              onTap: () {
-                                animateController(
-                                    _scrollController, Get.size.height,
-                                    milliseconds: 700);
-                              },
-                              child: SvgPicture.asset(
-                                "assets/images/logo/logo-blanc.svg",
-                                height: Helper.PADDING,
+                        Responsive(
+                          mobile: Container(),
+                          desktop: Positioned(
+                            bottom: Helper.PADDING,
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: InkWell(
+                                onTap: () {
+                                  animateController(
+                                      _scrollController, Get.size.height,
+                                      milliseconds: 700);
+                                },
+                                child: SvgPicture.asset(
+                                  "assets/images/logo/logo-blanc.svg",
+                                  height: Helper.PADDING,
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -152,11 +171,15 @@ class _IndexPageState extends State<IndexPage> {
                               vertical: Helper.PADDING * 1.5,
                               horizontal: Responsive.isMonitor(context)
                                   ? Helper.PADDING * 3
-                                  : Helper.PADDING),
+                                  : Responsive.isDesktop(context) ||
+                                          Responsive.isTablet(context)
+                                      ? Helper.PADDING
+                                      : 0),
                           child: Column(
                             children: [
                               Text(
                                 "In the heart of nature",
+                                textAlign: TextAlign.center,
                                 style: AppTextStyle.titleLarge.copyWith(
                                   fontSize:
                                       Responsive.isMonitor(context) ? 50 : 40,
@@ -167,6 +190,7 @@ class _IndexPageState extends State<IndexPage> {
                               ),
                               Text(
                                 "We support you in reconnecting with nature.",
+                                textAlign: TextAlign.center,
                                 style: AppTextStyle.subtitle
                                     .copyWith(color: AppColor.blue),
                               ),
@@ -177,11 +201,14 @@ class _IndexPageState extends State<IndexPage> {
                           padding: EdgeInsets.symmetric(
                               horizontal: Responsive.isMonitor(context)
                                   ? Helper.PADDING * 3
-                                  : Helper.PADDING),
+                                  : Responsive.isDesktop(context) ||
+                                          Responsive.isTablet(context)
+                                      ? Helper.PADDING
+                                      : 0),
                           child: SingleChildScrollView(
                             controller: _sectionScrollController,
                             scrollDirection: Axis.horizontal,
-                            child: Row(
+                            child: const Row(
                               children: [
                                 SlideImage(
                                   path: "assets/images/bg/Img@2x (1).png",
@@ -204,7 +231,7 @@ class _IndexPageState extends State<IndexPage> {
                             ),
                           ),
                         ),
-                        Responsive(
+                        const Responsive(
                           mobile: SizedBox(
                             height: Helper.PADDING,
                           ),
@@ -229,7 +256,7 @@ class _IndexPageState extends State<IndexPage> {
                                   )
                                 ],
                               ),
-                              Responsive(
+                              const Responsive(
                                 mobile: SizedBox(
                                   height: Helper.PADDING,
                                 ),
@@ -245,12 +272,16 @@ class _IndexPageState extends State<IndexPage> {
                                     vertical: Helper.PADDING * 1.5,
                                     horizontal: Responsive.isMonitor(context)
                                         ? Helper.PADDING * 3
-                                        : Helper.PADDING),
+                                        : Responsive.isDesktop(context) ||
+                                                Responsive.isTablet(context)
+                                            ? Helper.PADDING
+                                            : 0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       "Naturel & Moderne",
+                                      textAlign: TextAlign.center,
                                       style: AppTextStyle.titleLarge.copyWith(
                                         fontSize: Responsive.isMonitor(context)
                                             ? 50
@@ -311,14 +342,24 @@ class _IndexPageState extends State<IndexPage> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Responsive.isMonitor(context)
                                         ? Helper.PADDING * 3
-                                        : Helper.PADDING),
+                                        : Responsive.isDesktop(context) ||
+                                                Responsive.isTablet(context)
+                                            ? Helper.PADDING
+                                            : 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset(
-                                      "assets/images/bg/piscine.png",
-                                      width: Get.size.width * 0.7,
-                                    ),
+                                    Responsive(
+                                      mobile: Image.asset(
+                                        "assets/images/bg/piscine2.png",
+                                        width: Get.size.width,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      desktop: Image.asset(
+                                        "assets/images/bg/piscine.png",
+                                        width: Get.size.width * 0.7,
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -332,12 +373,16 @@ class _IndexPageState extends State<IndexPage> {
                           padding: EdgeInsets.symmetric(
                               horizontal: Responsive.isMonitor(context)
                                   ? Helper.PADDING * 3
-                                  : Helper.PADDING),
+                                  : Responsive.isDesktop(context) ||
+                                          Responsive.isTablet(context)
+                                      ? Helper.PADDING
+                                      : 0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "Services and facilities".toUpperCase(),
+                                textAlign: TextAlign.center,
                                 style: AppTextStyle.titleLarge.copyWith(
                                   fontSize:
                                       Responsive.isMonitor(context) ? 50 : 40,
@@ -347,8 +392,12 @@ class _IndexPageState extends State<IndexPage> {
                                 height: Helper.PADDING,
                               ),
                               GridView.count(
-                                  crossAxisCount:
-                                      Responsive.isMonitor(context) ? 3 : 2,
+                                  crossAxisCount: Responsive.isMonitor(context)
+                                      ? 3
+                                      : Responsive.isDesktop(context) ||
+                                              Responsive.isTablet(context)
+                                          ? 2
+                                          : 1,
                                   childAspectRatio:
                                       Responsive.isMonitor(context)
                                           ? (3 / 4)
@@ -409,7 +458,7 @@ class _IndexPageState extends State<IndexPage> {
                             ],
                           ),
                         ),
-                        Responsive(
+                        const Responsive(
                           mobile: SizedBox(
                             height: Helper.PADDING,
                           ),
@@ -424,18 +473,22 @@ class _IndexPageState extends State<IndexPage> {
                           padding: EdgeInsets.symmetric(
                               horizontal: Responsive.isMonitor(context)
                                   ? Helper.PADDING * 3
-                                  : Helper.PADDING),
+                                  : Responsive.isDesktop(context) ||
+                                          Responsive.isTablet(context)
+                                      ? Helper.PADDING
+                                      : 0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "WHAT’S ON IN L’ANCRAGE".toUpperCase(),
+                                textAlign: TextAlign.center,
                                 style: AppTextStyle.titleLarge.copyWith(
                                   fontSize:
                                       Responsive.isMonitor(context) ? 50 : 40,
                                 ),
                               ),
-                              Responsive(
+                              const Responsive(
                                 mobile: SizedBox(
                                   height: Helper.PADDING,
                                 ),
@@ -447,12 +500,19 @@ class _IndexPageState extends State<IndexPage> {
                                 ),
                               ),
                               GridView.count(
-                                  crossAxisCount:
-                                      Responsive.isMonitor(context) ? 3 : 2,
+                                  crossAxisCount: Responsive.isMonitor(context)
+                                      ? 3
+                                      : Responsive.isDesktop(context) ||
+                                              Responsive.isTablet(context)
+                                          ? 2
+                                          : 1,
                                   childAspectRatio:
                                       Responsive.isMonitor(context)
                                           ? (3 / 4)
-                                          : (5 / 6),
+                                          : Responsive.isDesktop(context) ||
+                                                  Responsive.isTablet(context)
+                                              ? (5 / 6)
+                                              : 0.98,
                                   controller:
                                       ScrollController(keepScrollOffset: false),
                                   shrinkWrap: true,
@@ -463,7 +523,7 @@ class _IndexPageState extends State<IndexPage> {
                                                 Helper.PADDING / 2,
                                                 0,
                                                 Helper.PADDING / 2,
-                                                Helper.PADDING * 2),
+                                                0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -581,6 +641,10 @@ class _IndexPageState extends State<IndexPage> {
                             ],
                           ),
                         ),
+                        if (!Responsive.isMonitor(context))
+                          const SizedBox(
+                            height: Helper.PADDING,
+                          ),
                         const ComeToUs(
                           start: 4900,
                         ),
@@ -592,7 +656,7 @@ class _IndexPageState extends State<IndexPage> {
               ),
             ),
           ),
-          Responsive(
+          const Responsive(
             mobile: HeaderMenuMini(),
             mobileLarge: HeaderMenuMini(),
             tablet: HeaderMenuMini(),

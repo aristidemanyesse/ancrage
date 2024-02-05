@@ -106,7 +106,7 @@ class ReservationController extends GetxController {
   }
 
   void save() async {
-    Get.dialog(Loader());
+    Get.dialog(const Loader());
     if (client["name"] == "" ||
         client["email"] == "" ||
         client["contact"] == "") {
@@ -148,7 +148,7 @@ class ReservationController extends GetxController {
       if (packresponse.ok) {
         //enregistrement des activites
         if (activitySelected.value.id != "") {
-          ResponseModel actiresponse = await ActivityReservation.create({
+          await ActivityReservation.create({
             "price": public.value
                 ? activitySelected.value.publicPrice
                 : activitySelected.value.privatePrice,
@@ -160,18 +160,18 @@ class ReservationController extends GetxController {
 
         //enregistrement du confort
         for (Option option in optionsSelected) {
-          ResponseModel optiresponse = await ConfortReservation.create(
+          await ConfortReservation.create(
               {"reservation": reservation.id, "option": option.id});
         }
 
         //enregistrement du confort
         for (Option option in careSelected) {
-          ResponseModel optiresponse = await OptionSanteReservation.create(
+          await OptionSanteReservation.create(
               {"reservation": reservation.id, "option": option.id});
         }
       }
 
-      await Future.delayed(Duration(milliseconds: 1500));
+      await Future.delayed(const Duration(milliseconds: 1500));
 
       Get.back();
 
@@ -187,7 +187,7 @@ class ReservationController extends GetxController {
         },
         title: "Réservation",
         message:
-            "Bonjour ${civ}. ${client['name']}, merci d’avoir réservé, notre équipe vous contactera dans les meilleurs délais.",
+            "Bonjour $civ. ${client['name']}, merci d’avoir réservé, notre équipe vous contactera dans les meilleurs délais.",
       ));
     }
   }

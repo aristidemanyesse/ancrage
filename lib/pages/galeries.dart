@@ -1,5 +1,6 @@
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
+import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/controllers/LoaderController.dart';
 import 'package:ancrage/controllers/galerieController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
@@ -69,10 +70,22 @@ class _GaleriesPageState extends State<GaleriesPage> {
           Positioned(
               bottom: Helper.PADDING,
               left: Helper.PADDING * 2,
-              child: Text(
-                "Notre galerie photo",
-                style: AppTextStyle.playfair.copyWith(color: AppColor.white),
-              )),
+              child: Responsive(
+                  mobile: Text(
+                    "Notre galerie photo",
+                    style: AppTextStyle.playfair
+                        .copyWith(color: AppColor.white, fontSize: 25),
+                  ),
+                  tablet: Text(
+                    "Notre galerie photo",
+                    style: AppTextStyle.playfair
+                        .copyWith(color: AppColor.white, fontSize: 30),
+                  ),
+                  desktop: Text(
+                    "Notre galerie photo",
+                    style: AppTextStyle.playfair
+                        .copyWith(color: AppColor.white, fontSize: 35),
+                  ))),
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
@@ -85,89 +98,169 @@ class _GaleriesPageState extends State<GaleriesPage> {
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
-                        Positioned(
-                          bottom: Helper.PADDING,
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: InkWell(
-                              onTap: () {
-                                animateController(
-                                    _scrollController, Get.size.height,
-                                    milliseconds: 700);
-                              },
-                              child: SvgPicture.asset(
-                                "assets/images/logo/logo-blanc.svg",
-                                height: Helper.PADDING,
+                        if (!Responsive.isMobileLarge(context) &&
+                            !Responsive.isMobile(context))
+                          Positioned(
+                            bottom: Helper.PADDING,
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: InkWell(
+                                onTap: () {
+                                  animateController(
+                                      _scrollController, Get.size.height,
+                                      milliseconds: 700);
+                                },
+                                child: SvgPicture.asset(
+                                  "assets/images/logo/logo-blanc.svg",
+                                  height: Helper.PADDING,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Helper.PADDING * 2,
-                        vertical: Helper.PADDING * 2),
+                    width: Get.size.width,
+                    padding: EdgeInsets.symmetric(
+                        vertical: Helper.PADDING * 1.5,
+                        horizontal: Responsive.isMonitor(context)
+                            ? Helper.PADDING * 3
+                            : Responsive.isDesktop(context) ||
+                                    Responsive.isTablet(context)
+                                ? Helper.PADDING
+                                : 0),
                     decoration: const BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [AppColor.white, AppColor.background])),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: GridView.count(
-                            crossAxisCount: 2,
-                            childAspectRatio: .85,
-                            controller:
-                                ScrollController(keepScrollOffset: false),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            mainAxisSpacing: Helper.PADDING,
-                            crossAxisSpacing: Helper.PADDING,
-                            children: galerieController.albums.map((album) {
-                              return album.imageAlbum.isNotEmpty
-                                  ? MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed("/galerie",
-                                              arguments: {"album": album});
-                                        },
-                                        child: Container(
-                                          child: Column(
+                    child: Responsive(
+                      mobile: Column(
+                        children: galerieController.albums.map((album) {
+                          return album.imageAlbum.isNotEmpty
+                              ? MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/galerie",
+                                          arguments: {"album": album});
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                            ApiService.MEDIA_URL +
+                                                album.imageAlbum.first.image,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                          const SizedBox(
+                                            height: Helper.PADDING / 2,
+                                          ),
+                                          Row(
                                             children: [
-                                              Expanded(
-                                                child: Image.network(
-                                                  ApiService.MEDIA_URL +
-                                                      album.imageAlbum.first
-                                                          .image,
-                                                  fit: BoxFit.fitHeight,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            Helper.PADDING / 3),
+                                                child: Text(
+                                                  album.name,
+                                                  style:
+                                                      AppTextStyle.titleMedium,
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                height: Helper.PADDING / 2,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    album.name,
-                                                    style: AppTextStyle
-                                                        .titleMedium,
-                                                  ),
-                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    )
-                                  : Container();
-                            }).toList(),
-                          ),
-                        ),
-                      ],
+                                    ),
+                                  ),
+                                )
+                              : Container();
+                        }).toList(),
+                      ),
+                      mobileLarge: Column(
+                        children: galerieController.albums.map((album) {
+                          return album.imageAlbum.isNotEmpty
+                              ? MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/galerie",
+                                          arguments: {"album": album});
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                            ApiService.MEDIA_URL +
+                                                album.imageAlbum.first.image,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                          const SizedBox(
+                                            height: Helper.PADDING / 2,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                album.name,
+                                                style: AppTextStyle.titleMedium,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container();
+                        }).toList(),
+                      ),
+                      desktop: GridView.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.85,
+                        controller: ScrollController(keepScrollOffset: false),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        mainAxisSpacing: Helper.PADDING,
+                        crossAxisSpacing: Helper.PADDING,
+                        children: galerieController.albums.map((album) {
+                          return album.imageAlbum.isNotEmpty
+                              ? MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/galerie",
+                                          arguments: {"album": album});
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Image.network(
+                                            ApiService.MEDIA_URL +
+                                                album.imageAlbum.first.image,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: Helper.PADDING / 2,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              album.name,
+                                              style: AppTextStyle.titleMedium,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : Container();
+                        }).toList(),
+                      ),
                     ),
                   ),
                   const Footer()
@@ -175,7 +268,12 @@ class _GaleriesPageState extends State<GaleriesPage> {
               ),
             ),
           ),
-          const HeaderMenu(),
+          const Responsive(
+            mobile: HeaderMenuMini(),
+            mobileLarge: HeaderMenuMini(),
+            tablet: HeaderMenuMini(),
+            desktop: HeaderMenu(),
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

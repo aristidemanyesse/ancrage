@@ -4,6 +4,7 @@ import 'package:ancrage/components/inderline_button.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/models/HotelApp/Pack.dart';
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,7 @@ class _PackBoxState extends State<PackBox> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  flex: 3,
+                  flex: Responsive.isMonitor(context) ? 3 : 5,
                   child: Image.network(
                     ApiService.MEDIA_URL + widget.pack.image,
                     fit: BoxFit.fitHeight,
@@ -88,50 +89,93 @@ class _PackBoxState extends State<PackBox> {
                 width: Helper.PADDING,
               ),
               Expanded(
-                flex: 4,
+                flex: Responsive.isMonitor(context) ? 4 : 3,
                 child: Container(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.pack.name,
-                                style: AppTextStyle.titleMedium,
-                              ),
-                              Text(
-                                  "${widget.pack.nbreLit} lits | ${widget.pack.modeleLit} | ${widget.pack.superficie} m²",
+                      Responsive(
+                        mobile: Container(),
+                        desktop: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.pack.name,
+                              style: AppTextStyle.titleMedium,
+                            ),
+                            Text(
+                                "${widget.pack.nbreLit} lits | ${widget.pack.modeleLit} | ${widget.pack.superficie} m²",
+                                style: AppTextStyle.body
+                                    .copyWith(letterSpacing: -1)),
+                            const SizedBox(
+                              height: Helper.PADDING / 4,
+                            ),
+                            InderlineButton2(
+                              onTap: () {},
+                              title: "Politique d'annulation",
+                            ),
+                            const SizedBox(
+                              height: Helper.PADDING / 2,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Prix d'ouverture: ",
                                   style: AppTextStyle.body
-                                      .copyWith(letterSpacing: -1)),
-                            ],
-                          ),
-                          const Spacer(),
-                          InderlineButton2(
-                            onTap: () {},
-                            title: "Politique d'annulation",
-                          ),
-                        ],
+                                      .copyWith(letterSpacing: -1),
+                                ),
+                                Text(
+                                  "${widget.pack.price} FCFA",
+                                  style: AppTextStyle.titleSmall.copyWith(
+                                      color: AppColor.blue,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        monitor: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.pack.name,
+                                  style: AppTextStyle.titleMedium,
+                                ),
+                                Text(
+                                    "${widget.pack.nbreLit} lits | ${widget.pack.modeleLit} | ${widget.pack.superficie} m²",
+                                    style: AppTextStyle.body
+                                        .copyWith(letterSpacing: -1)),
+                              ],
+                            ),
+                            const Spacer(),
+                            InderlineButton2(
+                              onTap: () {},
+                              title: "Politique d'annulation",
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Prix d'ouverture: ",
-                            style:
-                                AppTextStyle.body.copyWith(letterSpacing: -1),
-                          ),
-                          Text(
-                            "${widget.pack.price} FCFA",
-                            style: AppTextStyle.titleSmall.copyWith(
-                                color: AppColor.blue,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                      if (Responsive.isMonitor(context))
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Prix d'ouverture: ",
+                              style:
+                                  AppTextStyle.body.copyWith(letterSpacing: -1),
+                            ),
+                            Text(
+                              "${widget.pack.price} FCFA",
+                              style: AppTextStyle.titleSmall.copyWith(
+                                  color: AppColor.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: Helper.PADDING / 3),
@@ -153,7 +197,8 @@ class _PackBoxState extends State<PackBox> {
                               height: Helper.PADDING / 5,
                             ),
                             GridView.count(
-                                crossAxisCount: 3,
+                                crossAxisCount:
+                                    Responsive.isMonitor(context) ? 3 : 1,
                                 childAspectRatio: (8 / 1),
                                 controller:
                                     ScrollController(keepScrollOffset: false),
@@ -204,7 +249,9 @@ class _PackBoxState extends State<PackBox> {
                                         Get.toNamed("/reservation_next_2");
                                       }
                                     },
-                                    title: "Choisir ce pack")
+                                    title: Text("Choisir ce pack",
+                                        style: AppTextStyle.menuButtonText
+                                            .copyWith(color: AppColor.white)))
                               ],
                             ),
                           ],

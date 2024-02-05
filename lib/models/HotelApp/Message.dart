@@ -54,7 +54,7 @@ class Message with _$Message {
           snackPosition: SnackPosition.BOTTOM);
     }
     dynamic datas =
-        await ApiService.request(MessageSchema.CREATE, this.toJson());
+        await ApiService.request(MessageSchema.CREATE, toJson());
     return datas["createMessage"]["ok"];
   }
 }

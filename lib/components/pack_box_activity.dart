@@ -3,6 +3,7 @@ import 'package:ancrage/components/form_main_button.dart';
 import 'package:ancrage/controllers/reservationController.dart';
 import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/models/HotelApp/Activity.dart';
+import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -89,7 +90,7 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                 width: Helper.PADDING / 2,
               ),
               Expanded(
-                flex: 2,
+                flex: Responsive.isMonitor(context) ? 2 : 1,
                 child: Container(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -181,12 +182,13 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: Helper.PADDING / 2,
                           ),
                           GridView.count(
-                            crossAxisCount: 4,
-                            childAspectRatio: (8 / 1),
+                            crossAxisCount:
+                                Responsive.isMonitor(context) ? 4 : 3,
+                            childAspectRatio: (7 / 1),
                             controller:
                                 ScrollController(keepScrollOffset: false),
                             shrinkWrap: true,
@@ -233,75 +235,88 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  const Text(
-                                      "Voulez-vous faire cette activité en privée ?"),
+                                  const Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                            "Voulez-vous faire cette activité en privée ?"),
+                                      ],
+                                    ),
+                                  ),
                                   const SizedBox(
                                     width: Helper.PADDING / 2,
                                   ),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            child: FittedBox(
-                                              fit: BoxFit.fill,
-                                              child: Switch(
-                                                hoverColor: Colors.transparent,
-                                                value: public,
-                                                inactiveThumbColor:
-                                                    AppColor.white,
-                                                inactiveTrackColor:
-                                                    AppColor.background,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    public = value;
-                                                  });
-                                                },
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              height: 25,
+                                              child: FittedBox(
+                                                fit: BoxFit.fill,
+                                                child: Switch(
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  value: public,
+                                                  inactiveThumbColor:
+                                                      AppColor.white,
+                                                  inactiveTrackColor:
+                                                      AppColor.background,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      public = value;
+                                                    });
+                                                  },
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const Text("Oui"),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: Helper.PADDING / 3,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            child: FittedBox(
-                                              fit: BoxFit.fill,
-                                              child: Switch(
-                                                hoverColor: Colors.transparent,
-                                                inactiveThumbColor:
-                                                    AppColor.white,
-                                                inactiveTrackColor:
-                                                    AppColor.background,
-                                                value: !public,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    public = !value;
-                                                  });
-                                                },
+                                            const Text("Oui"),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              height: 25,
+                                              child: FittedBox(
+                                                fit: BoxFit.fill,
+                                                child: Switch(
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  inactiveThumbColor:
+                                                      AppColor.white,
+                                                  inactiveTrackColor:
+                                                      AppColor.background,
+                                                  value: !public,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      public = !value;
+                                                    });
+                                                  },
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const Text("Non"),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: Helper.PADDING / 2,
-                                      ),
-                                      Text(
-                                        "${public ? widget.activity.privatePrice : widget.activity.publicPrice} Fcfa",
-                                        style: AppTextStyle.body.copyWith(
-                                            letterSpacing: -1,
-                                            color: AppColor.orange,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                            const Text("Non"),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 2,
+                                        ),
+                                        Text(
+                                          "${public ? widget.activity.privatePrice : widget.activity.publicPrice} Fcfa",
+                                          style: AppTextStyle.body.copyWith(
+                                              letterSpacing: -1,
+                                              color: AppColor.orange,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               )
@@ -323,7 +338,9 @@ class _PackBoxActivityState extends State<PackBoxActivity> {
 
                                     Get.toNamed("/reservation_next_3");
                                   },
-                                  title: "Choisir cette activité")
+                                  title: Text("Choisir cette activité",
+                                      style: AppTextStyle.menuButtonText
+                                          .copyWith(color: AppColor.white)))
                             ],
                           ),
                         ],

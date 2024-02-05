@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,12 @@ class _ComeToUsState extends State<ComeToUs> {
       if (pageController.scrollPosition.value > widget.start) {
         setState(() {
           fontSize = new_fontSize;
-          new_fontSize = 50 *
-              (1 + (pageController.scrollPosition.value - widget.start) / 700);
+          new_fontSize = min(
+              50 *
+                  (1 +
+                      (pageController.scrollPosition.value - widget.start) /
+                          700),
+              65);
         });
       }
     });
@@ -37,10 +43,9 @@ class _ComeToUsState extends State<ComeToUs> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Container(
+        SizedBox(
           width: Get.size.width,
-          padding: const EdgeInsets.symmetric(
-              vertical: Helper.PADDING * 2.5, horizontal: Helper.PADDING * 3),
+          height: 200,
         ),
         Center(
           child: TweenAnimationBuilder(
@@ -50,6 +55,7 @@ class _ComeToUsState extends State<ComeToUs> {
               builder: (context, double size, child) {
                 return Text(
                   "Come to us, you are at home!",
+                  textAlign: TextAlign.center,
                   style: AppTextStyle.contralto.copyWith(
                     fontSize: size,
                     fontStyle: FontStyle.italic,

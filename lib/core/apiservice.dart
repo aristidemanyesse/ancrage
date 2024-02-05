@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ApiService {
-  static const BASE_URL = "http://192.168.1.24:8001/";
+  // static const B31.207.34.30ASE_URL = "http://192.168.1.25:8000/";
   // static const BASE_URL = "http://10.10.10.33:8000/";
+  static const BASE_URL = "https://admin.lancrage.com/";
   static const GRAPH_URL = "${BASE_URL}graphql/";
   static const MEDIA_URL = "${BASE_URL}media/";
 

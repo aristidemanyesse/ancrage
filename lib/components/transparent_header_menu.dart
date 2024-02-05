@@ -35,7 +35,7 @@ class TransparentHeaderMenu extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

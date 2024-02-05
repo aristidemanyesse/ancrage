@@ -1,5 +1,4 @@
-import 'package:ancrage/components/main_button.dart';
-import 'package:ancrage/components/menu_button_text.dart';
+import 'package:ancrage/components/drawer.dart';
 import 'package:ancrage/controllers/page_controller.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
@@ -32,19 +31,19 @@ class _HeaderMenuMiniState extends State<HeaderMenuMini> {
               right: 0,
               top: 0,
               child: Card(
-                elevation: 5,
+                elevation: pageController.scrollPosition.value > 10 ? 5 : 0,
                 margin: const EdgeInsets.all(0),
                 child: Container(
                   margin: const EdgeInsets.all(0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Get.size.width * 0.1),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.size.width * 0.1,
+                      vertical: Helper.PADDING / 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.zero,
                       color: AppColor.background.withOpacity(1)),
-                  height: Responsive.isMonitor(context)
-                      ? Helper.PADDING * 2
-                      : Helper.PADDING * 1.5,
+                  height: Helper.PADDING * 2,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -53,21 +52,25 @@ class _HeaderMenuMiniState extends State<HeaderMenuMini> {
                             Get.toNamed("/");
                           },
                           child: SvgPicture.asset(
-                            "assets/images/logo/logo-noir.svg",
+                            "assets/images/logo/Logo-Lancrage (1).svg",
                             height: Responsive.isMonitor(context) ? 60 : 45,
                           ),
                         ),
                       ),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                                color: AppColor.textColor, width: 2)),
-                        child: Icon(
-                          Icons.menu,
-                          color: AppColor.textColor,
+                      const Spacer(),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: InkWell(
+                          onTap: () {
+                            Get.dialog(
+                              const MyDrawer(),
+                              barrierColor: Colors.transparent,
+                            );
+                          },
+                          child: Text(
+                            "MENU",
+                            style: AppTextStyle.menuButtonTextSelected,
+                          ),
                         ),
                       )
                     ],

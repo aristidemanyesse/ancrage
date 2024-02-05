@@ -7,6 +7,8 @@ class PagesController extends GetxController with RouteAware {
   RxDouble scrollPosition = 0.0.obs;
   RxDouble lastPosition = 0.0.obs;
 
+  RxBool drawerState = false.obs;
+
   Map<String, Locale> languages = {
     "Français": const Locale('fr', 'Fr'),
     "English": const Locale('en', 'US')

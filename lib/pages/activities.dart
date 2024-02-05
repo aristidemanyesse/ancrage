@@ -1,9 +1,11 @@
+import 'package:ancrage/components/activity_item.dart';
+import 'package:ancrage/components/activity_item_mini.dart';
+import 'package:ancrage/components/activity_item_mini_plus.dart';
 import 'package:ancrage/components/footer.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/inderline_button.dart';
+import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/controllers/activityController.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/core/apiservice.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -67,84 +69,88 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                     decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(color: Colors.white, width: 0))),
-                    child: Stack(
-                      alignment: Alignment.bottomLeft,
-                      children: [
-                        Container(
-                          width: Get.size.width,
-                          height: 30,
-                          color: Colors.white,
-                        ),
-                        Container(
-                          margin:
-                              const EdgeInsets.only(left: Helper.PADDING * 2),
-                          padding: const EdgeInsets.all(Helper.PADDING / 1.5),
-                          width: Get.size.width * 0.35,
-                          height: 250,
-                          color: AppColor.background,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    child: (!Responsive.isMobileLarge(context) &&
+                            !Responsive.isMobile(context))
+                        ? Stack(
+                            alignment: Alignment.bottomLeft,
                             children: [
-                              Text(
-                                "activités".toUpperCase(),
-                                style: AppTextStyle.titleLarge.copyWith(
-                                    fontSize: 38,
-                                    letterSpacing: 5,
-                                    fontWeight: FontWeight.w500),
+                              Container(
+                                width: Get.size.width,
+                                height: 30,
+                                color: Colors.white,
                               ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Times@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "L'ANCRAGE est disponible en permanence pour vous.",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "+225 07 07 070 707",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/images/socials/Email.svg",
-                                    height: 25,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "contacts@ancrage.com",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: Helper.PADDING * 2),
+                                padding:
+                                    const EdgeInsets.all(Helper.PADDING / 1.5),
+                                width: Get.size.width * 0.45,
+                                height: 250,
+                                color: AppColor.background,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "activités".toUpperCase(),
+                                      style: AppTextStyle.titleLarge.copyWith(
+                                          fontSize: 38,
+                                          letterSpacing: 5,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/socials/Times@2x.png",
+                                          height: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 3,
+                                        ),
+                                        Text(
+                                          "L'ANCRAGE est disponible en permanence pour vous.",
+                                          style: AppTextStyle.bodysmall,
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/socials/Phone@2x.png",
+                                          height: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 3,
+                                        ),
+                                        Text(
+                                          "+225 07 07 070 707",
+                                          style: AppTextStyle.bodysmall,
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          "assets/images/socials/Email.svg",
+                                          height: 25,
+                                        ),
+                                        const SizedBox(
+                                          width: Helper.PADDING / 3,
+                                        ),
+                                        Text(
+                                          "contacts@ancrage.com",
+                                          style: AppTextStyle.bodysmall,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
-                          ),
-                        ),
-                      ],
-                    ),
+                          )
+                        : Container(),
                   ),
                   Container(
                     decoration: const BoxDecoration(
@@ -155,8 +161,14 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                       border: Border(
                           top: BorderSide(color: Colors.white, width: 0)),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Helper.PADDING * 2),
+                    padding: EdgeInsets.symmetric(
+                        vertical: Helper.PADDING * 1.5,
+                        horizontal: Responsive.isMonitor(context)
+                            ? Helper.PADDING * 3
+                            : Responsive.isDesktop(context) ||
+                                    Responsive.isTablet(context)
+                                ? Helper.PADDING
+                                : 0),
                     child: Column(
                       children: [
                         SizedBox(
@@ -164,158 +176,27 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(height: Helper.PADDING * 2),
+                              if (!Responsive.isMobileLarge(context) &&
+                                  !Responsive.isMobile(context))
+                                const SizedBox(height: Helper.PADDING * 2),
                               Text(
                                 "WHAT’S ON IN L’ANCRAGE".toUpperCase(),
-                                style: AppTextStyle.titleLarge,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyle.titleLarge.copyWith(
+                                  fontSize:
+                                      Responsive.isMonitor(context) ? 50 : 40,
+                                ),
                               ),
                               const SizedBox(height: Helper.PADDING * 2),
                               Column(
                                   children: activityController.activities
-                                      .map((activity) => Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: Helper.PADDING * 2),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "#${activity.tag}",
-                                                        style: AppTextStyle
-                                                            .bodygrasitalic,
-                                                      ),
-                                                      const SizedBox(
-                                                          height:
-                                                              Helper.PADDING /
-                                                                  2),
-                                                      Text(
-                                                        activity.name,
-                                                        style:
-                                                            AppTextStyle.body,
-                                                      ),
-                                                      const SizedBox(
-                                                          height:
-                                                              Helper.PADDING /
-                                                                  2),
-                                                      InderlineButton(
-                                                        ontap: () {
-                                                          Get.toNamed(
-                                                              "/activity",
-                                                              arguments: {
-                                                                "activity":
-                                                                    activity
-                                                              });
-                                                        },
-                                                        title: "En savoir plus",
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                    flex: 3,
-                                                    child: Container(
-                                                      child:
-                                                          SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        child: Row(
-                                                          children: [
-                                                            Container(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      Helper.PADDING /
-                                                                          2),
-                                                              child:
-                                                                  Image.network(
-                                                                ApiService
-                                                                        .MEDIA_URL +
-                                                                    activity
-                                                                        .image,
-                                                                width: Get.size
-                                                                        .width /
-                                                                    4,
-                                                                height: 500,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      Helper.PADDING /
-                                                                          2),
-                                                              child:
-                                                                  Image.network(
-                                                                ApiService
-                                                                        .MEDIA_URL +
-                                                                    activity
-                                                                        .image1,
-                                                                width: Get.size
-                                                                        .width /
-                                                                    4,
-                                                                height: 500,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      Helper.PADDING /
-                                                                          2),
-                                                              child:
-                                                                  Image.network(
-                                                                ApiService
-                                                                        .MEDIA_URL +
-                                                                    activity
-                                                                        .image2,
-                                                                width: Get.size
-                                                                        .width /
-                                                                    4,
-                                                                height: 500,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      Helper.PADDING /
-                                                                          2),
-                                                              child:
-                                                                  Image.network(
-                                                                ApiService
-                                                                        .MEDIA_URL +
-                                                                    activity
-                                                                        .image3,
-                                                                width: Get.size
-                                                                        .width /
-                                                                    5,
-                                                                height: 500,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ))
-                                              ],
-                                            ),
-                                          ))
+                                      .map((activity) => Responsive(
+                                          mobile: ActivityItemMiniPlus(
+                                              activity: activity),
+                                          mobileLarge: ActivityItemMini(
+                                              activity: activity),
+                                          desktop:
+                                              ActivityItem(activity: activity)))
                                       .toList())
                             ],
                           ),
@@ -333,7 +214,12 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               ),
             ),
           ),
-          const HeaderMenu(),
+          const Responsive(
+            mobile: HeaderMenuMini(),
+            mobileLarge: HeaderMenuMini(),
+            tablet: HeaderMenuMini(),
+            desktop: HeaderMenu(),
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

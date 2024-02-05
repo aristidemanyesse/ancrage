@@ -1,12 +1,10 @@
 import 'package:ancrage/components/footer.dart';
-import 'package:ancrage/components/form_main_button.dart';
-import 'package:ancrage/components/form_secondary_button.dart';
+import 'package:ancrage/components/form_contact.dart';
+import 'package:ancrage/components/form_contact_mini.dart';
 import 'package:ancrage/components/header_menu.dart';
-import 'package:ancrage/components/my_text_field.dart';
+import 'package:ancrage/components/header_menu_mini.dart';
 import 'package:ancrage/components/secondary_button.dart';
 import 'package:ancrage/controllers/page_controller.dart';
-import 'package:ancrage/modals/alert.dart';
-import 'package:ancrage/models/HotelApp/Message.dart';
 import 'package:ancrage/utils/responsive.dart';
 import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +13,6 @@ import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -27,11 +24,6 @@ class ContactsPage extends StatefulWidget {
 class _ContactsPageState extends State<ContactsPage> {
   PagesController pageController = Get.find();
   final ScrollController _scrollController = ScrollController();
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController sujetController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
@@ -48,116 +40,138 @@ class _ContactsPageState extends State<ContactsPage> {
       body: Stack(
         alignment: Alignment.topLeft,
         children: [
-          SizedBox(
-            child: Responsive(
-              desktop: Image.asset(
-                "assets/images/bg/Img@2x (6).png",
-                fit: BoxFit.scaleDown,
-              ),
-              tablet: Image.asset(
-                "assets/images/bg/Img@2x (6).png",
-                fit: BoxFit.fitHeight,
-              ),
-              mobile: Image.asset(
-                "assets/images/bg/Img@2x (6).png",
-                fit: BoxFit.fitHeight,
+          if (!Responsive.isMobile(context) &&
+              !Responsive.isMobileLarge(context))
+            SizedBox(
+              child: Responsive(
+                desktop: Image.asset(
+                  "assets/images/bg/Img@2x (6).png",
+                  fit: BoxFit.scaleDown,
+                ),
+                tablet: Image.asset(
+                  "assets/images/bg/Img@2x (6).png",
+                  fit: BoxFit.cover,
+                ),
+                mobile: Image.asset(
+                  "assets/images/bg/Img@2x (6).png",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
           SizedBox(
             width: Get.size.width,
             child: SingleChildScrollView(
               controller: _scrollController,
               child: Column(
                 children: [
-                  Container(
-                    width: Get.size.width,
-                    height: Get.size.height * 0.55,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 0))),
-                    child: Stack(
-                      alignment: Alignment.bottomLeft,
-                      children: [
-                        Container(
-                          width: Get.size.width,
-                          height: 30,
-                          color: Colors.white,
-                        ),
-                        Container(
-                          margin:
-                              const EdgeInsets.only(left: Helper.PADDING * 2),
-                          padding: const EdgeInsets.all(Helper.PADDING / 1.5),
-                          width: Get.size.width * 0.35,
-                          height: 250,
-                          color: AppColor.background,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "contacts".toUpperCase(),
-                                style: AppTextStyle.titleLarge.copyWith(
-                                    fontSize: 38,
-                                    letterSpacing: 5,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Times@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "L'ANCRAGE est disponible en permanence pour vous.",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/socials/Phone@2x.png",
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "+225 07 07 070 707",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/images/socials/Email.svg",
-                                    height: 25,
-                                  ),
-                                  const SizedBox(
-                                    width: Helper.PADDING / 3,
-                                  ),
-                                  Text(
-                                    "contacts@ancrage.com",
-                                    style: AppTextStyle.bodysmall,
-                                  )
-                                ],
-                              ),
-                            ],
+                  if (!Responsive.isMobile(context) &&
+                      !Responsive.isMobileLarge(context))
+                    Container(
+                      width: Get.size.width,
+                      height: Get.size.height * 0.55,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(color: Colors.white, width: 0))),
+                      child: Stack(
+                        alignment: Alignment.bottomLeft,
+                        children: [
+                          Container(
+                            width: Get.size.width,
+                            height: 30,
+                            color: Colors.white,
                           ),
+                          Container(
+                            margin:
+                                const EdgeInsets.only(left: Helper.PADDING * 2),
+                            padding: const EdgeInsets.all(Helper.PADDING / 1.5),
+                            width: Get.size.width * 0.45,
+                            height: 250,
+                            color: AppColor.background,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "contacts".toUpperCase(),
+                                  style: AppTextStyle.titleLarge.copyWith(
+                                      fontSize: 38,
+                                      letterSpacing: 5,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const Spacer(),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/socials/Times@2x.png",
+                                      height: 30,
+                                    ),
+                                    const SizedBox(
+                                      width: Helper.PADDING / 3,
+                                    ),
+                                    Text(
+                                      "L'ANCRAGE est disponible en permanence pour vous.",
+                                      style: AppTextStyle.bodysmall,
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/socials/Phone@2x.png",
+                                      height: 30,
+                                    ),
+                                    const SizedBox(
+                                      width: Helper.PADDING / 3,
+                                    ),
+                                    Text(
+                                      "+225 07 07 070 707",
+                                      style: AppTextStyle.bodysmall,
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/images/socials/Email.svg",
+                                      height: 25,
+                                    ),
+                                    const SizedBox(
+                                      width: Helper.PADDING / 3,
+                                    ),
+                                    Text(
+                                      "contacts@ancrage.com",
+                                      style: AppTextStyle.bodysmall,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (Responsive.isMobile(context) ||
+                      Responsive.isMobileLarge(context))
+                    Column(
+                      children: [
+                        const SizedBox(height: Helper.PADDING * 3),
+                        Text(
+                          "Contacts".toUpperCase(),
+                          style: AppTextStyle.titleLarge.copyWith(
+                              fontSize: 38,
+                              letterSpacing: 5,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                  ),
                   Container(
                     decoration: const BoxDecoration(
-                      color: AppColor.white,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [AppColor.white, AppColor.background]),
                       border: Border(
                           top: BorderSide(color: Colors.white, width: 0)),
                     ),
@@ -167,25 +181,59 @@ class _ContactsPageState extends State<ContactsPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(height: Helper.PADDING * 2),
+                              SizedBox(
+                                  height: (Responsive.isMobile(context) ||
+                                          !Responsive.isMobileLarge(context))
+                                      ? Helper.PADDING
+                                      : Helper.PADDING * 2),
                               SvgPicture.asset(
                                 "assets/images/logo/Logo-Lancrage-Horizontal.svg",
                                 height: 65,
                               ),
                               const SizedBox(height: Helper.PADDING),
-                              Row(
-                                children: [
-                                  const Spacer(),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyle.body,
+                              Responsive(
+                                mobile: Row(
+                                  children: [
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: 6,
+                                      child: Text(
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyle.body,
+                                      ),
                                     ),
-                                  ),
-                                  const Spacer()
-                                ],
+                                    const Spacer()
+                                  ],
+                                ),
+                                desktop: Row(
+                                  children: [
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyle.body,
+                                      ),
+                                    ),
+                                    const Spacer()
+                                  ],
+                                ),
+                                monitor: Row(
+                                  children: [
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyle.body,
+                                      ),
+                                    ),
+                                    const Spacer()
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: Helper.PADDING),
                               Row(
@@ -195,7 +243,11 @@ class _ContactsPageState extends State<ContactsPage> {
                                     onTap: () {
                                       Get.toNamed("/reservation");
                                     },
-                                    title: "reserver",
+                                    title: Text(
+                                      "reserver".toUpperCase(),
+                                      style: AppTextStyle.menuButtonText
+                                          .copyWith(color: AppColor.white),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -203,129 +255,49 @@ class _ContactsPageState extends State<ContactsPage> {
                           ),
                         ),
                         const SizedBox(height: Helper.PADDING * 2),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Image.asset(
+                        Responsive(
+                          mobile: Column(
+                            children: [
+                              Image.asset(
+                                "assets/images/bg/Img@3x.png",
+                                width: Get.size.width,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(height: Helper.PADDING),
+                              Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING),
+                                  child: const FormContactMini())
+                            ],
+                          ),
+                          desktop: Column(
+                            children: [
+                              Image.asset(
                                 "assets/images/bg/facade.png",
                                 fit: BoxFit.fitHeight,
                               ),
-                            ),
-                            const SizedBox(width: Helper.PADDING),
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.only(
-                                    right: Helper.PADDING * 2),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "GET IN TOUCH".toUpperCase(),
-                                      style: AppTextStyle.titleLarge.copyWith(
-                                          fontSize: 38,
-                                          letterSpacing: 5,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(height: Helper.PADDING),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              MyTextField(
-                                                onChanged: () {},
-                                                controller: nameController,
-                                                label: "Nom complet",
-                                                placeholer: "Votre nom complet",
-                                              ),
-                                              SizedBox(
-                                                  height: Helper.PADDING / 3),
-                                              MyTextField(
-                                                onChanged: () {},
-                                                controller: sujetController,
-                                                label: "Sujet",
-                                                placeholer: "Objet du message",
-                                              ),
-                                              SizedBox(
-                                                  height: Helper.PADDING / 3),
-                                              MyTextField(
-                                                onChanged: () {},
-                                                controller: emailController,
-                                                label: "Email ou contacts",
-                                                placeholer:
-                                                    "vos coordonnées pour vous joindre",
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(width: Helper.PADDING / 2),
-                                        Expanded(
-                                            child: MyTextField(
-                                          onChanged: () {},
-                                          controller: messageController,
-                                          label: "Message",
-                                          placeholer:
-                                              "Saisissez votre message ici...",
-                                          maxlines: 9,
-                                        ))
-                                      ],
-                                    ),
-                                    const SizedBox(height: Helper.PADDING),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        FormMainButton(
-                                            onTap: () async {
-                                              Message message = Message(
-                                                  contact: emailController.text,
-                                                  message:
-                                                      messageController.text,
-                                                  sujet: sujetController.text,
-                                                  fullname:
-                                                      nameController.text);
-                                              bool ok = await message.save();
-                                              if (ok) {
-                                                Get.dialog(AlertModal(
-                                                    title: "Message envoyé",
-                                                    message:
-                                                        "Votre message a bien été envoyé, nous vous reviendrons sous peu ...",
-                                                    onClick: () {
-                                                      setState(() {
-                                                        nameController.text =
-                                                            "";
-                                                        emailController.text =
-                                                            "";
-                                                        sujetController.text =
-                                                            "";
-                                                        messageController.text =
-                                                            "";
-                                                      });
-                                                    }));
-                                              } else {
-                                                Get.snackbar("Erreur",
-                                                    "Une erreur s'est produite lors de l'envoi de votre message. Veuillez reessayer SVP !",
-                                                    colorText:
-                                                        AppColor.background,
-                                                    backgroundColor:
-                                                        AppColor.orange,
-                                                    icon: const Icon(
-                                                      Icons.add_alert,
-                                                      color:
-                                                          AppColor.background,
-                                                    ),
-                                                    barBlur: 5,
-                                                    snackPosition:
-                                                        SnackPosition.BOTTOM);
-                                              }
-                                            },
-                                            title: "Valider")
-                                      ],
-                                    ),
-                                  ],
+                              const SizedBox(height: Helper.PADDING),
+                              Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Helper.PADDING * 2),
+                                  child: const FormContact())
+                            ],
+                          ),
+                          monitor: Row(
+                            children: [
+                              Expanded(
+                                child: Image.asset(
+                                  "assets/images/bg/facade.png",
+                                  fit: BoxFit.fitHeight,
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: Helper.PADDING),
+                              const Expanded(
+                                child: FormContact(),
+                              ),
+                              const SizedBox(width: Helper.PADDING),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: Helper.PADDING),
                         SizedBox(
@@ -355,7 +327,8 @@ class _ContactsPageState extends State<ContactsPage> {
                                     options: PopupMarkerLayerOptions(
                                       markers: [
                                         Marker(
-                                          point: LatLng(52.518611, 13.408056),
+                                          point: const LatLng(
+                                              52.518611, 13.408056),
                                           width: 30,
                                           height: 30,
                                           child: MouseRegion(
@@ -384,7 +357,7 @@ class _ContactsPageState extends State<ContactsPage> {
                                                   "assets/images/logo/logo-noir.svg",
                                                   height: 70,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: Helper.PADDING / 3,
                                                 ),
                                                 Column(
@@ -398,14 +371,14 @@ class _ContactsPageState extends State<ContactsPage> {
                                                           .copyWith(
                                                               fontSize: 15),
                                                     ),
-                                                    Spacer(),
+                                                    const Spacer(),
                                                     Text(
                                                       "Nous sommes ici",
                                                       style: AppTextStyle.body
                                                           .copyWith(
                                                               fontSize: 13),
                                                     ),
-                                                    Spacer(),
+                                                    const Spacer(),
                                                     Text(
                                                       "52.518611, 13.408056",
                                                       style: AppTextStyle.body
@@ -423,7 +396,7 @@ class _ContactsPageState extends State<ContactsPage> {
                                   )
                                 ],
                               ),
-                              Container(
+                              const SizedBox(
                                 height: double.infinity,
                                 width: double.infinity,
                               ),
@@ -438,7 +411,12 @@ class _ContactsPageState extends State<ContactsPage> {
               ),
             ),
           ),
-          const HeaderMenu(),
+          const Responsive(
+            mobile: HeaderMenuMini(),
+            mobileLarge: HeaderMenuMini(),
+            tablet: HeaderMenuMini(),
+            desktop: HeaderMenu(),
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

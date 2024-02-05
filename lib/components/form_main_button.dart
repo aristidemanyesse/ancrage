@@ -2,7 +2,7 @@ import 'package:ancrage/utils/tools.dart';
 import 'package:flutter/material.dart';
 
 class FormMainButton extends StatelessWidget {
-  final String title;
+  final Widget title;
   final Function onTap;
   const FormMainButton({
     super.key,
@@ -24,11 +24,8 @@ class FormMainButton extends StatelessWidget {
             color: AppColor.orange,
           ),
           padding: const EdgeInsets.symmetric(
-              horizontal: Helper.PADDING * 1.2, vertical: 15),
-          child: Text(
-            title,
-            style: AppTextStyle.menuButtonText.copyWith(color: AppColor.white),
-          ),
+              horizontal: Helper.PADDING * 0.8, vertical: 15),
+          child: title,
         ),
       ),
     );
